@@ -1,0 +1,1203 @@
+﻿@model SPL.WebApp.ViewModels.NozzleInformationViewModel
+@{
+    ViewData["Title"] = "Registro de información de boquillas";
+}
+
+<style>
+    .designPadding {
+        padding: 10px;
+    }
+    .marginBox {
+        margin-left: 11px;
+    }
+</style>
+
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button id="btnConsult" onclick="consult()" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Consultar</button>
+            <button id="btnSave" onclick="save()" type="button" disabled style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Guardar</button>
+            <button id="btnAdd" onclick="add()" type="button" disabled style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Agregar</button>
+            <button id="btnClear" onclick="clearFields()" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+        </div>
+    </div>
+    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Espere...</span>
+        </div>
+    </div>
+</div>
+<br />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form enctype="multipart/form-data" kendo-validator="true" id="form_nozzle_information">
+            <div class="container-fluid" style="background-color:white !important;">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="NumeroSerie" class="form-control form-control-sm" placeholder="NumeroSerie">
+                            <label asp-for="NumeroSerie"></label>
+                            <span asp-validation-for="NumeroSerie" id="NumeroSerieCustomValidator" class="text-danger k-form-error"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input disabled asp-for="CantidadTotal" class="form-control form-control-sm" id="CantidadTotal" placeholder="Cant. Total">
+                            <label asp-for="CantidadTotal"></label>
+                            <span asp-validation-for="CantidadTotal" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="notification-type" class="toast-body-alert">
+            <div id="notification-message"></div>
+            <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="modalAddBoq" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="gridModalLabel">Agregar información de boquillas</h3>
+          
+                <button type="button" id="btnDeleteNo" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+            <div class="row">
+
+
+                <div class="col-md-12">
+                    <div class="btn-group" role="group" style="padding:20px">
+
+                        <button id="btnAgregar" onclick="agregarItemBoqDet()" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Agregar</button>
+
+                        <button id="btnClear" onclick="clearValuesModal()" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+                    
+                        <div id="loaderModal" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Espere...</span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-md-12">
+                    <form enctype="multipart/form-data" kendo-validator="true" id="form_factor_correccion_mark_type">
+                        <div class="container-fluid" style="background-color:white !important;">
+                            <div class="row">
+                               
+
+                                <div class="col-md-6 form-floating mb-3 ">
+
+                                    <input maxlength="5" id="Pocision" class="form-control form-control-sm" placeholder="Posición">
+                                    <label class="marginBox">Posición</label>
+                                    <span id="PocisionSpand" class="text-danger"></span>
+
+                                </div>
+                                <div class="col-md-6 form-floating mb-3 ">
+
+                                    <input maxlength="50" id="NroSerieBoq" class="form-control form-control-sm" placeholder="Nro. Serie">
+                                    <label class="marginBox">Nro. Serie</label>
+                                    <span id="NroSerieBoqSpand" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="col-md-6  mb-3 ">
+                                    <label class="form-label">Marca</label>
+                                    <select id="Marcas" onchange="laodTypesByMarkModal(0)" class="form-select form-select-sm">
+                                        @foreach (var item in ViewBag.Marca)
+                                        {
+                                        <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
+
+                                    <span id="MarcasSpand" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6  mb-3">
+
+                                    <label class="form-label">Tipo</label>
+                                    <select id="Tipos" class="form-select form-select-sm">
+                                        @foreach (var item in ViewBag.Tipo)
+                                        {
+                                        <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
+
+                                    <span id="TiposSpand" class="text-danger"></span>
+                                </div>
+
+
+
+                                <div class="col-md-6 form-floating mb-3">
+
+                                    <input id="FactorPotencia" class="form-control form-control-sm" placeholder="Factor de potencia">
+                                    <label class="marginBox">Factor de potencia</label>
+                                    <span id="FactorPotenciaSpand" class="text-danger"></span>
+
+                                </div>
+                                <div class="col-md-6 form-floating mb-3 ">
+
+                                    <input id="Capacitancia" maxlength="18" class="form-control form-control-sm" placeholder="Capacitancia">
+                                    <label class="marginBox">Capacitancia</label>
+                                    <span id="CapacitanciaSpand" class="text-danger"></span>
+
+                                </div>
+                                <div class="col-md-6 form-floating mb-3 ">
+
+                                    <input id="Corriente" class="form-control form-control-sm" placeholder="Corriente">
+                                    <label class="marginBox">Corriente</label>
+                                    <span id="CorrienteSpand" class="text-danger"></span>
+
+                                </div>
+                                <div class="col-md-6 form-floating mb-3 ">
+
+                                    <input id="Voltaje" class="form-control form-control-sm" placeholder="Voltaje">
+                                    <label class="marginBox">Voltaje</label>
+                                    <span id="VoltajeSpand" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="col-md-6  " style="margin:15px">
+
+                                    <input type="checkbox" id="EsPrueba" value="second_checkbox"> <label for="cbox2">Es de prueba</label>
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div id="notification-type" class="toast-body-alert">
+                            <div id="notification-message"></div>
+                            <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+            <!--<div class="modal-footer">-->
+                @*<button type="button" id="btnDeleteYes" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>*@
+                <!--<button type="button" id="btnDeleteNo" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>-->
+        </div>
+    </div>
+</div>
+
+<div id="father" style="width:auto; overflow-x:scroll">
+    <div id="grid">
+
+    </div>
+</div>
+
+
+@section Scripts
+    {
+
+    <script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/js/NozzleInformation/NozzleInformation.js")"></script>
+    <script>
+        /***********CODIGO PARA CARGAR LA INFORMACIÓN DE MARCAS TODOS LOS DROPDOWN******************/
+        let modalAddBoq = new bootstrap.Modal($("#modalAddBoq"));
+
+        var sonNuevosRegistros = false
+        var request = Object
+        var prueba = Object
+        var resultType = []
+        var iterar = 3
+        var genericDataItem = []
+        var record = 0;
+        var totalQuantity = 0
+        var dataMap = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.NozzleMarks))');
+        let dataSMarcas = dataMap.map((item) => {
+            return {
+                Marca: item.Descripcion,
+                IdMarca: item.IdMarca,
+            }
+        })
+        var dataSourceMarcas = new kendo.data.DataSource({
+            data: dataSMarcas
+        });
+        //********************************************************************************************/
+
+        /**********DATA PRINCIPAL PARA DEOPDOWMN de TIPO******************/
+        var dataTipos = [
+            { Descripcion: "Seleccione", IdTipo: 0 },
+        ];
+        var dataSourceTipos = new kendo.data.DataSource({
+            data: dataTipos
+        });
+        //************************************************************************************************/
+        function setDataInTable(dataInfo,totalQuantity) {
+            if (dataInfo.length > 0) {
+
+                if (dataInfo.length < totalQuantity) {
+                    for (var i = 0; i < totalQuantity; i++) {
+                        dataInfo.push(
+                            {
+                                NoSerie: null,
+                                NoSerieBoq: null,
+                                FactorPotencia: null,
+                                FactorPotencia2: null,
+                                Capacitancia: null,
+                                Capacitancia2: null,
+                                Corriente: null,
+                                Voltaje: null,
+                                Prueba: false,
+                                IdMarca : null,
+                                IdTipo : null,
+                                Posicion: null,
+                                Orden : null
+
+                            }
+                        )
+                    }
+                }
+                var dataSourceTable = new kendo.data.DataSource({
+                    data: dataInfo,
+                    pageSize: 10,
+                    schema: {
+                        model: {
+                            fields: {
+                                Posicion: {
+                                    nullable: false,
+                                    type: "string", validation:
+                                    {
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                        maxLength: 5,
+                                        pattern: {
+                                            value: "^[a-zA-Z0-9]*$",
+                                            message: "Solo puede contener letras y números"
+                                        }
+
+                                    },
+                                },
+                                NoSerieBoq: {
+                                    nullable: false,
+                                    type: "string",
+                                    validation: {
+                                        maxLength: 50,
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                        pattern: {
+                                            value: "^[a-zA-Z0-9-]*$",
+                                            message: "Solo puede contener letras, números y guión"
+                                        },
+                                    },
+                                },
+                                FactorPotencia: {
+                                    nullable: false,
+                                    type: "string", validation:
+                                    {
+                                        maxLength:7,
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                        pattern: {
+                                            value: "^(?=.*[1-9])\\d{1,3}(?:\\.\\d{1,3})?$",
+                                            message: "Debe ser numérico mayor a cero considerando 3 enteros con 3 decimales"
+                                        },
+                                    },
+                                },
+                                Capacitancia2: {
+                                    nullable: true,
+                                    type: "string", validation:
+                                    {
+                                        maxLength: 6,
+                                        pattern: {
+                                            value: "^[1-9][0-9]*$",//^(?=.*[1-9])\d{1,6}(?:\.\d{1,3})?$",
+                                            message: "Debe ser numérico mayor a cero considerando 6 enteros sin decimales"
+                                        },
+                                    },
+                                },
+                                FactorPotencia2: {
+                                    nullable: true,
+                                    type: "string", validation:
+                                    {
+                                        maxLength: 7,
+                                        pattern: {
+                                            value: "^(?=.*[1-9])\\d{1,3}(?:\\.\\d{1,3})?$",
+                                            message: "Debe ser numérico mayor a cero considerando 3 enteros con 3 decimales"
+                                        },
+                                    },
+                                },
+                                IdMarca: {
+                                    nullable: false, validation:
+                                    {
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                    }
+                                },
+                                IdTipo: {
+                                    nullable: false, validation:
+                                    {
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                    }
+                                },
+                                Capacitancia: {
+                                    nullable: false,
+                                    type: "string", validation:
+                                    {
+                                        maxLength: 6,
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                        pattern: {
+                                            value: "^[1-9][0-9]*$",//^(?=.*[1-9])\d{1,6}(?:\.\d{1,3})?$",
+                                            message: "Debe ser numérico mayor a cero considerando 6 enteros sin decimales"
+                                        },
+                                    },
+                                },
+                                Corriente: {
+                                    nullable: false,
+                                    type: "string", validation:
+                                    {
+                                        maxLength: 10,
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                        pattern: {
+                                            value: "^(?=.*[1-9])\\d{1,6}(?:\\.\\d{1,3})?$",
+                                            message: "Debe ser numérico mayor a cero considerando 6 enteros con 3 decimales"
+                                        },
+                                    },
+                                },
+                                Voltaje: {
+                                    nullable: false,
+                                    type: "string", validation:
+                                    {
+                                        maxLength: 10,
+                                        required: {
+                                            message: "Campo requerido"
+                                        },
+                                        pattern: {
+                                            value: "^(?=.*[1-9])\\d{1,6}(?:\\.\\d{1,3})?$",
+                                            message: "Debe ser numérico mayor a cero considerando 6 enteros con 3 decimales"
+                                        },
+                                    },
+                                },
+                                Prueba: {
+                                    nullable: false,
+                                    type: "boolean",
+                                    editable: false
+                                },
+                            }
+                        }
+                    }
+                });
+
+                var grid = $("#grid").kendoGrid({
+                    dataSource: dataSourceTable,
+                    editable: "incell",
+                 
+                    scrollable: true,
+                    columns: [
+                        {
+                            title: "#",
+                            template: "#= ++record #",
+                            width: 70
+                        },
+                        {
+                            title: "Posicion", width: 120, field: "Posicion", headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center',  "class": "PosicionClass"  }
+                        },
+                        {
+                            title: "No. Serie Boq", width: 150, field: "NoSerieBoq", headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "NoSerieBoqClass" , "id": "NoSerieBoq"}
+                        },
+                        {
+                            title: "Marca", width: 180, template: templateMarca,
+                            headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+
+                            attributes:{
+                                style: 'text-align: center',
+                                "id": "DropMarca",
+                                "class": "DropMarcaClass"
+                            }
+                        },
+                        {
+                            title: "Tipo", width: 180, template: templateTipo,
+                            headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: {
+                                style: 'text-align: center',
+                                "id": "DropTipo",
+                                "class": "DropTipoClass",
+
+                            }
+                        },
+                        {
+                            title: "Factor de Potencia", format: '{0:n3}' ,width: 180, field: "FactorPotencia", headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "FactorPotenciaClass" },
+                            template: "#=removeZeros(FactorPotencia)#"
+
+                        },
+                        {
+                            title: "Factor de Potencia 2", format: '{0:n3}', width: 180, field: "FactorPotencia2", headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "FactorPotencia2Class" },
+                            template: "#=removeZeros(FactorPotencia2)#"
+
+                        },
+                        {
+                            title: "Capacitancia", field: "Capacitancia", width: 150,
+                            headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "CapacitanciaClass" }
+                        },
+                        {
+                            title: "Capacitancia2", field: "Capacitancia2", width: 150,
+                            headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "Capacitancia2Class" }
+                        },
+                        {
+                            title: "Corriente", field: "Corriente", width: 150, headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "CorrienteClass" }
+                        },
+                        {
+                            title: "Voltaje", field: "Voltaje", width: 150, headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center', "class": "VoltajeClass" }
+                        },
+                        {
+                            title: "Prueba", field: "Prueba", width: 185,
+                            headerAttributes: {
+                                "class": "table-header-cell k-text-center",
+                            },
+                            attributes: { style: 'text-align: center' },
+                            template: "#=templatePrueba(Prueba)#"
+                        },
+                        {
+                            command: [{
+                                name: "Eliminar", imageClass: "k-icon k-i-close", click: function (e) {
+                                    e.preventDefault();
+                                    var dataItem = this.dataItem($(e.target).closest("tr"));
+                                    //console.log(dataItem)
+                                    if (confirm('Está seguro que quiere eliminar esta fila?')) {
+                                        var dataSource = $("#grid").data("kendoGrid").dataSource;
+                                        dataSource.remove(dataItem);
+                                        dataSource.sync();
+                                    }
+                                }
+                            }], title: "&nbsp;", width: "170px"
+                        }
+                    ],
+                    pageable: true,
+                    dataBinding: function () {//genera el incremental en la tabla
+                        record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
+                    },
+                    dataBound: function (e) {
+                        var grid = e.sender;
+                        var items = e.sender.items();
+
+                        items.each(function (e) {
+                            var dataItem = grid.dataItem(this);
+
+                            var dropTipo = $('#tipo_' + dataItem.uid);
+                            var dropMarca = $('#ddl_' + dataItem.uid);
+
+
+                            $(dropMarca).kendoDropDownList({
+                                optionLabel: "Seleccionar",
+                                value: dataItem.IdMarca,
+                                dataSource: dataSourceMarcas,
+                                dataTextField: "Marca",
+                                dataValueField: "IdMarca",
+                                change : changeDropMarca
+                            });
+
+
+                            $(dropTipo).kendoDropDownList({
+                                dataSource: new kendo.data.DataSource({
+                                    transport: {
+                                        read: {
+                                            url: domain + "/NozzleInformation/GetTypeXMarksNozzle/?IdMarca=" + dataItem.IdMarca,
+                                            dataType: "json"
+                                        }
+                                    }
+                                }),
+                                value: dataItem.IdTipo,
+                                dataTextField: "Descripcion",
+                                dataValueField: "IdTipo",
+                                //change : changeDropTipo
+                            });
+
+                        });
+
+                        this.tbody.find("tr[role='row']").each(function () {
+                            var dataItem = grid.dataItem(this);
+                            if (dataItem.Prueba === false) {
+                                $("[data-uid='" + dataItem.uid + "']").find(".k-grid-Eliminar").remove()
+                            }
+                        });
+                    },
+
+                }).data("kendoGrid");
+
+
+
+
+            
+
+
+                grid.table.on('keydown', function (e) {
+                    //console.log(e.target.id)
+
+                    if (e.target.id === "FactorPotencia" || e.target.id === "Capacitancia" || e.target.id === "Voltaje" || e.target.id === "Corriente") {
+                        e.target.value = removeZeros(e.target.value)
+                    }
+                    
+                    if (e.keyCode === kendo.keys.ENTER && $($(e.target).closest('.k-edit-cell'))[0]) {
+                        e.preventDefault();
+                        var currentNumberOfItems = grid.dataSource.view().length;
+
+                        var row = $(e.target).closest('tr').index();
+                        var col = grid.cellIndex($(e.target).closest('td'));
+
+                        var dataItem = grid.dataItem($(e.target).closest('tr'));
+
+                        var field = grid.columns[col].field;
+                        var value = $(e.target).val();
+                        console.log(field + " "+ value)
+                        dataItem.set(field, value);
+
+                        if (row >= 0 && row < currentNumberOfItems && col >= 0 && col < grid.columns.length) {
+
+                            var nextCellRow = row;
+                            var nextCellCol = col;
+
+                            if (e.shiftKey) {
+                                if (nextCellRow - 1 < 0) {
+                                    nextCellRow = currentNumberOfItems - 1;
+                                    nextCellCol--;
+                                } else {
+                                    nextCellRow--;
+                                }
+                            } else {
+                                if (nextCellRow + 1 >= currentNumberOfItems) {
+                                    nextCellRow = 0;
+                                    nextCellCol++;
+                                } else {
+                                    nextCellRow++;
+                                }
+                            }
+
+                            if (nextCellCol >= grid.columns.length || nextCellCol < 0) {
+                                return;
+                            }
+
+                            // wait for cell to close and Grid to rebind when changes have been made
+                            setTimeout(function () {
+                                grid.editCell(grid.tbody.find("tr:eq(" + nextCellRow + ") td:eq(" + nextCellCol + ")"));
+                            });
+                        }
+                    }
+                    
+                    if (e.keyCode === kendo.keys.TAB && $($(e.target).closest('.k-edit-cell'))[0]) {
+                        e.preventDefault();
+                        var currentNumberOfItems = grid.dataSource.view().length;
+
+                        var row = $(e.target).closest('tr').index();
+                        var col = grid.cellIndex($(e.target).closest('td'));
+
+                       // console.log("row " + row);
+                        //console.log("column " + col);
+
+                        var dataItem = grid.dataItem($(e.target).closest('tr'));
+
+                        var field = grid.columns[col].field;
+                        var value = $(e.target).val();
+
+                        dataItem.set(field, value);
+                        if (row >= 0 && row < currentNumberOfItems && col >= 0 && col < grid.columns.length) {
+
+                            var nextCellRow = row;
+                            var nextCellCol = col;
+
+                            if (nextCellCol + 1 <= grid.columns.length) {
+                                nextCellCol++;
+
+                                if (nextCellCol >= grid.columns.length && nextCellRow + 1 <= currentNumberOfItems - 1) {
+                                    nextCellRow++
+                                    nextCellCol = 1
+
+                                    setTimeout(function () {
+                                        grid.editCell(grid.tbody.find("tr:eq(" + nextCellRow + ") td:eq(" + nextCellCol + ")"));
+                                    });
+                                } else {
+                                    setTimeout(function () {
+                                        grid.editCell(grid.tbody.find("tr:eq(" + nextCellRow + ") td:eq(" + nextCellCol + ")"));
+                                    });
+                                }
+                            }
+
+                        }
+                    }
+
+                });
+
+            } else {
+                ShowWarningMessage("No se encontro información de boquillas del aparato. Debe ingresar nueva información")
+                var data = []
+
+
+
+                for (var i = 0; i < totalQuantity; i++) {
+                    data.push(
+                        {
+                            NoSerie: null,
+                            NoSerieBoq : null,
+                            IdMarca : null,
+                            IdTipo : null,
+                            FactorPotencia : null,
+                            Capacitancia : null,
+                            Corriente : null,
+                            Voltaje: null,
+                            Posicion: null,
+                            Orden : null,
+                            Prueba : false
+                        }
+                    )
+                }
+                setDataInTable(data,totalQuantity)
+            }
+        }
+
+        function removeZeros(num) {
+            if (num != null) {
+                num = num.replace(/^0+(?=\d)/, '')
+                //$("#FactorPotencia").val(2)
+                return num
+            } else {
+                return ''
+            }
+
+        }
+        function templatePrueba(valor) {
+            if (valor === true) {
+              return "  <span>Es de prueba </span>"
+            } else {
+                return "  <span>No es de prueba </span>"
+            }
+        }
+        function templateMarca(dataItem) {
+            var ddl = document.createElement("input")
+            $(ddl).attr({
+                "id": "ddl_" + dataItem.uid,
+                "data-text-field": "Marca",
+                "data-value-field": "IdMarca",
+                "data-role": "dropdownlist",
+                "name": "Marca",
+                "data-type": "string",
+                "data-bind": "value: IdMarca",
+                "data-source": JSON.stringify(dataSourceMarcas.data())
+            })
+
+            return ddl.outerHTML;
+
+        };
+        function templateTipo(dataItem) {
+            //console.log(dataItem)
+            var ddl = document.createElement("input")
+            $(ddl).attr({
+                "id": "tipo_" + dataItem.uid,
+                "data-text-field": "TipoName",
+                "data-value-field": "IdTipo",
+                "data-role": "dropdownlist",
+                "name": "TipoName",
+                "data-type": "string",
+                "data-bind": "value: IdTipo",
+                "value": null,
+                "onChange" :"changeDropTipo(this)",
+                "data-source": JSON.stringify(dataSourceTipos.data())
+            })
+
+            return ddl.outerHTML;
+        };
+        function changeDropTipo(data) {
+            //console.log(data)
+            var id = data.id.split("_")[1];
+            var dataRow = $("#grid").data("kendoGrid").dataSource.getByUid(id);
+            //onsole.log(data.value)
+
+            if (data.value == 0) {
+                dataRow.IdTipo = null;
+                $("[data-uid='" + id + "'] td.DropTipoClass ").append("<div  style=''  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Tipo_validationMessage_" + id + "' data-valmsg-for='Tipo'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+            } else {
+                dataRow.IdTipo = parseInt( data.value)
+                $("td.DropTipoClass #Tipo_validationMessage_" + id).remove()
+            }
+        }
+        async function changeDropMarca(data) {
+            var element = data.sender.element;
+            var row = element.closest("tr");
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem(row);
+
+
+            dataItem.IdMarca = parseInt( data.sender.value());
+            dataItem.IdTipo =null
+            var id = element[0].id.split("_")[1];
+            if (data.sender.value() === '') {
+                $("#tipo_" + id).kendoDropDownList({
+                    value: "",
+                    dataSource: new kendo.data.DataSource({
+                        data: dataTipos
+                    }),
+                    dataTextField: "Descripcion",
+                    dataValueField: "IdTipo"
+                });
+                $("[data-uid='" + id + "'] td.DropMarcaClass ").append("<div  style=''  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Marca_validationMessage_" + id + "' data-valmsg-for='Marca'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+            } else {
+                await laodTypesByMark(data.sender.value());
+                let dataTipo = resultType.map((item) => {
+                    return {
+                        IdTipo: item.IdTipo,
+                        Descripcion: item.Descripcion,
+                    }
+                })
+                //console.log(dataTipo)
+                $("#tipo_" + id).kendoDropDownList({
+                    value: "",
+                    dataSource: new kendo.data.DataSource({
+                        data: dataTipo
+                    }),
+                    dataTextField: "Descripcion",
+                    dataValueField: "IdTipo"
+                });
+
+                $("td.DropMarcaClass #Marca_validationMessage_"+id).remove()
+            }
+        }
+        async function laodTypesByMark(id) {
+                await getData(domain + "/NozzleInformation/GetTypeXMarksNozzle/?IdMarca=" + id).then(data => {
+                if (data.length == 0) {
+                            ShowWarningMessage("No hay información de tipos de boquillas para la marca: " + id)
+                        } else {
+                            resultType = data
+                            return data
+                }
+            });
+        }
+
+        function add() {
+            clearValuesModal();
+            modalAddBoq.show();
+        }
+
+        async function save() {
+            var validQuantity = 0
+            var pasar = true
+            var dataSource = $("#grid").data("kendoGrid").dataSource.data()
+
+
+            for (var i = 0; i < dataSource.length; i++) {
+                dataSource[i].NoSerie = $("#NumeroSerie").val()
+                var inputBoq = $("[data-uid='" + dataSource[i].uid + "'] td.NoSerieBoqClass")
+                var inputPosicion = $("[data-uid='" + dataSource[i].uid + "'] td.PosicionClass")
+                var inputMarca = $("[data-uid='" + dataSource[i].uid + "'] td.DropMarcaClass #ddl_" + dataSource[i].uid)
+                var inputTipo = $("[data-uid='" + dataSource[i].uid + "'] td.DropTipoClass #tipo_" + dataSource[i].uid)
+                var inputFactor = $("[data-uid='" + dataSource[i].uid + "'] td.FactorPotenciaClass")
+                var inputCapacitancia = $("[data-uid='" + dataSource[i].uid + "'] td.CapacitanciaClass")
+                var inputCorriente = $("[data-uid='" + dataSource[i].uid + "'] td.CorrienteClass")
+                var inputVol = $("[data-uid='" + dataSource[i].uid + "'] td.VoltajeClass")
+
+
+
+                if (dataSource[i].Prueba == 0) {
+                    validQuantity++;
+                }
+
+
+                if (inputBoq.text() === '') {
+                    inputBoq.append("<div  style='left:190px;'  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='NoSerieBoq_validationMessage_"+dataSource[i].uid+"' data-valmsg-for='NoSerieBoq'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+                if (inputPosicion.text() === '') {
+                    inputPosicion.append("<div  style='left: 50px;'  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Posicion_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='Posicion'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+                if (inputFactor.text() === '') {
+                    inputFactor.append("<div  style=''  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='FactorPotencia_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='FactorPotencia'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+                if (inputCapacitancia.text() === '') {
+                    inputCapacitancia.append("<div  style='width: 135px;'  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Capacitancia_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='Capacitancia'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+                if (inputCorriente.text() === '') {
+                    inputCorriente.append("<div  style='width: 135px;'  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Corriente_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='Corriente'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+
+                if (inputVol.text() === '') {
+                    inputVol.append("<div  style='width: 135px;'  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Voltaje_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='Voltaje'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+                if (inputMarca.val() === '') {
+                    $("[data-uid='" + dataSource[i].uid + "'] td.DropMarcaClass").append("<div  style=''  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Marca_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='Marca'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                }
+
+                if (inputTipo.val() === '0') {
+                        $("[data-uid='" + dataSource[i].uid + "'] td.DropTipoClass").append("<div  style=''  class='k-tooltip k-tooltip-error k-validator-tooltip k-invalid-msg field-validation-error' id='Tipo_validationMessage_" + dataSource[i].uid + "' data-valmsg-for='Tipo'><span class='k-tooltip-icon k-icon k-i-warning'></span><span class='k-tooltip-content'>Campo requerido</span><span class='k-callout k-callout-n'></span></div>")
+                    }
+
+                if (dataSource[i].IdMarca === null || dataSource[i].IdTipo === null ||
+                    dataSource[i].NoSerieBoq === null || dataSource[i].FactorPotencia === null ||
+                    dataSource[i].Capacitancia === null || dataSource[i].Corriente === null ||
+                    dataSource[i].Voltaje === null || dataSource[i].Posicion === null) {
+                    pasar = false
+                }
+            }
+
+
+            if (!pasar) {
+
+                ShowFailedMessage("Faltan por llenar campos.")
+                return false
+            }
+            //console.log(dataSource)
+
+
+            //var grid = $("#grid").data("kendoGrid");
+            //grid.tbody.find("tr[role='row']").each(function () {
+            //    var dataItem = grid.dataItem(this);
+            //    if (dataItem.Prueba === false) {
+            //        validQuantity++;
+            //    }
+            //});
+
+            if (validQuantity == totalQuantity) {
+
+                var newdataSource = $("#grid").data("kendoGrid").dataSource.data().map(({ Posicion, NoSerie, NoSerieBoq, IdMarca, IdTipo, FactorPotencia, Capacitancia, FactorPotencia2, Capacitancia2, Corriente, Voltaje, Prueba, Creadopor, Fechacreacion, ModificadoPor, Fechamodificacion }) => ({ Posicion, NoSerie, NoSerieBoq, IdMarca, IdTipo, FactorPotencia, Capacitancia, FactorPotencia2, Capacitancia2,Corriente, Voltaje, Prueba, Creadopor, Fechacreacion, ModificadoPor, Fechamodificacion }))
+                //console.log(newdataSource)
+
+
+                viewModel = { TotalQuantity: totalQuantity, NozzleInformation: newdataSource, OperationType: sonNuevosRegistros }
+
+
+                await postData(domain + "/NozzleInformation/SaveRecordNozzleInformation", viewModel )
+                    .then(data => {
+                        if (data.response.Code !== -1) {
+
+                            ShowSuccessMessage(data.response.Description)
+
+                            setTimeout(function () {
+                                clearFields()
+                            }, 1000);
+                        }
+                        else {
+
+                            ShowFailedMessage(data.response.Description)
+                        }
+
+                    });
+
+            } else {
+                ShowFailedMessage("La cantidad de boquillas no concuerda con las que tiene el aparato")
+                return
+            }
+
+        }
+        $("#NumeroSerie").on('keyup', function (e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                $("#btnConsult").click();
+            }
+        });
+        async function laodTypesByMarkModal(id) {
+            $("#loaderModal").css("display", "block");
+            await getData(domain + "/NozzleInformation/GetTypeXMarksNozzle/?IdMarca=" + $("#Marcas").val()).then(data => {
+                if (data.length == 0) {
+                    ShowWarningMessage("No hay información de tipos de boquillas para la marca: " + id)
+                } else {
+                    $('#Tipos').empty();
+                    data.forEach(function (dat, key) {
+
+                        $('#Tipos').append('<option value="' + dat.IdTipo + '">' + dat.Descripcion + '</option>');
+                    });
+
+                    $("#loaderModal").css("display", "none");
+
+                }
+            });
+        }
+
+
+         function clearValuesModal() {
+             $("#loaderModal").css("display", "none");
+             $("#PocisionSpand").text("");
+             $("#NroSerieBoqSpand").text("");
+             $("#MarcasSpand").text("");
+             $("#TiposSpand").text("");
+             $("#FactorPotenciaSpand").text("");
+             $("#CapacitanciaSpand").text("");
+             $("#CorrienteSpand").text("");
+             $("#VoltajeSpand").text("");
+             $("#EsPrueba").prop("checked", true);
+
+             $("#Pocision").val("");
+             $("#NroSerieBoq").val("");
+             $("#Marcas").val("0");
+             $("#Tipos").val("0");
+             $("#FactorPotencia").val("");
+             $("#Capacitancia").val("");
+             $("#Corriente").val("");
+             $("#Voltaje").val("");
+        }
+
+
+        async function agregarItemBoqDet(id) {
+            $("#loaderModal").css("display", "block");
+             $("#PocisionSpand").text("");
+            $("#NroSerieBoqSpand").text("");
+            $("#MarcasSpand").text("");
+            $("#TiposSpand").text("");
+            $("#FactorPotenciaSpand").text("");
+            $("#CapacitanciaSpand").text("");
+            $("#CorrienteSpand").text("");
+            $("#VoltajeSpand").text("");
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+
+
+        
+          
+
+            var bandera = false;
+
+            if ($('#Pocision').val() == "" || $('#Pocision').val() == undefined) {
+                $("#PocisionSpand").text("Campo requerido");
+                bandera = true;
+            }
+            else {
+                if (!(/^[a-zA-Z0-9]*$/.test($('#Pocision').val()))) {
+                    $("#PocisionSpand").text("Solo puede contener letras y números");
+                    bandera = true;
+                  
+                }
+            }
+
+            if ($('#NroSerieBoq').val() == "" || $('#NroSerieBoq').val() == undefined) {
+                $("#NroSerieBoqSpand").text("Campo requerido");
+                bandera = true;
+            }
+            else {
+                if (!(/^[aA-zZ0-9-]+$/g.test($('#NroSerieBoq').val()))) {
+                    $("#NroSerieBoqSpand").text("Solo puede contener letras, números y guión");
+                    bandera = true;
+                 
+
+                }
+            }
+
+
+            if ($('#FactorPotencia').val() == "" || $('#FactorPotencia').val() == undefined || $('#FactorPotencia').val() == 0) {
+                $("#FactorPotenciaSpand").text("Campo requerido");
+                 bandera = true;
+            }
+            else {
+                if (!(/^\d{1,3}(\.\d{1,3})?$/.test($('#FactorPotencia').val()))) {
+                    $("#FactorPotenciaSpand").text("Debe ser numérico mayor a cero considerando 3 enteros con 3 decimales");
+                    bandera = true;
+                 
+
+                }
+            }
+
+
+
+            if ($('#Capacitancia').val() == "" || $('#Capacitancia').val() == undefined || $('#Capacitancia').val() == 0) {
+                $("#CapacitanciaSpand").text("Campo requerido");
+                 bandera = true;
+            }
+            else {
+                if (!(/^(?!0)\d+$/i.test($('#Capacitancia').val()))) {
+                    $("#CapacitanciaSpand").text("Debe ser numérico mayor a cero considerando 18 enteros sin decimales");
+                    bandera = true;
+                 
+
+                }
+            }
+
+
+
+
+            if ($('#Corriente').val() == "" || $('#Corriente').val() == undefined || $('#Corriente').val() == 0) {
+                $("#CorrienteSpand").text("Campo requerido");
+                bandera = true;
+            }
+            else {
+                if (!(/^\d{1,6}(\.\d{1,3})?$/.test($('#Corriente').val()))) {
+                    $("#CorrienteSpand").text("Debe ser numérico mayor a cero considerando 6 enteros con 3 decimales”. ");
+                    bandera = true;
+
+
+                }
+            }
+
+
+            if ($('#Voltaje').val() == "" || $('#Voltaje').val() == undefined || $('#Voltaje').val() == 0) {
+                $("#VoltajeSpand").text("Campo requerido");
+                bandera = true;
+            }
+            else {
+                if (!(/^\d{1,6}(\.\d{1,3})?$/.test($('#Voltaje').val()))) {
+                    $("#VoltajeSpand").text("Debe ser numérico mayor a cero considerando 6 enteros con 3 decimales”. ");
+                    bandera = true;
+
+
+                }
+            }
+
+
+
+            if ($('#Marcas').val() == "" || $('#Marcas').val() == undefined || $('#Marcas').val() == 0) {
+                    $("#MarcasSpand").text("Campo requerido");
+                 bandera = true;
+                }
+            if ($('#Tipos').val() == "" || $('#Tipos').val() == undefined || $('#Tipos').val() == 0) {
+                    $("#TiposSpand").text("Campo requerido");
+                bandera = true;
+                }
+
+
+
+
+            var dataGrid = dataSource.data();
+            var cont = 0;
+            for (var i = 0; i < dataGrid.length; i++) {
+
+                var inputBoq = dataGrid[i].NoSerieBoq;
+                if (dataGrid[i].Prueba == 0) {
+                    cont++;
+                }
+                if ( $('#NroSerieBoq').val() == inputBoq) {
+                    bandera = true;
+                    ShowWarningMessage("No se permite números de serie de la boquilla repetidos")
+                    break;
+                }
+            }
+
+            if ((cont == totalQuantity) && (!$('#EsPrueba').is(':checked'))) {
+                bandera = true;
+                ShowWarningMessage("No se puede agregar el registro porque ya están los renglones completos para " + totalQuantity+ " boquillas, con la especificación No es de prueba")
+               
+            }
+
+
+
+
+            if (!bandera) {
+                setTimeout(function () {
+                  
+
+                    var newdataSource = {
+                        Posicion: $('#Pocision').val(),
+                        NoSerieBoq: $('#NroSerieBoq').val(),
+                        IdMarca: $('#Marcas').val(),
+                        IdTipo: $('#Tipos').val(),
+                        FactorPotencia: $('#FactorPotencia').val(),
+                        Capacitancia: $('#Capacitancia').val(),
+                        Corriente: $('#Corriente').val(),
+                        Voltaje: $('#Voltaje').val(),
+                        Prueba: $('#EsPrueba').is(':checked') ? 1 : 0
+                    };
+
+                    ShowSuccessMessage("Agregado con exito");
+                    dataSource.add(newdataSource);
+                    dataSource.sync();
+                    dataSource.page(1);
+                    modalAddBoq.hide();
+                    clearValuesModal();
+                }, 50)
+            }
+
+            else $("#loaderModal").css("display", "none");
+
+
+        }
+        document.getElementById("titleForm").innerHTML = "Información de boquillas";
+
+        $(document).ready(function () {
+
+            var noSerie = '@ViewBag.NoSerie';
+            if ($.trim(noSerie).length > 0) {
+                document.querySelector('#nroSerieGlobal').value = noSerie;
+                document.querySelector('#NumeroSerie').value = noSerie;
+                SetNroSerieAllLinks();
+                if (noSerie.includes('-'))
+                    document.querySelector('#btnConsult').click();
+            }
+        })
+    </script>
+
+
+<style>
+    .k-grid .k-dirty-cell , k-header {
+        position: relative;
+        text-align: center;
+    }
+
+    div#NoSerieBoq_validationMessage {
+        width: 150px; /* or whatever width you want. */
+        max-width: 225px; /* or whatever width you want. */
+        display: flex;
+        left: 190px;
+    }
+</style>
+}

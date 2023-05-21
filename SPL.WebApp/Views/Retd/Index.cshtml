@@ -1,0 +1,380 @@
+﻿
+@using SPL.WebApp.Domain.DTOs.ETD
+@using Telerik.Web.Spreadsheet;
+@using System.Collections.Generic;
+
+@model SPL.WebApp.ViewModels.ETD.RetdViewModel
+<style>
+    tr:first-child th {
+        position: sticky;
+        top: 0;
+    }
+</style>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <kendo-splitter name="vertical" orientation="SplitterOrientation.Vertical" style="height:1200px;">
+            <pane size="30%" scrollable="false" collapsible="true">
+                <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 input-group-sm">
+                                <div class="btn-group" role="group" style="padding-top:4px">
+                                    <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+                                    <button id="btnNew" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm" disabled>Nuevo</button>
+                                    <button id="btnClear1" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm" disabled><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+                                    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Espere...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <form id="form_serie" kendo-validator="true">
+                                <div class="col-md-6" style="padding-top:11px">
+                                    <div class="input-group-sm form-floating mb-3">
+                                        <input asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+                                        <label asp-for="NoSerie"></label>
+                                        <span id="NoSerieSpand" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12 ">
+                                <fieldset class="k-form-fieldset ">                                            
+                                    <label id="" style="font-size:18px">Listado</label>
+                                    <div class="row ">
+                                        <table id="CFTable" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th id="ct">Tipo de Enf.</th>
+                                                    <th id="se">S.E. (°C)</th>
+                                                    <th id="dt">Fecha</th>
+                                                    <th id="at">Posición AT</th>
+                                                    <th id="bt">Posición BT</th>
+                                                    <th id="ter">Posición Ter.</th>
+                                                    <th id="cap">Capacidad</th>
+                                                    <th id="pe">Pérdidas</th>
+                                                    <th id="es">Estabilizado</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+            </pane>
+            <pane size="70%" scrollable="true" collapsible="true" resizable="true" id="bottom-pane" style="width:100%;visibility:visible">
+                @*MENU SUPERIOR*@
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 input-group-sm">
+                            <div class="btn-group" role="group" style="padding-top:4px">
+                                <button id="btnClear2" style="margin-right:8px; font-weight:600;" type="button" class="btn btn-primary btn-sm" disabled>Limpiar</button>
+                                <button id="btnStart" style="margin-right:8px; font-weight:600;" type="button" class="btn btn-primary btn-sm" disabled>Iniciar</button>
+                                <button id="btnValidate" style="margin-right:8px; font-weight:600;" type="button" class="btn btn-primary btn-sm" disabled>Validar/Calcular</button>
+                                <button id="btnSave" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm" disabled>Guardar</button>
+                                <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Espere...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-12 ">
+                            <fieldset class="k-form-fieldset ">                                            
+                                <label id="titulo" style="font-size:18px">Filtro para generar la plantilla</label>
+                                <form id="form_detalle" kendo-validator="true">
+                                    <div class="row ">
+                                        @*FILA 1*@
+                                        <div class="col-2" style="text-align: center;">
+                                            <label>Fecha </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                               <input id="FechaDatos" type='text' asp-for="Nuevo.FechaDatos" class="form-control form-control-sm noBlanco" />
+                                               <span class="input-group-addon">
+                                               <span class="glyphicon glyphicon-calendar"></span>
+                                               </span>
+                                            </div>
+                                            <span asp-validation-for="Nuevo.FechaDatos" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2 offset-4" style="text-align: center;">
+                                            <label id="color">ROJO </label>
+                                        </div>
+                                        <div class="col-2" style="text-align: center;">
+                                            <label id="estabilizado">ESTABILIZADO </label>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 2*@
+                                        <div class="col-2">
+                                            <label>Tipo Enfriamiento </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="CoolingType" asp-for="Nuevo.CoolingType" class = "form-select form-select-sm" disabled>
+                                                <option value="" selected>Seleccione...</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.CoolingType" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>S.E. (°C) </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="OverElevation" asp-for="Nuevo.OverElevation" type="number"  class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.OverElevation" class="text-danger"></span>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 3*@
+                                        <div class="col-2 offset-2" style="text-align: center;">
+                                            <label>AT </label>
+                                        </div>
+                                        <div class="col-2" style="text-align: center;">
+                                            <label>BT </label>
+                                        </div>
+                                        <div class="col-2" style="text-align: center;">
+                                            <label>Ter </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>Factor Enf. </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="FactEnf" asp-for="Nuevo.FactEnf" type="number" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.FactEnf" class="text-danger"></span>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 4*@
+                                        <div class="col-2">
+                                            <label>Posición</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="PosAt" asp-for="Nuevo.PosAt" class = "form-select form-select-sm" disabled>
+                                                <option value="" selected>Seleccione...</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.PosAt" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="PosBt" asp-for="Nuevo.PosBt" class = "form-select form-select-sm" disabled>
+                                                <option value="" selected>Seleccione...</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.PosBt" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="PosTer" asp-for="Nuevo.PosTer" class = "form-select form-select-sm" disabled>
+                                                <option value="" selected>Seleccione...</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.PosTer" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2" >
+                                            <label>Intervalo</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="Intervalo" asp-for="Nuevo.Intervalo" class = "form-select form-select-sm" disabled>
+                                                <option value="1" selected>1 hr.</option>
+                                                <option value="30">30 min.</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.Intervalo" class="text-danger"></span>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 5*@
+                                        <div class="col-2">
+                                            <label>Altitud</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="AltitudeF1" asp-for="Nuevo.AltitudeF1" type="number" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.AltitudeF1" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="AltitudeF2" asp-for="Nuevo.AltitudeF2" type="text" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.AltitudeF2" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2 offset-2">
+                                            <label>Capacidad </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="Capacidad" asp-for="Nuevo.Capacidad" type="number" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.Capacidad" class="text-danger"></span>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 6*@
+                                        <div class="col-2">
+                                            <label>Factor Altitud</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="FactAlt" asp-for="Nuevo.FactAlt"  type="number" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.FactAlt" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2 offset-4">
+                                            <label>Dev. Split</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="DevanadoSplit" asp-for="Nuevo.DevanadoSplit" class = "form-select form-select-sm" disabled>
+                                                <option value="NA" selected>NA</option>
+                                                <option value="X Arriba">X Arriba</option>
+                                                <option value="Y Arriba">Y Arriba</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.DevanadoSplit" class="text-danger"></span>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 7*@
+                                        <div class="col-2">
+                                            <label>% Carga</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="PorcCarga" asp-for="Nuevo.PorcCarga"  type="number" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.PorcCarga" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>Sobrecarga </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <select id="Sobrecarga" asp-for="Nuevo.Sobrecarga" class = "form-select form-select-sm" disabled>
+                                                <option value="Pérdidas" selected>Pérdidas</option>
+                                                <option value="Corriente">Corriente</option>
+                                            </select>
+                                            <span asp-validation-for="Nuevo.Sobrecarga" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <label>Pérdidas </label>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="col-8">
+                                                <input id="Perdidas" asp-for="Nuevo.Perdidas"  type="number" class="form-control form-control-sm noBlanco" disabled>
+                                                <span asp-validation-for="Nuevo.Perdidas" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-3" style="text-align: left">
+                                                <label>MVA </label>
+                                            </div>
+                                        </div>
+                                        <div class="w-100"></div>
+
+                                        @*FILA 8*@
+                                        <div class="col-2">
+                                            <label>Cant. Termo Pares</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <input id="CantTermoPares" asp-for="Nuevo.CantTermoPares"  type="number" class="form-control form-control-sm noBlanco" disabled>
+                                            <span asp-validation-for="Nuevo.CantTermoPares" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-2 offset-4">
+                                            <label>Corriente</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="col-8">
+                                                <input id="Corriente" asp-for="Nuevo.Corriente"  type="number" class="form-control form-control-sm noBlanco" disabled>
+                                                <span asp-validation-for="Nuevo.Corriente" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-3" style="text-align: left">
+                                                <label>Amp. </label>
+                                            </div>
+                                        </div>
+                                        <div class="w-100"></div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <div style="overflow: auto; width: 100%;" class="table-responsive" data-fl-scrolls='{"orientation": "horizontal"}'>
+                                        <table style="display: block; overflow-x: auto; white-space: nowrap;" id="SecondTable" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="position: sticky;top: 0;" id="thora">HORA: </th>
+                                                    <th style="position: sticky;top: 0;" id="tcanal">Canal </th>
+                                                    @for (var i = 0; i < 52; i++)
+                                                    {
+                                                        <th style="position: sticky;top: 0;" id="thora_@i">00:00 </th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="Tr2_0">
+                                                    <td id="cho_0"></td>
+                                                    <td id="cc_0"></td>
+                                                    @for (var i = 0; i < 52; i++)
+                                                    {
+                                                        <td id="ch0_@i"></td>
+                                                    }
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                     </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </pane>
+        </kendo-splitter>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #treeview-kendo .k-sprite {
+        background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+    }
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+</style>
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/Retd/Retd.js")"></script>
+<script>
+    // Variables
+    let viewMode = @Html.Raw(Json.Serialize(Model));
+    // Evento
+    $(document).ready(function () {
+        //SET TITLE
+        document.getElementById("titleForm").innerHTML = "Registrar/Editar/Consultar Datos de Estabilización (ETD)";
+        new tempusDominus.TempusDominus(document.getElementById('datetimepicker1'),{
+            display: {
+                components: {
+                useTwentyfourHour: true
+                }
+            }
+        })
+    });
+
+</script>

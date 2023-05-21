@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Properties\ServiceDependencies\qa-spl-masters - Web Deploy\profile.arm.json" />
+    <Content Remove="Properties\ServiceDependencies\qa-spl-masters - Zip Deploy\profile.arm.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\PublishProfiles\qa-spl-masters - Zip Deploy.pubxml" />
+    <_WebToolingArtifacts Remove="Properties\ServiceDependencies\qa-spl-masters - Web Deploy\profile.arm.json" />
+    <_WebToolingArtifacts Remove="Properties\ServiceDependencies\qa-spl-masters - Zip Deploy\profile.arm.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\ServiceDependencies\qa-spl-masters - Web Deploy\profile.arm.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+    <None Include="Properties\ServiceDependencies\qa-spl-masters - Zip Deploy\profile.arm.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="7.4.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SPL.Configuration.Application\SPL.Configuration.Application.csproj" />
+    <ProjectReference Include="..\SPL.Configuration.Infrastructure\SPL.Configuration.Infrastructure.csproj" />
+    <ProjectReference Include="..\SPL.Domain\SPL.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\launchSettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

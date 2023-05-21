@@ -1,0 +1,50 @@
+/*=========================================================================
+*     Space Grotesk Font
+*=========================================================================*/
+
+@font-face {
+  font-family: 'SpaceGrotesk-Medium';
+  src: url('../fonts/SpaceGrotesk/SpaceGrotesk-Medium.ttf') format('truetype'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Medium.woff') format('woff'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpaceGrotesk-Light';
+  src: url('../fonts/SpaceGrotesk/SpaceGrotesk-Light.ttf') format('truetype'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Light.woff') format('woff'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpaceGrotesk-Bold';
+  src: url('../fonts/SpaceGrotesk/SpaceGrotesk-Bold.ttf') format('truetype'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Bold.woff') format('woff'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpaceGrotesk-Regular';
+  src: url('../fonts/SpaceGrotesk/SpaceGrotesk-Regular.ttf') format('truetype'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Regular.woff') format('woff'),
+       url('../fonts/SpaceGrotesk/SpaceGrotesk-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'SpaceGrotesk-Regular', serif, sans-serif;
+}
+.btn {
+  border-radius: 0;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  border-color: #e5e5e5;
+}

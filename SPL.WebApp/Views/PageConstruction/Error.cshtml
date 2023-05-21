@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Error";
+    Layout = "_LayoutExcel";
+}
+<div class="container">
+
+    <h2 class="text-danger">Advertencia.</h2>
+    <h4 >Se ha actualizado la aplicación, vuelva a iniciar sesión para ver reflejado los cambios.</h4>
+</div>
+
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script>
+   
+    $(window).load(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("SignOut", "Account")',
+            data: { scheme :""},
+            dataType: 'JSON',
+            success: function (result) {
+                location.reload();
+
+            },
+            failure: function (response) {
+                location.reload();
+
+            },
+            error: function (response) {
+                location.reload();
+
+            }
+        });
+    });
+              
+  
+
+</script>

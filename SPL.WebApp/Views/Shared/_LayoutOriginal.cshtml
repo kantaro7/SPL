@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SPL.WebApp</title>
+
+    <environment names="Development, Local">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/css/prolec_light.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/sidebar.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link href="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/css/tempus-dominus.css" rel="stylesheet" crossorigin="anonymous">
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/css/prolec_light.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/sidebar.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link href="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/css/tempus-dominus.css" rel="stylesheet" crossorigin="anonymous">
+    </environment>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.material-v2.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/<version>/js/messages/kendo.messages.es-ES.min.js"></script>
+    <script src="https://kit.fontawesome.com/280376d938.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="d-flex bg-light-prolec" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+
+            <div style="background:white !important; border-color:transparent !important; display:flex" class="sidebar-heading border-bottom bg-light">
+
+                                <span class="fs-5 d-sm-inline">    <img src="/images/prolecge_excel.jpg" alt="" style="margin:auto"></span>
+
+            </div>
+            <ul style="margin:20px" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <input class="form-control form-control-sm" placeholder="NoSerie" id="nroSerieGlobal">
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a href="#" class="nav-link align-middle px-0">
+                        <i class="bi-grid deep-blue"></i> <span class="ms-1 d-sm-inline">Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a asp-controller="ArtifactRecord" asp-action="Index" class="nav-link align-middle px-0">
+                        <i class="bi-cpu deep-blue"></i> <span class="ms-1  d-sm-inline">Diseño del aparato</span>
+                    </a>
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a asp-controller="PlateTension" asp-action="Index" class="nav-link align-middle px-0">
+                        <i class="bi-aspect-ratio deep-blue"></i> <span class="ms-1 d-sm-inline">Tensión de la placa</span>
+                    </a>
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a asp-controller="ResistanceTwentyDegrees" asp-action="Index" class="nav-link align-middle px-0">
+                        <i class="bi-aspect-ratio deep-blue"></i> <span class="ms-1 d-sm-inline">Resistencia a 20°C</span>
+                    </a>
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a asp-controller="NozzleInformation" asp-action="Index" class="nav-link align-middle px-0">
+                        <i class="bi-aspect-ratio deep-blue"></i> <span class="ms-1 d-sm-inline">Información de boquillas</span>
+                    </a>
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a asp-controller="BaseTemplate" asp-action="Index" class="nav-link align-middle px-0">
+                        <i class="bi-file-earmark-ruled deep-blue"></i> <span class="ms-1 d-sm-inline">Plantilla Base</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                        <i class="bi-clipboard-check deep-blue "></i> <span class="ms-1  d-sm-inline ">Reportes</span>
+                    </a>
+                    <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                        <li class="nav-item  list-group-item-action list-group-item-light ">
+                            <ul class="collapse show nav flex-column ms-1" id="submenu2" data-bs-parent="#submenu1">
+                                <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu3" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">Pruebas Preliminares</span>
+                                    </a>
+
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu3" data-bs-parent="#submenu2">
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Nra" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Ruido Audible </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Fpc" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Factor de Potencia y Capacitancia  </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Fpb" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Factor de Potencia y Capacitancia de Boquillas  </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rdt" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Relación de Transformación </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rad" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Resistencia de Aislamiento a los Devanados</span>  </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Ran" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Resistencia de Aislamiento de los Núcleos y Herrajes </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rod" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Resistencia Óhmica de los Devanados   </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Tdp" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Tensión Inducida con Medición de Descargas Parciales  </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Arf" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Análisis de la Respuesta al Barrido de la Frecuencia</span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Ind" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Indice 2019</span> </a>
+                                        </li>
+                                         <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Dpr" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Sobrevoltaje con Medición de Descargas Parciales a Reactores de Derivación </span> </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu4" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">Pruebas Funcionales</span>
+                                    </a>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu4" data-bs-parent="#submenu2">
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Isz" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Impedancia de Secuencia Cero</span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Pce" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Pérdidas en Vacío y Corriente de Excitación </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Pci" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Pérdidas Debidas a la Carga e Impedancia </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Pee" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Pérdidas del Equipo de Enfriamiento  </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rye" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Regulación y Eficiencia  </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rct" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Resistencia Óhmica para el Corte de Temperatura</span>  </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">Pruebas Dieléctricas</span>
+                                    </a>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu5" data-bs-parent="#submenu2">
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Pim" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Impulso por Maniobra</span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Pir" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Impulso por Rayo</span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Tap" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Tensión Aplicada</span>  </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Tin" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Tensión Inducida</span>  </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu6" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">Pruebas Diagnóstico</span>
+                                    </a>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu6" data-bs-parent="#submenu6">
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Cem" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Corriente de Excitación Monofásica</span>  </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rdd" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Reactancia de Fuga</span>  </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu6" data-bs-parent="#submenu6">
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Bpc" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Contenido de PCB’s</span>  </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu5" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">Pruebas Reactores</span>
+                                    </a>
+
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu5" data-bs-parent="#submenu2">
+                                        <li id="sub3"  class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Plr" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Linealidad y Reactancia en Reactores de Potencia en Derivación</span>  </a>
+                                        </li>
+                                        <li id="sub3"  class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Prd" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Pérdidas Totales en Reactores de Derivación </span>  </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu5" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">Pruebas de Aceites</span>
+                                    </a>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu5" data-bs-parent="#submenu2">
+                                        <li id="sub3"  class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Cgd" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Cromatografía de Gases Disueltos en Aceite</span>  </a>
+                                        </li>
+                                        <li id="sub3"  class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Fpa" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Factor de Potencia en Aceite</span>  </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  list-group-item-action list-group-item-light ">
+                    <a href="#submenu7" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                        <i class="bi bi-gear deep-blue"></i> <span class="ms-1 d-sm-inline ">Configuración</span>
+                    </a>
+                    <ul class="collapse nav flex-column ms-1" id="submenu7" data-bs-parent="#menu">
+                        <li class="nav-item  list-group-item-action list-group-item-light ">
+                            <ul class="collapse show nav flex-column ms-1" id="submenu81" data-bs-parent="#submenu7">
+                                <li id="submenu9" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu8" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">ETD</span>
+                                    </a>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu8" data-bs-parent="#submenu9">
+                                        <li id="sub2" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rdde" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Registrar Datos de Diseño para Estabilización </span> </a>
+                                        </li>
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Rfck" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Registrar Factor de Corrección kW por Tipo de Enfriamiento  </span> </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li id="submenu10" class="nav-item  list-group-item-action list-group-item-light ">
+                                    <a href="#submenu11" data-bs-toggle="collapse" class="nav-link align-middle px-0 ">
+                                        <span class="ms-1  d-sm-inline ">NRA</span>
+                                    </a>
+                                    <ul class="collapse show nav flex-column ms-1" id="submenu11" data-bs-parent="#submenu10">
+                                        <li id="sub3" class="nav-item  list-group-item-action list-group-item-light ">
+                                            <a asp-controller="Onaf" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Información de octavas</span> </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li >
+                                    <a asp-controller="CorrectionFactor" asp-action="FactorPorEspecificacion" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Factor de Corrección para %FP por Especificación</span> </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="CorrectionFactor" asp-action="FactorMarcaTipo" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Factor de Corrección para %FP por Marca y Tipo</span> </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="NozzleBrandType" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Tipos de Boquillas por Marca</span> </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Mark" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Marcas de Boquillas</span> </a>
+                                </li>
+                                 <li>
+                                    <a asp-controller="CuttingData" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Datos de Corte de Elevación de Temperatura </span> </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="ProfileSecurity" asp-action="Index" class="nav-link px-0 list-group-item-action list-group-item-light "> <span class=" d-sm-inline">Seguridad</span> </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="background:#F3F3F3 !important; border-color:transparent !important">
+                <div class="container-fluid ">
+                    <button class="deep-blue" id="sidebarToggle" style="border-color:transparent!important; background:transparent!important;" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="justify-content-center text-center" style="padding: 4px 0px 0px 10px; ">
+                        <h2><label id="titleForm" style="font-size:20px"></label></h2>
+                    </div>
+
+
+                </div>
+                <div class="row" style="margin-right:10px">
+
+                    <div class="col-lg-6" style="margin:auto"><span>UserName</span></div>
+                    <div class="col-lg-6">
+                        <img class="img-thumbnail rounded-circle" style="width: 50px; height: 50px;" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg">
+
+                    </div>
+
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="col py-3">
+                <div class="container-fluid bg-light-prolec">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <environment names="Development, Local">
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="~/lib/Datatable/jquery.dataTables.min.js"></script>
+        <script src="~/lib/Datatable/dataTables.bootstrap5.min.js.js"></script>
+        <script src="~/lib/Datatable/dataTables.Editor.js"></script>
+        <script src="~/js/Commons/ToastSPL.js"></script>
+        <script src="~/js/sidebar.js"></script>
+        <script src="~/lib/Popper/js/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js" crossorigin="anonymous"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="~/lib/Datatable/jquery.dataTables.min.js"></script>
+        <script src="~/lib/Datatable/dataTables.bootstrap5.min.js.js"></script>
+        <script src="~/lib/Datatable/dataTables.Editor.js"></script>
+        <script src="~/js/Commons/ToastSPL.js"></script>
+        <script src="~/js/sidebar.js"></script>
+        <script src="~/lib/Popper/js/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@master/dist/js/tempus-dominus.js" crossorigin="anonymous"></script>
+    </environment>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+    @RenderSection("scripts", required: false)
+
+
+
+    <script>
+        var colorMenuSelect = "#F3F3F3";
+
+
+        $("#home_menu").css({ "background": colorMenuSelect });
+        $("#registro_diseno_menu").removeAttr("style");
+
+        $("#registrar_tension_placa").removeAttr("style");
+        $("#cargar_plantilla_base").removeAttr("style");
+        $("#factor_correccion").removeAttr("style");
+        $("#resistencia_aislamiento_devanados").removeAttr("style");
+        $("#relacion_de_transformacion").removeAttr("style");
+        $("#factor_potencia_capacitancia").removeAttr("style");
+
+        $("#relacion_aislamiento_nucleos").removeAttr("style");
+    </script>
+    <style>
+        li#sub2 {
+            padding-left: 15px;
+        }
+        li#sub3 {
+            padding-left: 15px;
+        }
+    </style>
+</body>
+</html>

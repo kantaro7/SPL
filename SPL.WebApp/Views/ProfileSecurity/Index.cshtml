@@ -1,0 +1,205 @@
+﻿
+
+@{ ViewData["Title"] = "Index"; }
+        <link rel="stylesheet" href="~/css/StyleSheetMenu.css" />
+
+ <div class="container">
+                            <div class="row">
+                                <div class="col-md-3" id="TabProfiles" style="cursor:pointer">
+                                    <div class="row d-flex tab">
+                                        <div class="fa-icon text-center">
+                                            <span class="fa bi-person-bounding-box"></span>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <a  class="dropdown-item" href="#">
+                                                <h6 class="mb-0">Perfiles</h6>
+                                                <small class="text-muted">Agrega perfiles para identificar tus permisos</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" id="TabPermission" style="cursor:pointer">
+                                    <div class="row d-flex tab">
+                                        <div class="fa-icon text-center">
+                                            <span class="fa bi-person-check"></span>
+                                        </div>
+                                        <div class="d-flex flex-column" >
+                                            <a   class="dropdown-item" href="#">
+                                                <h6 class="mb-0">Permisos</h6>
+                                                <small class="text-muted">Agrega permisos para cada perfil creado</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-md-3" id="TabAsignacion" style="cursor:pointer">
+                                    <div class="row d-flex tab">
+                                        <div class="fa-icon text-center">
+                                           <span class="fa bi-card-checklist"></span>
+                                        </div>
+                                        <div class="d-flex flex-column" >
+                                            <a  class="dropdown-item" href="#">
+                                                <h6 class="mb-0">Asignación</h6>
+                                                <small class="text-muted">Asigna perfiles a usuarios</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                @* <div class="col-md-3">
+                                    <div class="row d-flex tab">
+                                        <div class="fa-icon text-center">
+                                            <span class="fa bi-people"></span>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <a class="dropdown-item" href="#">
+                                                <h6 class="mb-0">Usuarios</h6>
+                                                <small class="text-muted">Monetization of games</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+
+                                               <div id="loader" class="col-md-3" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="visually-hidden">Espere...</span>
+                                                </div>
+                                            </div>
+                            </div>
+     
+                        </div>
+               
+
+
+<br />
+
+<br />
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+
+    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Espere...</span>
+        </div>
+    </div>
+</div>
+
+
+  <div id="containerModule" class="col-md-12">
+
+ </div>
+
+
+
+
+<div id="newTensionModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advertencia</h5>
+            </div>
+            <div class="modal-body">
+                <p>Cambio la información de cambiadores en el registro de información del aparato, ¿Desea ingresar la tensión para las nuevas posiciones de los cambiadores?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnNewTensionYes" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>
+                <button type="button" id="btnNewTensionNo" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+
+    <script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/js/ProfileSecurity/Index.js")"></script>
+    <script>
+
+
+           $("#TabProfiles").click(function () {
+               $("#loader").css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "/ProfileSecurity/GetProfilesUser",
+                    data: { "Profile": "-1" },
+                      dataType: 'html',
+                    success: function (result) {
+                       $('#containerModule').html(result);  
+                       $("#loader").css("display", "none");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    }
+                });
+            });
+
+            $("#TabPermission").click(function () {
+               $("#loader").css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "/ProfileSecurity/GetTabPermissionUser",
+                    data: {},
+                      dataType: 'html',
+                    success: function (result) {
+                       $('#containerModule').html(result);  
+                       $("#loader").css("display", "none");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    }
+                });
+            });
+
+
+
+              $("#TabAsignacion").click(function () {
+               $("#loader").css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "/ProfileSecurity/GetTabAsignacionUser",
+                    data: {},
+                      dataType: 'html',
+                    success: function (result) {
+                       $('#containerModule').html(result);  
+                       $("#loader").css("display", "none");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    }
+                });
+            });
+
+             $("#TabProfiles").click();
+           
+             
+$(document).ready(function() {
+
+
+    document.getElementById("titleForm").innerHTML = "Seguridad";
+
+});
+    </script>
+}
+
+
+
+

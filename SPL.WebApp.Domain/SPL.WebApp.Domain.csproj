@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Graph" Version="4.32.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.25.1" />
+    <PackageReference Include="Telerik.Web.Spreadsheet.Trial" Version="2021.2.616" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SPL.Domain\SPL.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

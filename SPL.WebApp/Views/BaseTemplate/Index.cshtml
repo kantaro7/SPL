@@ -1,0 +1,122 @@
+﻿@model SPL.WebApp.ViewModels.BaseTemplateViewModel
+
+@{ ViewData["Title"] = "Index"; }
+
+
+<br />
+<div id="excelDiv">
+
+</div>
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+  <div id="pdfViewer">
+
+  </div>
+
+  <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group" role="group">
+                <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Guardar</button>
+                <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+            </div>
+        </div>
+        <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Espere...</span>
+            </div>
+        </div>
+  </div>
+<br />
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+</div>
+
+ 
+<div class="row">
+    <div class="col-md-12">
+        <form  enctype="multipart/form-data" kendo-validator="true" id="form_base_template">
+            <div class="container-fluid" style="background-color:white !important;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="col mb-3">
+                            <label class="form-label" asp-for="ReportId"></label>
+                            @Html.DropDownListFor(c => c.ReportId, (IEnumerable<SelectListItem>)ViewBag.ReportItems, new { @class = "form-select form-select-sm" })
+                            <span asp-validation-for="ReportId" class="text-danger"></span>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" asp-for="Language"></label>
+                            @Html.DropDownListFor(c => c.Language, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm" })
+                            <span asp-validation-for="Language" class="text-danger"></span>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" asp-for="TestId"></label>
+                            @Html.DropDownListFor(c => c.TestId, (IEnumerable<SelectListItem>)ViewBag.testItems, new { @class = "form-select form-select-sm" })
+                            <span asp-validation-for="TestId" class="text-danger"></span>
+                        </div>
+                        <div id="loader2" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Espere...</span>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="NoColumn" class="form-control form-control-sm" placeholder="NoColumn">
+                            <label asp-for="NoColumn"></label>
+                            <span asp-validation-for="NoColumn" class="text-danger"></span>
+                        </div>
+                        <div class="col mb-3 form-group">
+                            <label for="formFile" class="form-label mt-4">Plantilla</label>
+                            <input  class="form-control" type="file" asp-for="File">
+                             <span asp-validation-for="File" id="FileSpan" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div id="notification-type" class="toast-body-alert">
+                            <div id="notification-message"></div>
+                            <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+
+    <script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/js/BaseTemplate/BaseTemplate.js")"></script>
+    <script>
+
+
+        $(document).ready(function () {
+
+            //SET TITLE
+            document.getElementById("titleForm").innerHTML = "Registrar Plantilla Base";
+
+               $("#home_menu").removeAttr("style");
+                $("#registro_diseno_menu").removeAttr("style");
+               
+                $("#registrar_tension_placa").removeAttr("style");
+                $("#cargar_plantilla_base").css({ "background": colorMenuSelect });
+                $("#resistencia_aislamiento_devanados").removeAttr("style");
+                $("#relacion_de_transformacion").removeAttr("style");
+                $("#relacion_aislamiento_nucleos").removeAttr("style");
+                $("#boquillas_type_brand").removeAttr("style");
+
+
+        })
+    </script>
+}

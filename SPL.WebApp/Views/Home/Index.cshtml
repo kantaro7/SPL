@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+@section Scripts
+    {
+    <script>
+
+
+        $(document).ready(function () {
+            $("#registro_diseno_menu").removeAttr("style");
+            $("#registrar_tension_placa").removeAttr("style");
+            $("#cargar_plantilla_base").removeAttr("style");
+                $("#home_menu").css({ "background": colorMenuSelect });
+            //SET TITLE
+            document.getElementById("titleForm").innerHTML = "";
+
+        })
+    </script>
+}

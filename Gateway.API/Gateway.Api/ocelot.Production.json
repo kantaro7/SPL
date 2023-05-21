@@ -1,0 +1,1799 @@
+﻿{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/GeneralArtifact",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GeneralArtifact?nroSerie={noSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateGeneralArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateGeneralArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetInformationLaboratories",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInformationLaboratories",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/CheckBoqTerciary/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/checkBoqTerciary/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/CheckNumberOrder/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/checkNumberOrder/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetLenguageEquivalents",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getLenguageEquivalents",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateNozzlesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateNozzlesArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateChangingTablesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateChangingTablesArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateCharacteristicsArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateCharacteristicsArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateLightningRodArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateLightningRodArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateRulesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateRulesArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateWarrantiesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateWarrantiesArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateLabTestsArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateLabTestsArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetCharacteristics/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getCharacteristics/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetTapBaan/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getTapBaan/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetPlateTension/{unit}/{typeVoltage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getPlateTension/{unit}/{typeVoltage}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetTensionOriginalPlate/{unit}/{typeVoltage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getTensionOriginalPlate/{unit}/{typeVoltage}",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/PlateTension/{StatusDelete}",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+
+
+
+        }
+      ],
+      "DownstreamPathTemplate": "/{StatusDelete}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate/GetConsolidatedReportTemplate/{keyLanguage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate/getConsolidatedReportTemplate/{keyLanguage}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate/SaveConsolidatedReportTemplate",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate/saveConsolidatedReportTemplate",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate/{typeReport}/{keyTest}/{keyLanguage}/{nroColumns}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate/{typeReport}/{keyTest}/{keyLanguage}/{nroColumns}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetResistDesign",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/GetResistDesign",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetResistDesignCustom",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/GetResistDesignCustom",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/SaveResistDesign",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/SaveResistDesign",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetCatSidco",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getCatSidco",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetCatSidcoOthers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getCatSidcoOthers",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetEquivalentsAngularDisplacement",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getEquivalentsAngularDisplacement",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetLanguageEquivalents",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getLenguageEquivalents",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetRulesEquivalents",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getRuleEquivalents",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetUnitTypes",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getUnitTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetRulesRep?pRule={pRule}&pLenguage={pLenguage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getRulesRep/{pRule}/{pLenguage}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetConfigFile/{module}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getConfigurationFiles/{module}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetThirdWinding",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-masters.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getThirdWinding",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/Sidco?nroSerie={nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco?nroSerie={nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetTypeTransformers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getTypeTransformers",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetApplications",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getApplications",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetAngularDisplacement",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getAngularDisplacement",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetLenguages",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getLenguages",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetApplicableRule",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getApplicableRule",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetConnectionTypes",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getConnectionTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetOperativeConditions",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-sidco.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getOperativeConditions",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Reports/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/ReportsFilter/{nroSerie}/{typeReport}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getResultDetailsReports/{nroSerie}/{typeReport}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRADReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRADReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRDTReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRDTReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveARFReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveARFReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRANReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRANReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveFPCReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveFPCReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCGDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveCGDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveFPAReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveFPAReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRDDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRDDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRODReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRODReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePIRReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePIRReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePIMReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePIMReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRCTReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRCTReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveFPBReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveFPBReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePLRReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePLRReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePCEReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePCEReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRYEReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRYEReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTAPReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveTAPReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePRDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePRDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveISZReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveISZReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePEEReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePEEReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePCIReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePCIReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveNRAReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveNRAReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTDPReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveTDPReport",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/saveDPRReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveDPRReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCEMReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveCEMReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTINReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveTINReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getConsolidatedReport/{noSerie}/{languaje}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getConsolidatedReport/{noSerie}/{languaje}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/checkInfoRod/{noSerie}/{windingMaterial}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/checkInfoRod/{noSerie}/{windingMaterial}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/checkInfoPce/{noSerie}/{capacity}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/checkInfoPce/{noSerie}/{capacity}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getTypeSectionConsolidatedReport/{noSerie}/{languaje}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getTypeSectionConsolidatedReport/{noSerie}/{languaje}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveBPCReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveBPCReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveINDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveINDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestFPB",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestFPB",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestNRA",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestNRA",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPLR",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPLR",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRYE",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRYE",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestTAP",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestTAP",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/{typeReport}/{keyTest}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/{typeReport}/{keyTest}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRAD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/calculeTestRAD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestTDP",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestTDP",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestDPR",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestDPR",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRDT",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRDT",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRAN",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRAN",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestFPC",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestFPC",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestCGD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestCGD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestFPA",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestFPA",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRDD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRDD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestROD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestROD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRCT",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRCT",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPCE",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPCE",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPCI",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPCI",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPRD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPRD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPEE",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPEE",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestISZ",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestISZ",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getCorrectionFactorSpecification/{Specification}/{Temperature}/{CorrectionFactor}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCorrectionFactorSpecification/{Specification}/{Temperature}/{CorrectionFactor}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCorrectionFactorSpecification",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCorrectionFactorSpecification",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getContGasCGD/{IdReport}/{KeyTests}/{TypeOil}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInfoContGasCGD/{IdReport}/{KeyTests}/{TypeOil}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveInfoContGasCGD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/SaveInfoContGasCGD",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/deleteInfoContGasCGD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/DeleteInfoContGasCGD",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/deleteCorrectionFactorSpecification",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteCorrectionFactorSpecification",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getCorrectionFactorsXMarksXTypes",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCorrectionFactorsXMarksXTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getNozzleMarks/{pIdMark}/{pStatus}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getNozzleMarks/{pIdMark}/{pStatus}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getTypeXMarksNozzle/{pIdMark}/{pStatus}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getTypeXMarksNozzle/{pIdMark}/{pStatus}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteCorrectionFactorsXMarksXTypes",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteCorrectionFactorsXMarksXTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCorrectionFactorsXMarksXTypes",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCorrectionFactorsXMarksXTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getNozzleTypesByBrand/{pIdMark}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getNozzleTypesByBrand/{pIdMark}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTypeNozzleMarks",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveNozzleTypesByBrand",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/DeleteTypeNozzleMarks",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteNozzleTypesByBrand",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getNozzleBrands/{pIdMark}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getNozzleBrands/{pIdMark}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveNozzleBrands",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveNozzleBrands",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteNozzleBrands",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteNozzleBrands",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getValidationTestsISZ",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getValidationTestsISZ",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getCuttingDatas/{NroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCuttingDatas/{NroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInfoHeaderCuttingData/{IdCut}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInfoHeaderCuttingData/{IdCut}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCuttingData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCuttingData",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getRecordNozzleInformation/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Nozzle/getRecordNozzleInformation/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRecordNozzleInformation",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-designinformation.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Nozzle/saveRecordNozzleInformation",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getPDFReports/{code}/{typeReport}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getPDFReports/{code}/{typeReport}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getA",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getA/{noSerie}/{windingMaterial}/{capacity}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportROD",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportROD/{NroSerie}/{KeyTest}/{TestConnection}/{WindingMaterial}/{UnitOfMeasurement}/{Result}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportRCT",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportRCT/{NroSerie}/{KeyTests}/{Result}",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportPCE",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportPCE/{NroSerie}/{KeyTest}/{Result}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportFPC",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportFPC/{NroSerie}/{KeyTest}/{Lenguage}/{UnitType}/{VoltageLevel}/{Frecuency}/{Result}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInformationOctaves",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInformationOctaves",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/ImportInformationOctaves",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/importinformationoctaves",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateInformationOctaves",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/updateinformationoctaves",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getStabilizationDesignData/{NroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getStabilizationDesignData/{NroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveStabilizationDesignData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveStabilizationDesignData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getCorrectionFactorkWTypeCooling",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCorrectionFactorkWTypeCooling",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCorrectionFactorkWTypeCooling",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCorrectionFactorkWTypeCooling",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getStabilizationData",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getStabilizationData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveStabilizationData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveStabilizationData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/closeStabilizationData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-configuration.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/closeStabilizationData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/calculeTestStabilizationData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-tests.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/calculeTestStabilizationData",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/deleteAssignmentProfilesUsers",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/deleteAssignmentProfilesUsers",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteProfiles",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/deleteProfiles",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getAssignmentProfiles/{Profile}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getAssignmentProfiles/{Profile}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getOptionsMenu",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getOptionsMenu",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getPermissionsProfile/{Profile}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getPermissionsProfile/{Profile}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getProfiles/{Profile}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getProfiles/{Profile}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetPermissionUsers/{IdUser}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/GetPermissionUsers/{IdUser}",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/getUsers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getUsers",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveAssignmentProfilesUsers",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/saveAssignmentProfilesUsers",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/savePermissions",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/savePermissions",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveProfiles",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/saveProfiles",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveUsers",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-security.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/saveUsers",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getTestedReport/{noSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "qa-spl-reports.azurewebsites.net"
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getTestedReport/{noSerie}",
+      "DownstreamScheme": "https"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://qa-spl-gateway.azurewebsites.net"
+  }
+}

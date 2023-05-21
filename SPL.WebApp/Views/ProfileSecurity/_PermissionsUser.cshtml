@@ -1,0 +1,200 @@
+﻿
+@model SPL.WebApp.ViewModels.ProfileSecurity.UserPermissionsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+  <h4>Permisos</h4>
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+
+            <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Guardar</button>
+          @*  <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>*@
+        </div>
+    </div>
+
+</div>
+
+<br />
+ <form id="form_profiles" enctype="multipart/form-data" kendo-validator="true">
+   <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="row">
+                                                <div class="col-sm-1">
+                                                    <div class="row" style="text-align:end">
+                                                       <label class="col-form-label" asp-for="Clave"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="">
+
+                                                              
+                                                                @Html.DropDownListFor(c => c.Clave, (IEnumerable<SelectListItem>)ViewBag.Profiles, new { @onchange = "getTableOptions(0)", @class = "form-select form-select-sm" })
+                                                                <span asp-validation-for="Clave" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                         </div>
+                                       </div>
+
+                                      
+ 
+    </div>
+  </form>
+
+
+
+    
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Está seguro de eliminar el perfil?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+        <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert" role="alert" id="result"></div>
+
+  <div id="containerTablePermission" class="col-md-12" style="    height: 700px;
+    /* width: 100px; */
+    border: 1px solid #ddd;
+    background: #f1f1f1;
+    overflow-y: scroll;">
+
+ </div>
+  
+  <script>
+getTableOptions();
+           function getTableOptions() {
+           $("#loader").css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "/ProfileSecurity/GetTablePermissionUser",
+                    data: {Profile:$("#Clave").val()},
+                      dataType: 'html',
+                    success: function (result) {
+                       $('#containerTablePermission').html(result);  
+                       $("#loader").css("display", "none");
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    }
+                });
+         }
+     
+
+
+
+
+  var modalConfirm = function(callback){
+          var profileDelete = "";
+ 
+
+  $("#modal-btn-si").on("click", function(){
+    callback(true);
+    $("#mi-modal").modal('hide');
+  });
+  
+  $("#modal-btn-no").on("click", function(){
+    callback(false);
+    $("#mi-modal").modal('hide');
+  });
+};
+
+modalConfirm(function(confirm){
+  if(confirm){
+    //Acciones si el usuario confirma
+    //$("#result").html("CONFIRMADO");
+      DeleteProfileEjecute(profileDelete);
+  }else{
+    //Acciones si el usuario no confirma
+    //$("#result").html("NO CONFIRMADO");
+  }
+});
+
+
+
+
+
+
+
+      function DeleteProfile(profile) {
+           $("#mi-modal").modal('show');
+          profileDelete = profile;
+         }
+           function clickProfile(profile,descripcion) {
+            $( "#Clave" ).prop( "disabled", true );
+            $("#Clave").val(profile);
+            $("#Descripcion").val(descripcion);
+         }
+
+
+
+       function DeleteProfileEjecute(profile) {
+
+          var modelFormData = new FormData();
+          modelFormData.append("Clave", profile);
+          modelFormData.append("Descripcion", "");
+         $.ajax({
+              url: "/ProfileSecurity/DeleteProfilesUser/",
+              method: "POST",
+              contentType: false,
+              processData: false,
+              data: modelFormData,
+              success: function(result) {
+
+                  if (result.response.Code === 1) {
+                      $("#loader").css("display", "none");
+                  }
+                  else {
+                      ShowSuccessMessage("Eliminado Exitosamente.")
+                      $("#loader").css("display", "none");
+                      $("#btnClear").trigger('click')
+                      $("#TabProfiles").trigger('click')
+
+                  }
+
+              }
+
+          });
+         }
+
+
+         
+   
+
+
+           
+     
+    $("#btnClear").click(function() {
+        $( "#Clave" ).prop( "disabled", false );
+        $("#Clave").val("");
+        $("#Descripcion").val("");
+    });
+
+
+
+    </script>
+

@@ -1,0 +1,1981 @@
+﻿@model SPL.WebApp.ViewModels.ArtifactRecordViewModel
+
+@{ ViewData["Title"] = "Index"; }
+
+
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+            <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm" disabled>Guardar</button>
+            <button id="btnLoadDataSidco" style="margin-right:8px; font-weight:600; " type="button" class="btn btn-primary btn-sm" disabled>Datos SIDCO</button>
+            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+        </div>
+    </div>
+ 
+</div>
+<br />
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+    <div class="col-md-4">
+     
+         
+            <div class="form-floating mb-3">
+                <input  onkeypress="return soloLetrasYNumerosSinEspacio(event)" asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+                <label asp-for="NoSerie"></label>
+                <span id="NoSerieSpand" class="text-danger"></span>
+                    
+            </div>
+            <div class="col-sm-6" style="padding-bottom:8px">
+                <span id="lbIsFromSPL" style="display:none" class="badge rounded-pill bg-primary col-md-auto">Diseño registrado en SPL</span>
+                <span id="lbIsFromSIDCO" style="display:none" class="badge rounded-pill bg-secondary col-md-auto">Diseño registrado en SIDCO</span>
+            </div>
+      
+    </div>
+    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+           <div class="spinner-border" role="status">
+     <span class="visually-hidden">Espere...</span>
+   </div> 
+
+
+    </div> 
+</div>
+
+
+<div class="row" >
+    <div class="col-md-12">
+        <div class="container-fluid">
+
+            <kendo-tabstrip name="tabstrip" style="background:white !important ">
+                <popup-animation>
+                    <open effects="fade:in" />
+                </popup-animation>
+
+
+                <items>
+
+
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Generales" id="GENERAL" selected="true" icon-class="k-icon k-i-signature">
+
+                        <content>
+
+                            <div class="container">
+                                <form asp-action="#" kendo-validator="true" id="form_general_data">
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="Descripcion" class="form-control form-control-sm" placeholder="Descripcion">
+                                                <label asp-for="Descripcion"></label>
+                                                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="CustomerName" class="form-control form-control-sm" placeholder="CustomerName">
+                                                <label asp-for="CustomerName"></label>
+                                                <span asp-validation-for="CustomerName" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="PoNumeric" class="form-control form-control-sm" placeholder="PoNumeric">
+                                                <label asp-for="PoNumeric"></label>
+                                                <span asp-validation-for="PoNumeric" class="text-danger"></span>
+                                            </div>
+
+
+
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="Typetrafoid"></label>
+                                                @Html.DropDownListFor(c => c.Typetrafoid, (IEnumerable<SelectListItem>)ViewBag.TypetrafoItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="Typetrafoid" class="text-danger"></span>
+                                            </div>
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="StandardId"></label>
+                                                @Html.HiddenFor(c => c.Norma)
+                                                @Html.DropDownListFor(c => c.StandardId, (IEnumerable<SelectListItem>)ViewBag.NormaItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="StandardId" class="text-danger"></span>
+                                            </div>
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="LanguageId"></label>
+                                                @Html.DropDownListFor(c => c.LanguageId, (IEnumerable<SelectListItem>)ViewBag.LanguageItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="LanguageId" class="text-danger"></span>
+                                            </div>
+
+
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="OilType"></label>
+                                                @Html.DropDownListFor(c => c.OilType, (IEnumerable<SelectListItem>)ViewBag.OilTypesItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="OilType" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="OilBrand" class="form-control form-control-sm" placeholder="OilBrand" maxlength="50">
+                                                <label asp-for="OilBrand"></label>
+                                                <span asp-validation-for="OilBrand" class="text-danger"></span>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="Phases" id="Phases" class="form-control form-control-sm" placeholder="Phases" onkeypress="return soloNumeros(event)">
+                                                <label asp-for="Phases"></label>
+                                                <span asp-validation-for="Phases" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="Frecuency" id="Frecuency" class="form-control form-control-sm" placeholder="Frecuency" onkeypress="return soloNumeros(event)">
+                                                <label asp-for="Frecuency"></label>
+                                                <span asp-validation-for="Frecuency" class="text-danger"></span>
+                                            </div>
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3">
+                                                            <input asp-for="AltitudeF1" id="AltitudeF1" class="form-control form-control-sm" placeholder="AltitudeF1" onkeypress="return soloNumeros(event)">
+                                                            <label asp-for="AltitudeF1"></label>
+                                                            <span asp-validation-for="AltitudeF1" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-floating mb-3">
+                                                            <input asp-for="AltitudeF2" class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="TipoUnidad"></label>
+                                                @Html.DropDownListFor(c => c.TipoUnidad, (IEnumerable<SelectListItem>)ViewBag.TipoUnidadItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="TipoUnidad" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="NormaEquivalente"></label>
+                                                @Html.DropDownListFor(c => c.NormaEquivalente, (IEnumerable<SelectListItem>)ViewBag.NormaEquivalenteItems, new { @class = "form-select form-select-sm", @onchange="refreshRules(this);"  })
+                                                <span asp-validation-for="NormaEquivalente" class="text-danger"></span>
+                                            </div>
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="ClaveIdioma"></label>
+                                                @Html.DropDownListFor(c => c.ClaveIdioma, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm", @onchange="refreshRules(this);" })
+                                                <span asp-validation-for="ClaveIdioma" class="text-danger"></span>
+                                            </div>
+
+
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="ApplicationId"></label>
+                                                @Html.DropDownListFor(c => c.ApplicationId, (IEnumerable<SelectListItem>)ViewBag.ApplicationidItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="ApplicationId" class="text-danger"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col">
+                                            <fieldset>
+                                                <legend>Requerimientos Especiales, Excepto Reactores</legend>
+                                            </fieldset>
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="PolarityId"></label>
+                                                @Html.DropDownListFor(c => c.PolarityId, (IEnumerable<SelectListItem>)ViewBag.PolarityItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="PolarityId" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="PolarityOther" class="form-control form-control-sm" placeholder="PolarityOther">
+                                                <label asp-for="PolarityOther"></label>
+                                                <span asp-validation-for="PolarityOther" class="text-danger"></span>
+                                            </div>
+                                            <div class="col mb-3">
+                                                <label class="form-label" asp-for="DesplazamientoAngular"></label>
+                                                @Html.DropDownListFor(c => c.DesplazamientoAngular, (IEnumerable<SelectListItem>)ViewBag.DesplazamientoAngularItems, new { @class = "form-select form-select-sm" })
+                                                <span asp-validation-for="DesplazamientoAngular" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </content>
+                    </tabstrip-item>
+
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Características" id="CHARACTERISTIC" icon-class="k-icon k-i-list-unordered">
+                        <content>
+                            <br />
+
+                            <form asp-action="#" kendo-validator="true" id="form_characteris_data">
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="row">
+                                            <div class="text-center col-lg-3">
+                                                <label>Tipo Enfriamiento</label>
+                                            </div>
+                                            <div class="text-center col-lg-3">
+                                                <label>S.E.(*C)</label>
+                                            </div>
+                                            <div class="text-center col-lg-3">
+                                                <label class="text-center">HSTR (*C)</label>
+                                            </div>
+                                            <div class="text-center col-lg-3">
+                                                <label class="text-center">Dev AWR</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-1">
+
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="text-center col-lg-3">
+                                                <label>Alta Tensión</label>
+                                            </div>
+                                            <div class="text-center col-lg-3">
+                                                <label>Baja Tensión</label>
+                                            </div>
+                                            <div class="text-center col-lg-3">
+                                                <label>2da. Baja</label>
+                                            </div>
+                                            <div class="text-center col-lg-3">
+                                                <label>Terciario</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="CharacteristicList" class="row g-3">
+                                    @if (Model.CharacteristicsArtifacts.Any())
+                                    {
+                                        for (int i = 0; i < Model.CharacteristicsArtifacts.Count; i++)
+                                        {
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-3">
+                                                                <input id="colynType_@Model.CharacteristicsArtifacts[i].CoolingType" class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].CoolingType">
+                                                                <span id="colynType_@Model.CharacteristicsArtifacts[i].CoolingType" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                                <input id="orderElevation_@Model.CharacteristicsArtifacts[i].OverElevation" class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].OverElevation">
+                                                                <span id="orderElevation_@Model.CharacteristicsArtifacts[i].OverElevation" class="text-danger"></span>
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                                <input class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].Hstr">
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                                <input class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].DevAwr">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center col-lg-1">
+                                                        <label style="padding-top:10px;">MVA</label>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-3">
+                                                                <input id="mvaf1_@Model.CharacteristicsArtifacts[i].Mvaf1" class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].Mvaf1">
+                                                                <span id="mvaf1_@Model.CharacteristicsArtifacts[i].Mvaf1" class="text-danger"></span>
+
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                                <input class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].Mvaf2">
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                                <input class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].Mvaf3">
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                                <input class="form-control form-control-lg" asp-for="@Model.CharacteristicsArtifacts[i].Mvaf4">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 30px;">Tensión (KV)</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-1" style="padding-top:20px">
+                                                                <h2>x</h2>
+                                                            </div>
+                                                            <div class="col-sm" style="padding-left:10px">
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvAltaTension1">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvAltaTension2">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvAltaTension3">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvAltaTension4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-1" style="padding-top:20px">
+                                                                <h2>x</h2>
+                                                            </div>
+                                                            <div class="col-sm" style="padding-left:10px">
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvBajaTension1">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvBajaTension2">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvBajaTension3">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvBajaTension4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-1" style="padding-top:20px">
+                                                                <h2>x</h2>
+                                                            </div>
+                                                            <div class="col-sm" style="padding-left:10px">
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvSegundaBaja1">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvSegundaBaja2">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvSegundaBaja3">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvSegundaBaja4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-1" style="padding-top:20px">
+                                                                <h2>x</h2>
+                                                            </div>
+                                                            <div class="col-sm" style="padding-left:10px">
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvTerciario1">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvTerciario2">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvTerciario3">
+                                                                    </div>
+                                                                    <div class="form-group col-sm-1">
+                                                                        <h2>/</h2>
+                                                                    </div>
+                                                                    <div class="form-group col-sm-5">
+                                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="TensionKvTerciario4">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 10px;">NBAI (BIL, KV)</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="NbaiAltaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="NbaiBajaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="NbaiSegundaBaja">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="NabaiTercera">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 10px;">Conexión</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col mb-3">
+                                                        @Html.HiddenFor(c => c.ConexionAltaTension)
+                                                        @Html.DropDownListFor(c => c.IdConexionAltaTension, (IEnumerable<SelectListItem>)ViewBag.ConexionItems, new { @class = "form-select form-select-sm", @onChange="getEquivalencia(1)" })
+                                                    
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        @Html.HiddenFor(c => c.ConexionBajaTension)
+                                                        @Html.DropDownListFor(c => c.IdConexionBajaTension, (IEnumerable<SelectListItem>)ViewBag.ConexionItems, new { @class = "form-select form-select-sm", @onChange="getEquivalencia(2)" })
+                                                        <span id="IdConexionBajaTensionSpan" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        @Html.HiddenFor(c => c.ConexionSegundaBaja)
+                                                        @Html.DropDownListFor(c => c.IdConexionSegundaBaja, (IEnumerable<SelectListItem>)ViewBag.ConexionItems, new { @class = "form-select form-select-sm", @onChange="getEquivalencia(3)" })
+                                                        <span id="IdConexionSegundaBajaSpan" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        @Html.HiddenFor(c => c.ConexionTercera)
+                                                        @Html.DropDownListFor(c => c.IdConexionTercera, (IEnumerable<SelectListItem>)ViewBag.ConexionItems, new { @class = "form-select form-select-sm", @onChange="getEquivalencia(4)" })
+                                                        <span id="IdConexionTerceraSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 10px;">Otra</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="OtraConexionAltaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="OtraConexionBajaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="OtraConexionSegundaBaja">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="OtraConexionTercera">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 10px;">*Equivalencia</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="ConexionEquivalente">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="ConexionEquivalente_2">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="ConexionEquivalente_3">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input maxlength="100" class="form-control form-control-lg" asp-for="ConexionEquivalente_4">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <div class="float-right col-md-auto">
+                                            <label style="padding-top: 28px;">Derivaciones (%)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-6" style="padding-top:20px">
+                                                                @Html.DropDownListFor(c => c.TipoDerivacionAltaTension, (IEnumerable<SelectListItem>)ViewBag.TipoDerivacionItems, new { @class = "form-select form-select-sm small-letter-select" })
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">+</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionUpAltaTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12" style="padding-top:5px">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">-</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionDownAltaTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-6" style="padding-top:20px">
+                                                                @Html.DropDownListFor(c => c.TipoDerivacionBajaTension, (IEnumerable<SelectListItem>)ViewBag.TipoDerivacionItems, new { @class = "form-select form-select-sm small-letter-select" })
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">+</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionUpBajaTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12" style="padding-top:5px">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">-</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionDownBajaTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-6" style="padding-top:20px">
+                                                                @Html.DropDownListFor(c => c.TipoDerivacionSegundaTension, (IEnumerable<SelectListItem>)ViewBag.TipoDerivacionItems, new { @class = "form-select form-select-sm small-letter-select" })
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">+</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionUpSegundaTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12" style="padding-top:5px">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">-</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionDownSegundaTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-6" style="padding-top:20px">
+                                                                @Html.DropDownListFor(c => c.TipoDerivacionTerceraTension, (IEnumerable<SelectListItem>)ViewBag.TipoDerivacionItems, new { @class = "form-select form-select-sm small-letter-select" })
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">+</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionUpTerceraTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12" style="padding-top:5px">
+                                                                    <div class="row">
+                                                                        <h2 class="control-label col-sm-1 text-center">-</h2>
+                                                                        <div class="col">
+                                                                            <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg small-letter" asp-for="ValorDerivacionDownTerceraTension">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 10px;">Pasos</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="TapsAltaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="TapsBajaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="TapsSegundaBaja">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="TapsTerciario">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3">
+                                    <div class="text-end col-lg-4">
+                                        <label style="padding-top: 10px;">NBAI Neutro (BIL, KV)</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="ValorNbaiNeutroAltaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="ValorNbaiNeutroBajaTension">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="ValorNbaiNeutroSegundaBaja">
+                                                    </div>
+                                                    <div class="form-group col-lg-3">
+                                                        <input onkeypress="return soloNumeros(event)" class="form-control form-control-lg" asp-for="ValorNbaiNeutroTercera">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </content>
+                    </tabstrip-item>
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Garantías" id="WARANTIES" icon-class="k-icon k-i-borders-show-hide">
+                        <content>
+                            <div class="container">
+                                <form asp-action="#" kendo-validator="true" id="form_garanties_data">
+
+                                    <br />
+                                    <div class="row">
+                                        @*PRIMERA*@
+                                        <div class="row">
+                                            <div class="col-sm-10"></div>
+                                            <div class="col-sm-2">
+                                                <div class="row" style="text-align: center;">
+                                                    <label>Tolerancia (%)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            @*PRIMERA FILA*@
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label asp-for="Iexc100" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Iexc100" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Iexc110" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*SEGUNDA FILA*@
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label asp-for="Kwfe100" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwfe100" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwfe110" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-2">
+                                                    <div class="col-sm-10">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="TolerancyKwfe" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*TERCERA FILA*@
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label asp-for="Kwcu" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwcu" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="KwcuMva" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">MVA</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="KwcuKv" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KV</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="TolerancyKwCu" class="form-control">
+                                                        </div>
+                                                        @*<label class="col-sm-1 col-form-label">KW</label>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*CUARTA FILA*@
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label asp-for="Kwaux2" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwaux2" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwaux4" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">MVA</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwaux1" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwaux3" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">MVA</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="TolerancyKwAux" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*QUINTA FILA*@
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label onkeypress="return soloNumeros(event)" asp-for="Kwtot100" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwtot100" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="Kwtot110" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">KW</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="TolerancyKwtot" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*SEXTA FILA*@
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label asp-for="ZPositiveHx" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="ZPositiveHx" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">%</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="ZPositiveMva" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">MVA</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="ZPositiveHy" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">%</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="ZPositiveXy" class="form-control">
+                                                        </div>
+                                                        <label class="col-sm-1 col-form-label">%</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="TolerancyZpositive" class="form-control">
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <input onkeypress="return soloNumeros(event)" asp-for="TolerancyZpositive2" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="row">
+                                                        <label asp-for="CoolingTypes" class="col-form-label"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-11">
+                                                            <input asp-for="CoolingTypes" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <label class="col-sm-1 col-form-label">dbA</label>
+                                                <div class="col-sm-1">
+                                                    <input onkeypress="return soloNumeros(event)" asp-for="NoiseOa" class="form-control">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <input onkeypress="return soloNumeros(event)" asp-for="NoiseFa1" class="form-control">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <input onkeypress="return soloNumeros(event)" asp-for="NoiseFa2" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </content>
+                    </tabstrip-item>
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Boquillas" id="NOZZLESS" icon-class="k-icon k-i-filter">
+                        <content>
+                            <form asp-action="#" kendo-validator="true" id="form_boq_data">
+                                <br />
+                                <div class="row">
+                                    <div id="nozzlesList" class="row">
+                                        <div style="padding:20px" class="form-group col-lg-2">
+                                            <div class="col-sm-12">
+                                                <div class="text-center">
+                                                    <label class="col-form-label"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 23px">
+                                                    <label class="col-form-label">Cantidad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 10px ">
+                                                    <label class="col-form-label">Clase de Votaje (KV)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 10px ">
+                                                    <label class="col-form-label">Bil (KV) de la Boquilla</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="display:none">
+                                                <div class="text-center" style="padding-top: 10px ">
+                                                    <label class="col-form-label">Bil other</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 10px ">
+                                                    <label class="col-form-label">Bil Unidad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 10px ">
+                                                    <label class="col-form-label">Corriente (Amps. Operación)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 10px ">
+                                                    <label class="col-form-label">Corriente de la Unidad</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @for (int i = 0; i < Model.NozzlesArtifacts.Count; i++)
+                                        {
+                                            <div class="col-lg-2" style="padding: 20px">
+                                                <div class="col-sm-12">
+                                                    <div class="text-center">
+                                                        <label class="col-form-label" id="@Model.NozzlesArtifacts[i].ColumnTitle">@Model.NozzlesArtifacts[i].ColumnTitle</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    sdfsafsa
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.NozzlesArtifacts[i].Qty" class="form-control nozzlesInput">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.NozzlesArtifacts[i].VoltageClass" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.NozzlesArtifacts[i].BilClass" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="display:none">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input asp-for="@Model.NozzlesArtifacts[i].BilClassOther" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.NozzlesArtifacts[i].ResultBilUnidad" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.NozzlesArtifacts[i].CurrentAmps" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.NozzlesArtifacts[i].CorrienteUnidad" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </content>
+                    </tabstrip-item>
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Apartarayos" id="LIGHTNING_ROD" icon-class="k-icon k-i-unlink-vertical">
+                        <content>
+                            <br />
+                            <form asp-action="#" kendo-validator="true" id="form_apart_data">
+                                <div class="row">
+                                    <div id="lightningRodList" class="row">
+                                        <div style="padding:20px" class="form-group col-lg-2">
+                                            <div class="col-sm-12">
+                                                <div class="text-center">
+                                                    <label class="col-form-label"></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center" style="padding-top: 23px">
+                                                    <label class="col-form-label">Cantidad</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        @for (int i = 0; i < Model.LightningRodArtifacts.Count; i++)
+                                        {
+                                            <div class="col-lg-2" style="padding: 20px">
+                                                <div class="col-sm-12">
+                                                    <div class="text-center">
+                                                        <label class="col-form-label">@Model.LightningRodArtifacts[i].ColumnTitle</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col" style="padding-top:10px">
+                                                        <input onkeypress="return soloNumeros(event)" asp-for="@Model.LightningRodArtifacts[i].Qty" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </content>
+                    </tabstrip-item>
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Cambiadores" id="CHANGENS" icon-class="k-icon k-i-link-horizontal">
+                        <content>
+                            <form asp-action="#" kendo-validator="true" id="form_cambiadores_data">
+
+                                <br />
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="col-md-7 justify-content-center">
+                                                <table id="operationConditionTitle" style="width: 100%">
+                                                    <thead>
+                                                        <tr id="titleOperationConditionTable">
+                                                            <th>
+                                                                @* invisible col *@
+                                                            </th>
+                                                            @for (int i = 0; i < Model.ChangingTablesArtifacs.Count; i++)
+                                                            {
+                                                                <th>
+                                                                    <div class="col">
+                                                                        <div class="text-center">
+                                                                            <label class="col-form-label">@Model.ChangingTablesArtifacs[i].ColumnTitle</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </th>
+                                                            }
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr id="rowConditionOperation" role="row">
+                                                            <td>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Condición de Operación</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            @for (int i = 0; i < Model.ChangingTablesArtifacs.Count; i++)
+                                                            {
+                                                                <td>
+                                                                    <div class="col" style="padding: 10px">
+                                                                        @Html.DropDownListFor(c => c.ChangingTablesArtifacs[i].OperationId, (IEnumerable<SelectListItem>)ViewBag.ConexionItems, new { @class = "form-select form-select-sm" })
+
+                                                                    </div>
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                        <tr id="rowDerivations" role="row">
+                                                            <td>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Derivaciones (%)</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            @for (int i = 0; i < Model.ChangingTablesArtifacs.Count; i++)
+                                                            {
+                                                                <td>
+                                                                    <div class="row" style="padding: 10px">
+                                                                        <div class="col-sm-6 text-center" style="padding-top: 25px">
+                                                                            @Html.TextBoxFor(c => c.ChangingTablesArtifacs[i].FlagRcbnFcbn, new { @class = "form-control", @maxlength = "50" })
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="col-sm-12" style="padding:5px;">
+                                                                                @Html.TextBoxFor(c => c.ChangingTablesArtifacs[i].DerivId, new { @class = "form-control" })
+                                                                            </div>
+                                                                            <div class="col-sm-12" style="padding:5px;">
+                                                                                @Html.TextBoxFor(c => c.ChangingTablesArtifacs[i].DerivId2, new { @class = "form-control" })
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            }
+
+                                                        </tr>
+                                                        <tr id="rowSteps" role="row">
+                                                            <td>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Pasos</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            @for (int i = 0; i < Model.ChangingTablesArtifacs.Count; i++)
+                                                            {
+                                                                <td>
+                                                                    <div class="col" style="padding: 10px">
+                                                                        @Html.TextBoxFor(c => c.ChangingTablesArtifacs[i].Taps, new { @class = "form-control" })
+
+                                                                    </div>
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <div class="col-lg-12">
+                                                <table id="tapsTable" style="width: 100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                @* invisible col *@
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Ubicación</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Cant.</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">% Sep.</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Cant.</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">% Sep.</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Nominal.</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Identificación</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Invertido</label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label"></label>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr role="row">
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Sin Carga</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    @Html.DropDownListFor(c => c.ComboNumericSc, (IEnumerable<SelectListItem>)ViewBag.Ubicacion, new { @class = "form-select form-select-sm" })
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.CantidadSupSc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="CantidadSupSc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">+</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.PorcentajeSupSc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="PorcentajeSupSc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">+</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.CantidadInfSc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="CantidadInfSc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">-</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.PorcentajeInfSc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="PorcentajeInfSc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">-</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    @Html.TextBoxFor(c => c.NominalSc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                    <span asp-validation-for="NominalSc" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    @Html.DropDownListFor(c => c.IdentificacionSc, (IEnumerable<SelectListItem>)ViewBag.IdentificationItems, new { @class = "form-select form-select-sm" })
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col text-center">
+                                                                    @Html.CheckBoxFor(c => c.InvertidoSc, new { @class = "checkbox" })
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    <button id="tapScBtn" type="button" data-bs-target="#showPositionSC" data-bs-toggle="modal" class="btn btn-primary btn-sm">Ver</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr role="row">
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    <div class="text-center">
+                                                                        <label class="col-form-label">Bajo Carga</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    @Html.DropDownListFor(c => c.ComboNumericBc, (IEnumerable<SelectListItem>)ViewBag.Ubicacion, new { @class = "form-select form-select-sm" })
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.CantidadSupBc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="CantidadSupBc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">+</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.PorcentajeSupBc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="PorcentajeSupBc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">+</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.CantidadInfBc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="CantidadInfBc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">-</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        @Html.TextBoxFor(c => c.PorcentajeInfBc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                        <span asp-validation-for="PorcentajeInfBc" class="text-danger"></span>
+                                                                    </div>
+                                                                    <div class="col-sm-1 text-start">
+                                                                        <label class="col-form-label">-</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    @Html.TextBoxFor(c => c.NominalBc, new { @class = "form-control", @onkeypress = "return soloNumeros(event)" })
+                                                                    <span asp-validation-for="NominalBc" class="text-danger"></span>
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    @Html.DropDownListFor(c => c.IdentificacionBc, (IEnumerable<SelectListItem>)ViewBag.IdentificationItems, new { @class = "form-select form-select-sm" })
+                                                                </div>
+                                                            </td>
+                                                            <td style="padding:3px">
+                                                                <div class="col text-center">
+                                                                    @Html.CheckBoxFor(c => c.InvertidoBc, new { @class = "checkbox" })
+                                                                </div>
+                                                            </td>
+
+                                                            <td style="padding:3px">
+                                                                <div class="col">
+                                                                    <button id="tapBcBtn" data-bs-target="#showPositionSC" data-bs-toggle="modal" type="button" class="btn btn-primary btn-sm">Ver</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </content>
+                    </tabstrip-item>
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Pruebas Lab." id="TEST_LABS" icon-class="k-icon k-i-align-baseline-horizontal">
+                        <content>
+                            <br />
+                            <form asp-action="#" kendo-validator="true" id="form_pruebaslab_data">
+                                <div class="col-12">
+                                    <div class="col-sm-6">
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-3">
+                                                <input maxlength="200" asp-for="LabTestsArtifact.TextTestRoutine" class="form-control form-control-sm" placeholder="LabTestsArtifact.TextTestRoutine">
+                                                <label asp-for="LabTestsArtifact.TextTestRoutine"></label>
+                                                <span asp-validation-for="LabTestsArtifact.TextTestRoutine" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-3">
+                                                <input maxlength="200" asp-for="LabTestsArtifact.TextTestDielectric" class="form-control form-control-sm" placeholder="LabTestsArtifact.TextTestDielectric">
+                                                <label asp-for="LabTestsArtifact.TextTestDielectric"></label>
+                                                <span asp-validation-for="LabTestsArtifact.TextTestDielectric" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-floating mb-3">
+                                                <input maxlength="200" asp-for="LabTestsArtifact.TextTestPrototype" class="form-control form-control-sm" placeholder="LabTestsArtifact.TextTestPrototype">
+                                                <label asp-for="LabTestsArtifact.TextTestPrototype"></label>
+                                                <span asp-validation-for="LabTestsArtifact.TextTestPrototype" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </content>
+                    </tabstrip-item>
+                    <tabstrip-item onclick="onchangeFocusTabs(this)" text="Normas" id="NORMS" icon-class="k-icon k-i-paste-plain-text">
+                        <content>
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-3">
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-lg-7">
+                                                    <div class="form-floating lg-3">
+                                                        <input maxlength="150" id="newNorma" class="form-control form-control-sm" placeholder="Descripción de la Norma">
+                                                        <label class="form-label">Descripción de la Norma</label>
+                                                        <span id="newNormaSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4" style="padding-top:7px">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <button id="btnAddNorm" style="margin-right:50px;font-weight:600;" type="button" class="btn btn-primary"><i class="bi-plus" style="font-size: 1.3rem;"></i></button>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <button id="btnClearNorm" type="button" class="btn btn-secondary"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col">
+                                            <table id="tableNorma" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="energy-green text-center"><h3>Descripción de la Norma</h3></th>
+                                                        <th scope="col" style="width: 100%" class="energy-green text-center"><h3>Acción</h3></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @*<tr>
+                                                    <td>Column content</td>
+                                                    <td class="text-center" style="width:auto"><button type="button" class="btn btn-danger">Eliminar</button></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Column content</td>
+                                                    <td class="text-center" style="width:auto"><button type="button" class="btn btn-danger">Eliminar</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Column content</td>
+                                                    <td class="text-center" style="width:auto"><button type="button" class="btn btn-danger">Eliminar</button></td>
+                                                </tr>*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+
+                                </div>
+                            </div>
+
+                        </content>
+                    </tabstrip-item>
+                </items>
+
+            </kendo-tabstrip>
+
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="notification-type" class="toast-body-alert">
+                        <div id="notification-message">El número de posiciones no pueden ser mayor a 26 cuando el tipo de identificación es Letras.</div>
+                        <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="showPositionSC" tabindex="-1" aria-labelledby="gridModalLabel" style="display: none;" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="gridModalLabel">Vista previa de las Posiciones</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid bd-example-row">
+                    <div class="row row-cols-lg-auto g-3 align-items-center">
+                        <div class="col-sm-8 form-floating mb-3">
+                            <input id="positionId" class="form-control form-control-sm" placeholder="Posición" disabled>
+                            <label>Posición</label>
+                            <span for="positionId" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invertidoCk" disabled>
+                            <label class="form-check-label" for="invertidoCk">
+                                Invertido
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col form-floating mb-3">
+                            <input id="identificationChanges" class="form-control form-control-sm" placeholder="Identificación" disabled>
+                            <label>Identificación</label>
+                            <span for="identificationChanges" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="col">
+                                                <div class="text-center">
+                                                    <label class="col-form-label">Valores</label>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="changerValueTableBody">
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+    <script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/js/ArtifactRecord/ArtifactRecord.js")"></script>
+    <script>
+
+
+
+    
+        function soloNumeros(e) {
+            var key = e.keyCode || e.which,
+                tecla = String.fromCharCode(key).toLowerCase(),
+                letras = "01234556789",
+                especiales = [8, 37, 39, 46],
+                tecla_especial = false;
+
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+                return false;
+            }
+        }
+
+          function soloLetrasYNumerosSinEspacio(e) {
+            var key = e.keyCode || e.which,
+                tecla = String.fromCharCode(key).toLowerCase(),
+                letras = "abcdefghijkmnopqrstuvwxyz01234556789",
+                especiales = [8, 37, 39, 46],
+                tecla_especial = false;
+
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            
+            if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+                return false;
+              }
+
+
+        }
+
+       
+
+        function validarValorCorrienteUnidad(index) {
+
+
+            let  getValueOperacion = $(`#NozzlesArtifacts_${index}__CurrentAmps`).val();
+            let  getValueCorriente = $(`#NozzlesArtifacts_${index}__CorrienteUnidad`).val();
+
+
+            console.log(""+parseInt(getValueOperacion)+parseInt(getValueCorriente));
+            if (parseInt(getValueCorriente) > parseInt(getValueOperacion)) {
+                  console.log(getValueCorriente > getValueOperacion);
+                   bandera = false;
+
+                $(`#NozzlesArtifacts_${index}__CorrienteUnidadSpan`).text("Debe ser menor que Corriente (Amps. Operación)");
+            }
+            else {
+                  console.log(getValueCorriente > getValueOperacion);
+                $(`#NozzlesArtifacts_${index}__CorrienteUnidadSpan`).text("");
+            }
+
+
+        }
+        function onchangeFocusTabs(elem) {
+            
+            var index = $(elem).attr("id");
+            
+            if (index == "GENERAL") {
+                $("#GENERAL").css({ "background": colorTabsSelect });
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").removeAttr("style");
+                $("#NORMS").removeAttr("style");
+            }
+            else if (index == "CHARACTERISTIC") {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").css({ "background": colorTabsSelect });
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").removeAttr("style");
+                 $("#NORMS").removeAttr("style");
+            }
+            else if (index == "WARANTIES") {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").css({ "background": colorTabsSelect });
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").removeAttr("style");
+                 $("#NORMS").removeAttr("style");
+            }
+            else if (index == "NOZZLESS") {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").css({ "background": colorTabsSelect});
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").removeAttr("style");
+            }
+            else if (index == "LIGHTNING_ROD") {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").css({ "background": colorTabsSelect });
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").removeAttr("style");
+                 $("#NORMS").removeAttr("style");
+            }
+            else if (index == "CHANGENS") {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").css({ "background": colorTabsSelect});
+                $("#TEST_LABS").removeAttr("style");
+                 $("#NORMS").removeAttr("style");
+            }
+            else if (index == "TEST_LABS") {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").css({ "background": colorTabsSelect });
+                 $("#NORMS").removeAttr("style");
+            } else  {
+                $("#GENERAL").removeAttr("style");
+                $("#CHARACTERISTIC").removeAttr("style");
+                $("#WARANTIES").removeAttr("style");
+                $("#NOZZLESS").removeAttr("style");
+                $("#LIGHTNING_ROD").removeAttr("style");
+                $("#CHANGENS").removeAttr("style");
+                $("#TEST_LABS").removeAttr("style");
+                 $("#NORMS").css({ "background": colorTabsSelect });
+            }
+          
+        }
+       
+        function getEquivalencia(position) {
+            GetEquivalenciaJSON(position).then(
+                data => {
+                    if (data !== null && data !== undefined) {
+                        if (position == 1) {
+                            $('#ConexionEquivalente').val(data.response)
+                        }
+                        else if (position == 2) {
+                            $('#ConexionEquivalente_2').val(data.response)
+                        }
+                        else if (position == 3) {
+                            $('#ConexionEquivalente_3').val(data.response)
+                        }
+                        else if (position == 4) {
+                            $('#ConexionEquivalente_4').val(data.response)
+                        }
+
+                    }
+                }
+            );
+
+        }
+
+        async function GetEquivalenciaJSON(position) {
+
+            var path = '/ArtifactRecord/GetEquivalencia';
+            var conexion = "";
+            if (position == 1) {
+                conexion = $('#IdConexionAltaTension').val()
+            }
+            else if (position == 2) {
+                conexion = $('#IdConexionBajaTension').val()
+
+            }
+            else if (position == 3) {
+                conexion = $('#IdConexionSegundaBaja').val()
+
+            }
+            else if (position == 4) {
+
+                conexion = $('#IdConexionTercera ').val()
+            }
+            var url = new URL(domain + path),
+                params = {
+                    pTipoConexion: conexion,
+                    pclaveIdioma: $('#ClaveIdioma').val(),
+
+                }
+
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+            const response = await fetch(url);
+
+            if (response.ok && response.status === 200) {
+
+                const data = await response.json();
+                return data;
+            }
+
+            else {
+
+                return null;
+            }
+
+
+        }
+
+
+
+        function refreshRules(sel) {
+            GetRulesRepJSON($('#NormaEquivalente').val(), $('#ClaveIdioma').val()).then(
+                data => {
+                    if (data !== null && data !== undefined) {
+                        console.log(data.response);
+                        this.RulesArtifacts = [];
+                     
+                        $('#tableNorma tbody > tr').remove();
+                        tableNorma.row($(this).parents('tr'))
+                            .clear()
+                            .draw();
+                        this.RulesArtifacts = data.response;
+                        this.RulesArtifacts.forEach(AddNorm);
+                   
+
+
+                    }
+                }
+            );
+
+        }
+
+        async function GetRulesRepJSON(rule, language) {
+
+            var path = '/ArtifactRecord/GetRulesRep';
+
+            var url = new URL(domain + path),
+                params = {
+                    pRule: rule,
+                    pLanguage: language
+                }
+
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+            const response = await fetch(url);
+
+            if (response.ok && response.status === 200) {
+
+                const data = await response.json();
+                return data;
+            }
+
+            else {
+
+                return null;
+            }
+
+
+        }
+
+        $(document).ready(function () {
+            refreshRules(this);
+            //SET TITLE
+            document.getElementById("titleForm").innerHTML = "Registro de diseño del aparato";
+
+            $("#InvertidoBc").removeAttr('data-val-required');
+            $("#InvertidoBc").removeAttr('data-val'); 
+            
+            $("#InvertidoSc").removeAttr('data-val-required');
+            $("#InvertidoSc").removeAttr('data-val');
+         
+            $(".k-tabstrip-items").removeAttr('style');
+            $(".k-tabstrip-items").attr('style','margin-top: 10px; margin-left: 7px; margin-right: 7px;');
+
+
+
+            $("#ArtifactRecordViewModelForm").kendoValidator({
+                // You can define your custom rules here:
+                //rules: {}
+            });
+            
+            $("form_general_data").kendoValidator({
+                // You can define your custom rules here:
+                //rules: {}
+            });
+
+            $("#home_menu").removeAttr("style");
+            $("#registro_diseno_menu").css({ "background": colorMenuSelect });
+               
+            $("#registrar_tension_placa").removeAttr("style");
+            $("#cargar_plantilla_base").removeAttr("style");
+            $("#resistencia_aislamiento_devanados").removeAttr("style");
+            $("#relacion_de_transformacion").removeAttr("style");
+            $("#relacion_aislamiento_nucleos").removeAttr("style");
+            $("#boquillas_type_brand").removeAttr("style");
+
+            var noSerie = '@Model.NoSerie?.Trim()';
+            if ($.trim(noSerie).length > 0) {
+                var splited = noSerie.split('-');
+                document.querySelector('#nroSerieGlobal').value = splited[0];
+                SetNroSerieAllLinks();
+                document.querySelector('#btnRequest').click();
+            }
+        })
+    </script>
+}

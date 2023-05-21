@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SPL.WebApp</title>
+
+    <environment names="Development, Local">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/css/prolec_light.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/sidebar.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/css/prolec_light.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/sidebar.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    </environment>
+
+
+</head>
+<body>
+    <div class="d-flex bg-light-prolec" id="wrapper">
+        </div>
+        <div id="page-content-wrapper">
+            <!-- Page content-->
+                    @RenderBody()
+        </div>
+
+    <environment names="Development, Local">
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+
+        <script src="~/lib/Datatable/dataTables.bootstrap5.min.js.js"></script>
+
+        <script src="~/js/sidebar.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+
+        <script src="~/lib/Datatable/dataTables.bootstrap5.min.js.js"></script>
+
+        <script src="~/js/Commons/ToastSPL.js"></script>
+        <script src="~/js/sidebar.js"></script>
+    </environment>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        var colorMenuSelect = "#F3F3F3";
+    </script>
+</body>
+</html>

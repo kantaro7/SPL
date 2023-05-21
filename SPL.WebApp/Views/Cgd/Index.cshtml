@@ -1,0 +1,207 @@
+﻿
+@using Telerik.Web.Spreadsheet;
+
+@model SPL.WebApp.ViewModels.CgdViewModel
+
+@{ ViewData["Title"] = "Index"; }
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
+            <pane size="25%" scrollable="false" collapsible="true">
+                <kendo-splitter name="vertical" style="height: 100%; width: 100%;" orientation="SplitterOrientation.Vertical">
+                    <pane collapsible="false">
+                        @*MENU LATERAL TREEVIEW*@
+                        <div class="treeview-flex">
+                            <div id="treeview-kendo"></div>
+                        </div>
+                    </pane>
+                </kendo-splitter>
+            </pane>
+            <pane size="75%" scrollable="true" collapsible="true" resizable="true" id="bottom-pane" style="width:100%">
+                <kendo-splitter name="sub-horizontal" style="height: 100%; width: 100%;" orientation="SplitterOrientation.Vertical">
+
+                    <pane id="top-pane" size="40%" scrollable="false" collapsible="true">
+                        @*MENU SUPERIOR*@
+                        <form id="form_menu_sup" kendo-validator="true">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 input-group-sm">
+                                        <div class="btn-group" role="group" style="padding-top:4px">
+                                            <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+                                            <button id="btnSave"  type="button" style="margin-right:8px; font-weight:600; display:none " class="btn btn-primary btn-sm" disabled>Guardar</button>
+                                            <button id="btnLoadTemplate" style="margin-right:8px; font-weight:600; " type="button" class="btn btn-primary btn-sm" disabled>Cargar Plantilla</button>
+                                            <button id="btnValidate" style="margin-right:8px; font-weight:600; display:none " type="button" class="btn btn-primary btn-sm" disabled>Validar/Calcular</button>
+                                            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+                                            <button id="btnInfo" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-info" style="font-size: 1.3rem;"></i></button>
+                                         <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Espere...</span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <div class="col-md-6" style="padding-top:11px">
+                                        <div class="input-group-sm form-floating mb-3">
+                                            <input asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+                                            <label asp-for="NoSerie"></label>
+                                            <span id="NoSerieSpand" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="padding-top:11px">
+                                        <div class="form-floating mb-3">
+                                            <input asp-for="Comments" class="form-control form-control-sm" placeholder="Comments">
+                                            <label asp-for="Comments"></label>
+                                            <span asp-validation-for="Comments" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-12 ">
+                                        <fieldset class="k-form-fieldset ">
+                                          <label id="" style="font-size:18px">Filtro para generar la plantilla</label>
+                                            <div class="row ">
+                                                <div class="col-md-3">
+                                                    <div class="col mb-3">
+                                                        <label class="form-label" asp-for="ClavePrueba"></label>
+                                                        @Html.DropDownListFor(c => c.ClavePrueba, (IEnumerable<SelectListItem>)ViewBag.TestItems, new { @class = "form-select form-select-sm", disabled = "disabled" })
+                                                        <span asp-validation-for="ClavePrueba" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label asp-for="TemperatureHour1"></label>
+                                                        <input asp-for="TemperatureHour1" class="form-control form-control-sm" disabled>
+                                                       @* <span asp-validation-for="TemperatureHour1" class="text-danger"></span>*@
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="col mb-3">
+                                                        <label class="form-label" asp-for="ClaveIdioma"></label>
+                                                        @Html.DropDownListFor(c => c.ClaveIdioma, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm"})
+                                                        <span asp-validation-for="ClaveIdioma" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label asp-for="TemperatureHour2"></label>
+                                                        <input asp-for="TemperatureHour2"  class="form-control form-control-sm" disabled>
+                                                        @*<span asp-validation-for="TemperatureHour2" class="text-danger"></span>*@
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="col mb-3">
+                                                        <label class="form-label" asp-for="OilType"></label>
+                                                        @Html.DropDownListFor(c => c.OilType, (IEnumerable<SelectListItem>)ViewBag.OilTypeItems, new { @class = "form-select form-select-sm"})
+                                                        <span asp-validation-for="OilType" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label asp-for="TemperatureHour3"></label>
+                                                        <input asp-for="TemperatureHour3" class="form-control form-control-sm" disabled>
+                                                   @*     <span asp-validation-for="TemperatureHour3" class="text-danger"></span>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </pane>
+                </kendo-splitter>
+            </pane>
+        </kendo-splitter>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #treeview-kendo .k-sprite {
+        background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+    }
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+</style>
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/Cgd/Cgd.js")"></script>
+
+<script id="treeview" type="text/kendo-ui-template">
+
+    # if (!item.items && item.spriteCssClass && item.status != null && !item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-close telerik-icon'></span>
+    # } else if(!item.items && !item.spriteCssClass && item.status != null && !item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-close telerik-icon'></span>
+    # } else if(item.items && item.spriteCssClass && item.status != null && !item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-check telerik-icon'></span>
+    # } else if(!item.items && item.spriteCssClass && item.status != null && item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-check telerik-icon'></span>
+    # } else if(!item.items && !item.spriteCssClass && item.status != null && item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-check telerik-icon'></span>
+    # } else if (item.items && item.spriteCssClass && item.status != null && item.status){ #
+    #: item.text #
+    # }  else { #
+    #: item.text #
+    # } #
+</script>
+<script>
+    $(document).ready(function () {
+        //SET TITLE
+        document.getElementById("titleForm").innerHTML = "Cromatografía de Gases Disueltos en Aceite";
+
+        var noSerie = '@Model.NoSerie?.Trim()';
+        if ($.trim(noSerie).length > 0) {
+            document.querySelector('#nroSerieGlobal').value = noSerie;
+            SetNroSerieAllLinks();
+            document.querySelector('#btnRequest').click();
+        }
+        
+         $(".k-form-error").css("color","transparent");
+
+      $('#TemperatureHour1').on('input', function () { 
+    this.value = this.value.replace(/[^0-9]/g,'');
+});
+
+     $('#TemperatureHour2').on('input', function () { 
+        this.value = this.value.replace(/[^0-9]/g,'');
+    });
+
+     $('#TemperatureHour3').on('input', function () { 
+        this.value = this.value.replace(/[^0-9]/g,'');
+    });
+
+    })
+</script>

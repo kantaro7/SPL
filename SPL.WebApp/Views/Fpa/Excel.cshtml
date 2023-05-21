@@ -1,0 +1,146 @@
+﻿
+@using Telerik.Web.Spreadsheet;
+
+@model SPL.WebApp.ViewModels.FpaViewModel
+<style>
+
+    .panel {
+        box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+        border-radius: 0;
+        border: 0;
+        margin-bottom: 24px;
+    }
+
+    .panel-dark.panel-colorful {
+        background-color: #3b4146;
+        border-color: #3b4146;
+        color: #fff;
+    }
+
+    .panel-danger.panel-colorful {
+        background-color: #f76c51;
+        border-color: #f76c51;
+        color: #fff;
+    }
+
+    .panel-primary.panel-colorful {
+        background-color: #5fa2dd;
+        border-color: #5fa2dd;
+        color: #fff;
+    }
+
+    .panel-info.panel-colorful {
+        background-color: #4ebcda;
+        border-color: #4ebcda;
+        color: #fff;
+    }
+
+    .panel-body {
+        padding: 25px 20px;
+    }
+
+    .panel hr {
+        border-color: rgba(0,0,0,0.1);
+    }
+
+    .mar-btm {
+        margin-bottom: 15px;
+    }
+
+    h2, .h2 {
+        font-size: 28px;
+    }
+
+    .small, small {
+        font-size: 85%;
+    }
+
+    .text-sm {
+        font-size: .9em;
+    }
+
+    .text-thin {
+        font-weight: 300;
+    }
+
+    .text-semibold {
+        font-weight: 600;
+    }
+</style>
+@{
+    ViewData["Title"] = "Excel"; 
+    Layout = "_LayoutExcel";
+}
+
+
+<button id="btnSave"  type="button" style="margin-right:8px; font-weight:600; display:none " class="btn btn-primary btn-sm" disabled>Guardar</button>
+<button id="btnValidate" style="margin-right:8px; font-weight:600; display:none " type="button" class="btn btn-primary btn-sm" disabled>Validar/Calcular</button>
+<button id="btnRefresh" style="margin-right:8px; font-weight:600; display:none " type="button" class="btn btn-primary btn-sm" disabled>Reiniciar</button>
+<div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Espere...</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
+        <pane size="60%" id="botton-pane" scrollable="false" collapsible="true"  >
+            <div id="spreadsheet" style="width: 100%; height:100%"></div>
+        </pane>
+        </kendo-splitter>
+        
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #treeview-kendo .k-sprite {
+        background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+    }
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+</style>
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/Fpa/Excel.js")"></script>
+
+<script>
+// Variables
+let viewMode = @Html.Raw(Json.Serialize(Model));
+
+
+// Evento
+
+
+$(document).ready(function () {
+
+    if(viewMode.Error == "" ){
+        TodoBien(viewMode);
+    }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: viewMode.Error,
+          allowOutsideClick: false,
+          allowEscapeKey: false
+        }).then((result) => {
+          window.close();
+        })
+    }
+});
+
+</script>

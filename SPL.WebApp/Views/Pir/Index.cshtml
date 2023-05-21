@@ -1,0 +1,289 @@
+﻿
+@using Telerik.Web.Spreadsheet;
+
+@model SPL.WebApp.ViewModels.PirViewModel
+
+
+
+@{ ViewData["Title"] = "Index"; }
+<div id="ModalPDF" class="modal" tabindex="-1">
+    <div class="modal-dialog" style="left: 0!important; right: 0!important; width: 80%!important; width:150px; max-width:80%!important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="gridModalLabel">Documento de ayuda</h3>
+
+                <button type="button" id="btnDeleteNo" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="row">
+
+                <object class="PDFdoc" width="100%" height="600px" type="application/pdf" data="~/HelpDocuments/Reports/Dielectricas/PIR.pdf"></object>
+
+
+
+
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div id="notification-type" class="toast-body-alert">
+                            <div id="notification-message"></div>
+                            <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="modal-footer">
+            <button type="button" id="btnDeleteYes" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>
+            <button type="button" id="btnDeleteNo" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>*@
+        </div>
+    </div>
+</div>
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
+            <pane size="25%" scrollable="false" collapsible="true">
+                <kendo-splitter name="vertical" style="height: 100%; width: 100%;" orientation="SplitterOrientation.Vertical">
+                    <pane collapsible="false">
+                        @*MENU LATERAL TREEVIEW*@
+                        <div class="treeview-flex">
+                            <div id="treeview-kendo"></div>
+                        </div>
+                    </pane>
+                </kendo-splitter>
+            </pane>
+            <pane size="75%" scrollable="true" collapsible="true" resizable="true" id="bottom-pane" style="width:100%">
+                <kendo-splitter name="sub-horizontal" style="height: 100%; width: 100%;" orientation="SplitterOrientation.Vertical">
+
+                    <pane id="top-pane" size="40%" scrollable="false" collapsible="true">
+                        @*MENU SUPERIOR*@
+                        <form id="form_menu_sup" kendo-validator="true">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 input-group-sm">
+                                        <div class="btn-group" role="group" style="padding-top:4px">
+                                            <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+                                            <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; display:none " class="btn btn-primary btn-sm" disabled>Guardar</button>
+                                            <button id="btnLoadTemplate" style="margin-right:8px; font-weight:600; " type="button" class="btn btn-primary btn-sm" disabled>Cargar Plantilla</button>
+                                            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+                                            <button id="btnInfo" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-info" style="font-size: 1.3rem;"></i></button>
+                                            <button id="btnHelp" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm"><i class="bi bi-question-lg"></i></button>
+                                            <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="visually-hidden">Espere...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <br />
+                                    <div class="col-md-6" style="padding-top:11px">
+                                        <div class="input-group-sm form-floating mb-3">
+                                            <input onkeypress="return soloLetrasYNumerosSinEspacio(event)" asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+                                            <label asp-for="NoSerie"></label>
+                                            <span id="NoSerieSpand" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="padding-top:11px">
+                                        <div class="form-floating mb-3">
+                                            <input asp-for="Comments" class="form-control form-control-sm" placeholder="Comments">
+                                            <label asp-for="Comments"></label>
+                                            <span asp-validation-for="Comments" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-12 ">
+                                        <fieldset class="k-form-fieldset ">
+                                            <label id="" style="font-size:18px">Filtro para generar la plantilla</label>
+                                            <div class="row ">
+                                                <div class="col mb-3">
+                                                    <label class="form-label" asp-for="Pruebas"></label>
+                                                    @Html.DropDownListFor(c => c.Pruebas, (IEnumerable<SelectListItem>)ViewBag.TestItems, new { @class = "form-select form-select-sm" })
+                                                    <span asp-validation-for="Pruebas" class="text-danger"></span>
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <label class="form-label" asp-for="Conexion"></label>
+                                                    @Html.ListBoxFor(c => c.Conexion, (IEnumerable<SelectListItem>)ViewBag.ConexionItems, new { @class = "form-select form-select-sm",@id="Connections"})
+                                                    <span asp-validation-for="Conexion" class="text-danger"></span>
+                                                </div>
+                                                <div class="col mb-2">
+                                                    <label class="form-label" asp-for="IncluyeTerciario"></label>
+                                                    @Html.DropDownListFor(c => c.IncluyeTerciario, (IEnumerable<SelectListItem>)ViewBag.IncluyeTerciarioItems, new { @class = "form-select form-select-sm" })
+                                                    <span asp-validation-for="IncluyeTerciario" class="text-danger"></span>
+                                                </div>
+
+                                              
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label class="form-label" asp-for="ClaveIdioma"></label>
+                                                    @Html.DropDownListFor(c => c.ClaveIdioma, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm" })
+                                                    <span asp-validation-for="ClaveIdioma" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </pane>
+                </kendo-splitter>
+            </pane>
+        </kendo-splitter>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #treeview-kendo .k-sprite {
+        background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+    }
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+
+    .container-radio {
+        position: relative;
+        bottom: 10px;
+    }
+</style>
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/Pir/Pir.js")"></script>
+
+<script id="treeview" type="text/kendo-ui-template">
+
+    # if (!item.items && item.spriteCssClass && item.status != null && !item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-close telerik-icon'></span>
+    # } else if(!item.items && !item.spriteCssClass && item.status != null && !item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-close telerik-icon'></span>
+    # } else if(item.items && item.spriteCssClass && item.status != null && !item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-check telerik-icon'></span>
+    # } else if(!item.items && item.spriteCssClass && item.status != null && item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-check telerik-icon'></span>
+    # } else if(!item.items && !item.spriteCssClass && item.status != null && item.status) { #
+    #: item.text #
+    <span class='k-icon k-i-check telerik-icon'></span>
+    # } else if (item.items && item.spriteCssClass && item.status != null && item.status){ #
+    #: item.text #
+    # }  else { #
+    #: item.text #
+    # } #
+</script>
+<script>
+    $("#btnHelp").click(function () {
+        $("#ModalPDF").modal('show');
+    });
+    $(document).ready(function () {
+        //SET TITLE
+        document.getElementById("titleForm").innerHTML = "Impulso por Rayo";
+
+
+        $("#home_menu").removeAttr("style");
+        $("#registro_diseno_menu").removeAttr("style");
+
+        $("#registrar_tension_placa").removeAttr("style");
+        $("#cargar_plantilla_base").removeAttr("style");
+        $("#resistencia_aislamiento_devanados").removeAttr("style");
+        $("#relacion_de_transformacion").removeAttr("style");
+        $("#factor_potencia_capacitancia").css({ "background": colorMenuSelect });
+        $("#boquillas_type_brand").removeAttr("style");
+        
+        var noSerie = '@Model.NoSerie?.Trim()';
+        if ($.trim(noSerie).length > 0) {
+            document.querySelector('#nroSerieGlobal').value = noSerie;
+            SetNroSerieAllLinks();
+            document.querySelector('#btnRequest').click();
+        }
+    })
+
+
+</script>
+
+<script id="fileTemplate" type="text/x-kendo-template">
+    #if (files[0].error)
+    {
+      # <div class="k-file-invalid"> #
+    } #
+
+    #if (files[0].success)
+    {
+      # <div class="k-file-success"> #
+    } #
+          <div class="uno">
+                  <span class="k-progress"></span>
+
+                  #if (!files[0].error)
+                  {
+                        # <span class="k-file-extension-wrapper"><span class="k-file-extension"> #= files[0].extension # #
+                  } #
+                  #if (files[0].error)
+                  {
+                        # <span class="k-file-invalid-extension-wrapper"> <span class="k-file-invalid-icon">! #
+                  } #
+
+                  </span>
+
+                <span class="k-file-state"></span>
+                </span>
+
+                <span class="k-file-name-size-wrapper"  id="wrapper-message">
+                <span #if (files[0].error) { # class="k-file-name k-file-name-invalid" # } #
+                <span #if (files[0].success) { # class="k-file-name k-file-name-success" # } #
+
+                # if (!files[0].error) { # class="k-file-name" # } # > #= name # </span>
+                    #if (files[0].error) { # <span class="k-file-validation-message"> #= files[0].error # </span> # } #
+                    #if (files[0].success) { # <span class="k-file-validation-message k-text-success"> #= files[0].success # </span> # } #
+                    #if (!files[0].error) { var kbSize = kendo.toString(size/1024, "n0"); # <span class="k-file-size">#= kbSize # KB</span> # } #
+                </span>
+        </div>
+        <div class="dos">
+              <strong class="k-upload-status">
+                <button type="button" class="k-button k-upload-action" aria-label="Remove">
+                  <span class="k-icon k-i-close k-i-x" title="Remove"></span>
+                </button>
+              </strong>
+        </div>
+    #if (files[0].error) { # </div> # } #
+
+</script>

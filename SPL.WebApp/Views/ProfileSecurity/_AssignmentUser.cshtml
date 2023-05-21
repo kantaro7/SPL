@@ -1,0 +1,388 @@
+﻿
+@model SPL.WebApp.ViewModels.ProfileSecurity.AssignmentUsersViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<style>
+
+    .internal {
+  display: block;
+  height: 200px;
+  background-color: rgba(233, 233, 233, 0);
+  transition: 1s;
+}
+
+.internal p {
+  margin: 0;
+  padding: 0;
+  transition: 1s;
+  opacity: 0;
+}
+
+.internal:hover {
+  background-color: #80808040;
+}
+
+</style>
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+  <h4>Asignación</h4>
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+
+            <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Guardar</button>
+            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+        </div>
+    </div>
+
+</div>
+
+<br />
+ <form id="form_profiles" enctype="multipart/form-data" kendo-validator="true">
+   <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="row">
+                                                <div class="col-sm-1">
+                                                    <div class="row">
+                                                       <label class="col-form-label" asp-for="UserId"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="">
+                                                           <input asp-for="UserId" class="form-control form-control-sm">
+
+                                                          <span asp-validation-for="UserId" id="UserCustomValidator" class="text-danger k-form-error"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                  <div class="col-sm-1">
+                                                    <div class="row">
+                                                       <label class="col-form-label" asp-for="NameUser"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="">
+                                                           <input asp-for="NameUser" class="form-control form-control-sm" >
+
+                                                          <span asp-validation-for="NameUser" id="NameCustomValidator" class="text-danger k-form-error"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                         </div>
+                                       </div> 
+                                       
+                                       
+                                         <div class="col-md-12" id="partialViewUsers">
+
+                                        </div>
+                            
+
+
+
+                                         <div class="col-md-12">
+                                          <div class="row">
+                                                <div class="col-sm-1">
+                                                    <div class="row">
+                                                    
+                                                        <label class="col-form-label" asp-for="ClavePerfil"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="">
+
+                                                              
+                                                                @Html.DropDownListFor(c => c.ClavePerfil, (IEnumerable<SelectListItem>)ViewBag.Profiles, new { @class = "form-select form-select-sm" })
+                                                                <span asp-validation-for="ClavePerfil" id="ClaveCustomValidator"  class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                         </div>
+                                       </div>
+ 
+    </div>
+  </form>
+
+
+
+    
+<div class="container mt-3">
+
+  <p></p>            
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Nombre</th>
+        <th>Perfil</th>
+         <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in @Model.AssignmentUsersDTO)
+            {
+          <tr onclick="clickAsignacion('@item.UserId','@item.Name','@item.ClavePerfil')">
+            <td>@item.UserId</td>
+            <td>@item.Name</td>
+            <td>@item.ClavePerfil</td>
+          <td><button onclick="DeleteAsignacion('@item.UserId')" type="button" class="deleteRow">
+              <i class="bi bi-trash"></i>
+           </button></td>
+          </tr>
+            }
+   
+     
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div id="mi-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advertencia</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                   ¿Desea eliminar la asignación del perfil para el usuario?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modal-btn-si" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>
+                <button type="button" id="modal-btn-no" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert" role="alert" id="result"></div>
+
+  <script>// Call carousel manually
+
+var nameUser = "";
+var nameIdentificador = "";
+var seleccionado =false;
+
+      $( "#UserId" )
+  .focusout(function() {
+   loadTabUsers(null,null,null,null);
+  })
+  .blur(function() {
+      loadTabUsers(null,null,null,null);
+  });
+
+  function loadTabUsers(id) {
+         
+                $("#loader").css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "/ProfileSecurity/GetTabUser",
+                    data: {name: $("#UserId").val()},
+                      dataType: 'html',
+                    success: function (result) {
+                       $('#partialViewUsers').html(result);  
+                       $("#loader").css("display", "none");
+
+
+                     
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                          $("#loader").css("display", "none");
+                    }
+                });
+
+         } 
+         
+         
+         function clickUser(Name,NameIdentificador) {
+
+              $("#UserCustomValidator").text("");
+              $("#NameCustomValidator").text("");
+              $("#ClaveCustomValidator").text("");
+              seleccionado = true;
+              nameUser = Name;
+              nameIdentificador = NameIdentificador;
+              $("#NameUser").val(Name);
+
+         }
+
+
+
+  var modalConfirm = function(callback){
+          var IdDelete = "";
+ 
+
+  $("#modal-btn-si").on("click", function(){
+    callback(true);
+    $("#mi-modal").modal('hide');
+  });
+  
+  $("#modal-btn-no").on("click", function(){
+    callback(false);
+    $("#mi-modal").modal('hide');
+  });
+};
+
+modalConfirm(function(confirm){
+  if(confirm){
+    //Acciones si el usuario confirma
+    //$("#result").html("CONFIRMADO");
+      DeleteProfileEjecute(IdDelete);
+  }else{
+    //Acciones si el usuario no confirma
+    //$("#result").html("NO CONFIRMADO");
+  }
+});
+
+
+      function DeleteAsignacion(id) {
+           $("#mi-modal").modal('show');
+          IdDelete = id;
+         }
+           function clickAsignacion(UserId,Name,ClavePerfil) {
+
+                  $("#UserCustomValidator").text("");
+              $("#NameCustomValidator").text("");
+              $("#ClaveCustomValidator").text("");
+               
+                              seleccionado = true;
+
+                                $( "#UserId" ).prop( "disabled", true );
+                                $("#UserId").val(UserId);
+                            nameIdentificador = UserId;
+                                $( "#NameUser" ).prop( "disabled", false );
+                                $("#NameUser").val(Name); 
+            
+                                $( "#ClavePerfil" ).prop( "disabled", false );
+                                $("#ClavePerfil").val(ClavePerfil);
+                                    	
+        $( "#partialViewUsers" ).empty();
+
+                        
+                        
+             
+         }
+
+
+
+       function DeleteProfileEjecute(nameIdentificador) {
+
+           var modelFormData = new FormData();
+          modelFormData.append("ClavePerfil", $("#ClavePerfil").val());
+          modelFormData.append("NameUser", nameUser);
+          modelFormData.append("UserId", nameIdentificador);
+         $.ajax({
+              url: "/ProfileSecurity/DeleteAsignacionUser/",
+              method: "POST",
+              contentType: false,
+              processData: false,
+              data: modelFormData,
+              success: function(result) {
+
+                  if (result.response.Code === 1) {
+                       ShowSuccessMessage("Eliminado Exitosamente.")
+                      $("#loader").css("display", "none");
+                         $("#btnClear").trigger('click')
+                        $("#TabAsignacion").trigger('click')
+                  }
+                  else {
+                       ShowFailedMessage(result.response.Description);
+                      $("#loader").css("display", "none");
+                   
+                    
+
+                  }
+
+              }
+
+          });
+         }
+
+
+         
+      $("#btnSave").click(function() {
+          $("#loader").css("display", "block");
+          var validate_form = $("#form_profiles").data("kendoValidator").validate();
+          if (!validate_form) {
+                        $("#loader").css("display", "none");
+              return
+          }
+          if (seleccionado == false) {
+                ShowFailedMessage("Debe seleccionar un usuario");
+          }        
+
+
+          var modelFormData = new FormData();
+          modelFormData.append("ClavePerfil", $("#ClavePerfil").val());
+          modelFormData.append("NameUser",  $("#NameUser").val());
+          modelFormData.append("UserId", nameIdentificador);
+
+
+
+          $.ajax({
+              url: "/ProfileSecurity/SaveAsignacionUser/",
+              method: "POST",
+              contentType: false,
+              processData: false,
+              data: modelFormData,
+              success: function(result) {
+
+                  if (result.response.Code === 1) {
+             
+                      ShowSuccessMessage("Guardado Exitoso.")
+                      $("#loader").css("display", "none");
+                      $("#btnClear").trigger('click')
+                      $("#TabAsignacion").trigger('click')
+
+                  }
+                  else {
+                             $("#loader").css("display", "none");
+                                ShowFailedMessage(result.Description);
+                  }
+
+              }
+
+          });
+      });
+
+
+           
+     
+    $("#btnClear").click(function() {
+              $("#UserCustomValidator").text("");
+              $("#NameCustomValidator").text("");
+              $("#ClaveCustomValidator").text("");
+        $( "#UserId" ).prop( "disabled", false );
+        $("#UserId").val("");
+        $("#NameUser").val("");
+        $("#ClavePerfil").val("");
+        
+        	
+        $( "#partialViewUsers" ).empty();
+        seleccionado = false;
+
+    });
+
+
+
+    </script>
+

@@ -1,0 +1,545 @@
+﻿@model SPL.WebApp.ViewModels.ResistanceTwentyDegreesViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+            <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm" disabled>Guardar</button>
+            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+    <div class="col-md-4">
+        <div class="form-floating mb-3">
+            <input maxlength="55" asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+            <label asp-for="NoSerie"></label>
+            <span id="NoSerieSpand" class="text-danger"></span>
+        </div>
+        <div class="col-sm-6" style="padding-bottom:8px">
+            <span id="lbIsFromSPL" style="display:none" class="badge rounded-pill bg-primary col-md-auto">Diseño registrado en SPL</span>
+            <span id="lbIsFromSIDCO" style="display:none" class="badge rounded-pill bg-secondary col-md-auto">Diseño registrado en SIDCO</span>
+        </div>
+        <div class="col mb-3">
+            <label class="form-label" asp-for="UnitMeasuring"></label>
+            @Html.DropDownListFor(c => c.UnitMeasuring, (IEnumerable<SelectListItem>)ViewBag.UnitMeasuringItems, new { @class = "form-select form-select-sm" })            
+            <span id="UnitMeasuringSpand" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input maxlength="20" asp-for="Temperature" class="form-control form-control-sm" placeholder="Temperature">
+            <label asp-for="Temperature"></label>
+            <span id="TemperatureSpand" class="text-danger"></span>
+        </div>
+    </div>
+    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Espere...</span>
+        </div>
+    </div>
+</div>
+<div class="row" >
+    <div class="col-md-12">
+        <div class="container-fluid">
+            <div id ="strip-container">
+
+                 <div id="tabstrip">
+                            <ul>
+                                <li id="liHX">
+                                    H-X
+                                </li>
+                                <li id="liHN">
+                                    H-N
+                                </li>
+                                <li id="liHH">
+                                    H-H
+                                </li>
+                                <li id="liXX">
+                                    X-X
+                                </li>
+                                 <li id="liXN">
+                                    X-N
+                                 </li>
+                                <li id="liYY">
+                                    Y-Y
+                                </li >
+                                <li id="liYN">
+                                    Y-N
+                                </li>
+                              
+                                 <li id="liLN">
+                                    L-L
+                                </li>
+                                 <li id="liLL">
+                                    L-N
+                                </li>
+                            </ul>
+
+                            <div class="row">
+                                     <div id="divAtHX" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>AT</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionATHX" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalATHX" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableAtHX"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                  <div id="divAtHN" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>AT</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionATHN" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalATHN" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableAtHN"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                   <div id="divAtHH" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>AT</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionATHH" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalATHH" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableAtHH"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+
+                              <div class="row">
+                                <div id="divBtXX" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>BT</strong></label>
+                                           <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionBTXX" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalBTXX" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableBtXX"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="divBtXN" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>BT</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionBTXN" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalBTXN" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableBtXN"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                          
+
+                            <div class="row">
+                                <div id="divTerYY" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>Ter</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionTERYY" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalTERYY" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableTerYY"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="divTerYN" class="col-md-4 text-center" style="">
+                                            <label class="form-label"><strong>Ter</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionTERYN" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalTERYN" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableTerYN"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <!--DIV CORRESPONDIENTES A LN Y LL-->
+
+                            <div class="row">
+                                 <div id="divLL-AT" class="col-md-4" style="">
+                                                <label class="form-label"><strong>AT</strong></label>
+                                                <div class="col-md-12">
+                                                    <div class="input-group-sm mb-3">
+                                                        <div class="form-floating">
+                                                            <input maxlength="150" id="positionATLL" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                            <label class="form-label">No. Posiciones</label>
+                                                            <span id="positionATSpan" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group-sm mb-3">
+                                                        <div class="form-floating">
+                                                            <input maxlength="150" id="nominalATLL" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                            <label class="form-label">Nominal</label>
+                                                            <span id="nominalATSpan" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <div id="tableAtLL"></div>
+                                                    </div>
+                                                </div>
+                                   </div>
+
+                                    <div id="divLL-BT" class="col-md-4" style="">
+                                            <label class="form-label"><strong>BT</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionBTLL" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalBTLL" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableBtLL"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div id="divLL-Ter" class="col-md-4" style="">
+                                            <label class="form-label"><strong>Ter</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionTERLL" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalTERLL" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableTerLL"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                 <div id="divLN-AT" class="col-md-4" style="">
+                                                <label class="form-label"><strong>AT</strong></label>
+                                                <div class="col-md-12">
+                                                    <div class="input-group-sm mb-3">
+                                                        <div class="form-floating">
+                                                            <input maxlength="150" id="positionATLN" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                            <label class="form-label">No. Posiciones</label>
+                                                            <span id="positionATSpan" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group-sm mb-3">
+                                                        <div class="form-floating">
+                                                            <input maxlength="150" id="nominalATLN" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                            <label class="form-label">Nominal</label>
+                                                            <span id="nominalATSpan" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <div id="tableAtLN"></div>
+                                                    </div>
+                                                </div>
+                                   </div>
+
+                                    <div id="divLN-BT" class="col-md-4" style="">
+                                            <label class="form-label"><strong>BT</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionBTLN" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalBTLN" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableBtLN"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div id="divLN-Ter" class="col-md-4" style="">
+                                            <label class="form-label"><strong>Ter</strong></label>
+                                            <div class="col-md-12">
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="positionTERLN" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                                        <label class="form-label">No. Posiciones</label>
+                                                        <span id="positionATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group-sm mb-3">
+                                                    <div class="form-floating">
+                                                        <input maxlength="150" id="nominalTERLN" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                                        <label class="form-label">Nominal</label>
+                                                        <span id="nominalATSpan" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div>
+                                                    <div id="tableTerLN"></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                             <!--DIV CORRESPONDIENTES A LN Y LL-->
+             </div>
+
+            </div>
+        </div>
+     </div>
+</div>
+
+            
+
+<div id="newTensionModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advertencia</h5>
+            </div>
+            <div class="modal-body">
+                <p>Cambió la información de tensión de la placa, ¿Desea ingresar las nuevas posiciones?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnNewTensionYes" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>
+                <button type="button" id="btnNewTensionNo" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+  #divLN-BT , #divLL-BT , #divLN-AT , #divLL-AT ,   #divLN-Ter , #divLL-Ter{
+      float:left;
+      padding:10px
+  }
+  #tabstrip li{
+      display: none;
+  }
+
+</style>
+
+
+@section Scripts
+    {
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/ResistanceTwentyDegrees/ResistanceTwentyDegrees.js")"></script>
+<script>
+    async function onSelect(e) {
+            await Promise.all([timeout(500)]);
+                   $('div[id^="tabstrip-"]').css("height" , "409px")
+     }
+
+     function timeout(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+     }
+
+     async function sleep(fn, ...args) {
+            await timeout(500);
+            return fn(...args);
+     }
+
+
+    $(document).ready(function () {
+
+        var baseUrl = 'https://kendo.cdn.telerik.com/2021.3.914/js/messages/kendo.messages.es-ES.min.js';
+        $.getScript(baseUrl, function () {
+            kendo.ui.progress($("#tableAt"), false);
+        });
+        //SET TITLE
+        document.getElementById("titleForm").innerHTML = "Registrar Resistencia a 20°C";
+
+        var noSerie = '@Model.NoSerie?.Trim()';
+        if ($.trim(noSerie).length > 0) {
+            document.querySelector('#nroSerieGlobal').value = noSerie;
+            SetNroSerieAllLinks();
+        }
+
+          $("#tabstrip").kendoTabStrip({
+                   select: onSelect,
+                   animation:  {
+                            open: {
+                                effects: "fadeIn"
+                            }
+                   }
+          });
+
+          //$('input[id^="position"]').css("display","none")
+          //$('input[id^="nominal"]').css("display","none")
+
+            //$("#home_menu").removeAttr("style");
+            //$("#registro_diseno_menu").removeAttr("style");
+
+            //$("#registrar_resistencia_20_grados").css({ "background": colorMenuSelect });
+            //$("#registrar_tension_placa").removeAttr("style");
+            //$("#cargar_plantilla_base").removeAttr("style");
+            //$("#resistencia_aislamiento_devanados").removeAttr("style");
+            //$("#relacion_de_transformacion").removeAttr("style");
+            //$("#relacion_aislamiento_nucleos").removeAttr("style");
+            //$("#boquillas_type_brand").removeAttr("style");
+    })
+</script>
+}

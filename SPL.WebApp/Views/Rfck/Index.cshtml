@@ -1,0 +1,148 @@
+﻿
+@using Telerik.Web.Spreadsheet;
+
+@model SPL.WebApp.ViewModels.ETD.RfckViewModel
+
+@{ ViewData["Title"] = "Index"; }
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form id="form_menu_sup" kendo-validator="true">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 input-group-sm">
+                        <div class="btn-group" role="group" style="padding-top:4px">
+                            <button id="btnAdd"  type="button" style="margin-right:8px; font-weight:600;" onclick ="AddRowData()" class="btn btn-primary btn-sm">Agregar</button>
+                            @*<button id="btnSave" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Guardar</button>*@
+                            <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Espere...</span>
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br/>
+                <div class="row d-flex justify-content-center" style="background-color:white !important;">
+                    <div class="col-md-12 ">
+                        <fieldset class="k-form-fieldset ">
+                            <div class="row ">
+                                <div class="col" style="overflow-y: scroll; height: 400px">
+                                    <table id="CFTable" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th id="ct">Tipo de Enfriamiento</th>
+                                                <th id="cf">Factor de Correción</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.CorrectionFactors is not null)
+                                            {
+                                                if (Model.CorrectionFactors.Count() > 0)
+                                                {
+                                                    for (int i = 0; i < Model.CorrectionFactors.Count(); i++)
+                                                    {
+                                                        <tr id="Tr_@i">
+                                                            <td id="ct_@i">@Model.CorrectionFactors[i].CoolingType</td>
+                                                            <td id="cf_@i">@Model.CorrectionFactors[i].FactorCorr.ToString("0.00")</td>
+
+                                                            <td id="txtct_@i" style="display:none;">
+                                                                <input type='text' id="inputct_@i" value="@Model.CorrectionFactors[i].CoolingType" />
+                                                            </td>
+                                                            <td id="txtcf_@i" style="display:none;">
+                                                                <input type='number' id="inputcf_@i" value="@Model.CorrectionFactors[i].FactorCorr" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="button" class="btn btn-primary" id="btnEdit_@i" value="Editar" onclick="EditRowData(@i)" />
+
+                                                                <input type="button" class="btn btn-primary" id="btnUpdate_@i" value="Actualizar" onclick="UpdateData(@i)" style="display:none; margin-right: 5px" />
+
+                                                                <input type="button" class="btn btn-primary" id="btnDelete_@i" value="Eliminar" onclick="DeleteData(@i)" />
+
+                                                                <input type="button" class="btn btn-primary" id="btnCancel_@i" value="Cancelar" onclick="RemoveData(@i)" style="display:none; margin-left: 5px" />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #treeview-kendo .k-sprite {
+        background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+    }
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+</style>
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/Rfck/Rfck.js")"></script>
+<script>
+    // Variables
+    let viewMode = @Html.Raw(Json.Serialize(Model));
+    let cant = @Model.CorrectionFactors.Count();
+    // Evento
+    $(document).ready(function () {
+        //SET TITLE
+        document.getElementById("titleForm").innerHTML = "Registrar Factor de Corrección kW por Tipo de Enfriamiento";
+        if(viewMode.Error == "" ){
+            TodoBien(viewMode, cant);
+        }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: viewMode.Error,
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            }).then((result) => {
+            })
+        }
+    });
+
+</script>

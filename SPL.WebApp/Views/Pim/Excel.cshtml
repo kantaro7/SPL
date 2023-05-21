@@ -1,0 +1,168 @@
+﻿
+@using Telerik.Web.Spreadsheet;
+
+@model SPL.WebApp.ViewModels.PimViewModel
+
+@{
+    ViewData["Title"] = "Excel"; 
+    Layout = "_LayoutExcel";
+}
+
+
+<button id="btnSave"  type="button" style="margin-right:8px; font-weight:600; display:none " class="btn btn-primary btn-sm" disabled>Guardar</button>
+<button id="btnValidate" style="margin-right:8px; font-weight:600; display:none " type="button" class="btn btn-primary btn-sm" disabled>Validar/Calcular</button>
+<button id="btnRefresh" style="margin-right:8px; font-weight:600; display:none " type="button" class="btn btn-primary btn-sm" disabled>Reiniciar</button>
+<div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Espere...</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
+        <pane size="60%" id="botton-pane" scrollable="false" collapsible="true"  >
+            <div id="spreadsheet" style="width: 100%; height:100%"></div>
+        </pane>
+        </kendo-splitter>
+        
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalReCalcular" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-close-icon">
+                <button type="button" id="btnDeleteNo" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-header">
+                <br />
+                <br />
+                <div class="col mb-3 form-group">
+                    <label class="form-label mt-4">Seleccione archivos Archivos</label>
+                    <input style="width:470px" onclick="onClickSelect()" class="form-control" id="files" name="files" type="file">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #treeview-kendo .k-sprite {
+        background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+    }
+    .rootfolder { background-position: 0 0; }
+    .folder { background-position: 0 -16px; }
+    .pdf { background-position: 0 -32px; }
+    .html { background-position: 0 -48px; }
+    .image { background-position: 0 -64px; }
+</style>
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/Pim/Excel.js")"></script>
+
+<script>
+// Variables
+let viewMode = @Html.Raw(Json.Serialize(Model));
+
+
+// Evento
+
+
+$(document).ready(function () {
+
+    if(viewMode.Error == "" ){
+        TodoBien(viewMode);
+        
+    }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: viewMode.Error,
+          allowOutsideClick: false,
+          allowEscapeKey: false
+        }).then((result) => {
+          window.close();
+        })
+    }
+
+    $("#files").kendoUpload({
+            async: {
+                autoUpload: false,
+            },
+            localization: {
+                select: 'Seleccion archivos',
+                remove: '',
+                cancel: '',
+                clearSelectedFiles: 'Limpiar',
+                dropFilesHere: 'Arrastre archivos aca',
+                uploadSelectedFiles: 'Cargar'
+            },
+            select: onSelectFiles,
+            template: kendo.template($('#fileTemplate').html())
+        });
+        $('[name="files"]').removeAttr("multiple");
+});
+
+</script>
+
+<script id="fileTemplate" type="text/x-kendo-template">
+    #$('[name="files"]').removeAttr("multiple");#
+    #if (files[0].error)
+    {
+      # <div class="k-file-invalid"> #
+    } #
+
+    #if (files[0].success)
+    {
+      # <div class="k-file-success"> #
+    } #
+          <div class="uno">
+                  <span class="k-progress"></span>
+
+                  #if (!files[0].error)
+                  {
+                        # <span class="k-file-extension-wrapper"><span class="k-file-extension"> #= files[0].extension # #
+                  } #
+                  #if (files[0].error)
+                  {
+                        # <span class="k-file-invalid-extension-wrapper"> <span class="k-file-invalid-icon">! #
+                  } #
+
+                  </span>
+
+                <span class="k-file-state"></span>
+                </span>
+
+                <span class="k-file-name-size-wrapper"  id="wrapper-message">
+                <span #if (files[0].error) { # class="k-file-name k-file-name-invalid" # } #
+                <span #if (files[0].success) { # class="k-file-name k-file-name-success" # } #
+
+                # if (!files[0].error) { # class="k-file-name" # } # > #= name # </span>
+                    #if (files[0].error) { # <span class="k-file-validation-message"> #= files[0].error # </span> # } #
+                    #if (files[0].success) { # <span class="k-file-validation-message k-text-success"> #= files[0].success # </span> # } #
+                    #if (!files[0].error) { var kbSize = kendo.toString(size/1024, "n0"); # <span class="k-file-size">#= kbSize # KB</span> # } #
+                </span>
+        </div>
+        <div class="dos">
+              <strong class="k-upload-status">
+                <button type="button" class="k-button k-upload-action" aria-label="Remove">
+                  <span class="k-icon k-i-close k-i-x" title="Remove"></span>
+                </button>
+              </strong>
+        </div>
+    #if (files[0].error) { # </div> # } #
+
+</script>

@@ -1,0 +1,131 @@
+﻿@model IEnumerable<SPL.WebApp.Models.SplInfoGeneralRan>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="k-button">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoSerie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoPrueba)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClaveIdioma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resultado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreArchivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Archivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoReporte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClavePrueba)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantMediciones)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creadopor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fechacreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modificadopor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fechamodificacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoSerie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoPrueba)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClaveIdioma)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resultado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreArchivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Archivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoReporte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClavePrueba)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantMediciones)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creadopor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fechacreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modificadopor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fechamodificacion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdRep" class="k-button k-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdRep" class="k-button">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdRep" class="k-button">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

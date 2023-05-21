@@ -1,0 +1,1887 @@
+﻿{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/GeneralArtifact",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GeneralArtifact?nroSerie={noSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateGeneralArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateGeneralArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/CheckNumberOrder/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/checkNumberOrder/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/CheckBoqTerciary/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/checkBoqTerciary/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetLenguageEquivalents",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getLenguageEquivalents",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateNozzlesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateNozzlesArtifact",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateChangingTablesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateChangingTablesArtifact",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateCharacteristicsArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateCharacteristicsArtifact",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateLightningRodArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateLightningRodArtifact",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateRulesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateRulesArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateWarrantiesArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateWarrantiesArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/UpdateLabTestsArtifact",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/updateLabTestsArtifact",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetCharacteristics/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getCharacteristics/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetTapBaan/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getTapBaan/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetPlateTension/{unit}/{typeVoltage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getPlateTension/{unit}/{typeVoltage}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetTensionOriginalPlate/{unit}/{typeVoltage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/PlateTension/getTensionOriginalPlate/{unit}/{typeVoltage}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/PlateTension/{StatusDelete}",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+
+        }
+      ],
+      "DownstreamPathTemplate": "/{StatusDelete}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate/GetConsolidatedReportTemplate/{keyLanguage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate/getConsolidatedReportTemplate/{keyLanguage}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate/SaveConsolidatedReportTemplate",
+      "UpstreamHttpMethod": [ "Put", "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate/saveConsolidatedReportTemplate",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/BaseTemplate/{typeReport}/{keyTest}/{keyLanguage}/{nroColumns}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/BaseTemplate/{typeReport}/{keyTest}/{keyLanguage}/{nroColumns}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetResistDesign",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/GetResistDesign",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetResistDesignCustom",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/GetResistDesignCustom",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/SaveResistDesign",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/GeneralArtifact/SaveResistDesign",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetCatSidco",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getCatSidco",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetCatSidcoOthers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getCatSidcoOthers",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetEquivalentsAngularDisplacement",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getEquivalentsAngularDisplacement",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetInformationLaboratories",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInformationLaboratories",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetLanguageEquivalents",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getLenguageEquivalents",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetRulesEquivalents",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getRuleEquivalents",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetUnitTypes",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getUnitTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetRulesRep?pRule={pRule}&pLenguage={pLenguage}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getRulesRep/{pRule}/{pLenguage}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetConfigFile/{module}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getConfigurationFiles/{module}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getContGasCGD/{IdReport}/{KeyTests}/{TypeOil}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInfoContGasCGD/{IdReport}/{KeyTests}/{TypeOil}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getContGasRCT/{IdReport}/{KeyTests}/{TypeOil}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInfoContGasRCT/{IdReport}/{KeyTests}/{TypeOil}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveInfoContGasCGD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/SaveInfoContGasCGD",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/deleteInfoContGasCGD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/DeleteInfoContGasCGD",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/Sidco?nroSerie={nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco?nroSerie={nroSerie}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/GetTypeTransformers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getTypeTransformers",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetApplications",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getApplications",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetAngularDisplacement",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getAngularDisplacement",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetLenguages",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getLenguages",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetApplicableRule",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getApplicableRule",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetConnectionTypes",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getConnectionTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetOperativeConditions",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5006
+        }
+      ],
+      "DownstreamPathTemplate": "/Sidco/getOperativeConditions",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Reports/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/ReportsFilter/{nroSerie}/{typeReport}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getResultDetailsReports/{nroSerie}/{typeReport}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/GetThirdWinding",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "DownstreamPathTemplate": "/Masters/getThirdWinding",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/{typeReport}/{keyTest}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/{typeReport}/{keyTest}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRAD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/calculeTestRAD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRAD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/calculeTestRAD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestNRA",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestNRA",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRAN",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRAN",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRYE",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRYE",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestTAP",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestTAP",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestFPC",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestFPC",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestCGD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestCGD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestFPA",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestFPA",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRDD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRDD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestROD",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestROD",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestRCT",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestRCT",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestFPB",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestFPB",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPCE",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPCE",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPCI",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPCI",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestPLR",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestPLR",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestISZ",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestISZ",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestTDP",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestTDP",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/Tests/calculeTestDPR",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/CalculeTestDPR",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePLRReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePLRReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveISZReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveISZReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRADReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRADReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRDTReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRDTReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveINDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveINDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveFPCReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveFPCReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCGDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveCGDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveFPAReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveFPAReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRDDReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRDDReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRYEReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRYEReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTAPReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveTAPReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRODReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRODReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRCTReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveRCTReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTDPReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveTDPReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveDPRReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveDPRReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveFPBReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveFPBReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePCEReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePCEReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePCIReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePCIReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveNRAReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveNRAReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCEMReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveCEMReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePIRReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePIRReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/savePIMReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/savePIMReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveBPCReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveBPCReport",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/saveTINReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveTINReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveARFReport",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/saveARFReport",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getCorrectionFactorSpecification/{Specification}/{Temperature}/{CorrectionFactor}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCorrectionFactorSpecification/{Specification}/{Temperature}/{CorrectionFactor}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCorrectionFactorSpecification",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCorrectionFactorSpecification",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteCorrectionFactorSpecification",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteCorrectionFactorSpecification",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getCorrectionFactorsXMarksXTypes",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCorrectionFactorsXMarksXTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getNozzleMarks/{pIdMark}/{pStatus}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getNozzleMarks/{pIdMark}/{pStatus}",
+      "DownstreamScheme": "https"
+    },
+    "-",
+    {
+      "UpstreamPathTemplate": "/api/getTypeXMarksNozzle/{pIdMark}/{pStatus}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getTypeXMarksNozzle/{pIdMark}/{pStatus}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteCorrectionFactorsXMarksXTypes",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteCorrectionFactorsXMarksXTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCorrectionFactorsXMarksXTypes",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCorrectionFactorsXMarksXTypes",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getNozzleTypesByBrand/{pIdMark}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getNozzleTypesByBrand/{pIdMark}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getValidationTestsISZ",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getValidationTestsISZ",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveTypeNozzleMarks",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveNozzleTypesByBrand",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/DeleteTypeNozzleMarks",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteNozzleTypesByBrand",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getNozzleBrands/{pIdMark}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getNozzleBrands/{pIdMark}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveNozzleBrands",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveNozzleBrands",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteNozzleBrands",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/deleteNozzleBrands",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getRecordNozzleInformation/{nroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/Nozzle/getRecordNozzleInformation/{nroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveRecordNozzleInformation",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "DownstreamPathTemplate": "/Nozzle/saveRecordNozzleInformation",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/test",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/test",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getPDFReports/{code}/{typeReport}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getPDFReports/{code}/{typeReport}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getA",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getA/{noSerie}/{windingMaterial}/{capacity}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportROD",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportROD/{NroSerie}/{KeyTest}/{TestConnection}/{WindingMaterial}/{UnitOfMeasurement}/{Result}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportRCT",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportRCT/{NroSerie}/{KeyTests}/{Result}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportPCE",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportPCE/{NroSerie}/{KeyTest}/{Result}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInfoReportFPC",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getInfoReportFPC/{NroSerie}/{KeyTest}/{Lenguage}/{UnitType}/{VoltageLevel}/{Frecuency}/{Result}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInformationOctaves/{NroSerie}/{TypeInformation}/{DateData}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInformationOctaves/{NroSerie}/{TypeInformation}/{DateData}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/ImportInformationOctaves",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/importinformationoctaves",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/UpdateInformationOctaves",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/updateinformationoctaves",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getStabilizationDesignData/{NroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getStabilizationDesignData/{NroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveStabilizationDesignData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveStabilizationDesignData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getCorrectionFactorkWTypeCooling",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCorrectionFactorkWTypeCooling",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCorrectionFactorkWTypeCooling",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCorrectionFactorkWTypeCooling",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getStabilizationData",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getStabilizationData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveStabilizationData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveStabilizationData",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/closeStabilizationData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/closeStabilizationData",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/getCuttingDatas/{NroSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getCuttingDatas/{NroSerie}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getInfoHeaderCuttingData/{IdCut}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/getInfoHeaderCuttingData/{IdCut}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/saveCuttingData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "DownstreamPathTemplate": "/Configuration/saveCuttingData",
+      "DownstreamScheme": "https"
+    },
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/calculeTestStabilizationData",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5010
+        }
+      ],
+      "DownstreamPathTemplate": "/Tests/calculeTestStabilizationData",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/deleteAssignmentProfilesUsers",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/deleteAssignmentProfilesUsers",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/deleteProfiles",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/deleteProfiles",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getAssignmentProfiles/{Profile}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getAssignmentProfiles/{Profile}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getOptionsMenu",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getOptionsMenu",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getPermissionsProfile/{Profile}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getPermissionsProfile/{Profile}",
+      "DownstreamScheme": "https"
+    },
+
+    {
+      "UpstreamPathTemplate": "/api/getProfiles/{Profile}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getProfiles/{Profile}",
+      "DownstreamScheme": "https"
+    },
+
+
+
+
+    {
+      "UpstreamPathTemplate": "/api/GetPermissionUsers/{IdUser}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/GetPermissionUsers/{IdUser}",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/getUsers",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/getUsers",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveAssignmentProfilesUsers",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/saveAssignmentProfilesUsers",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/savePermissions",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/savePermissions",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveProfiles",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/saveProfiles",
+      "DownstreamScheme": "https"
+    },
+
+
+    {
+      "UpstreamPathTemplate": "/api/saveUsers",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5012
+        }
+      ],
+      "DownstreamPathTemplate": "/Security/saveUsers",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getTypeSectionConsolidatedReport/{noSerie}/{languaje}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getTypeSectionConsolidatedReport/{noSerie}/{languaje}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/checkInfoRod/{noSerie}/{windingMaterial}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/checkInfoRod/{noSerie}/{windingMaterial}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/checkInfoPce/{noSerie}/{capacity}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/checkInfoPce/{noSerie}/{capacity}/{atPositions}/{btPositions}/{terPositions}/{isAT}/{isBT}/{isTer}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getConsolidatedReport/{noSerie}/{languaje}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getConsolidatedReport/{noSerie}/{languaje}",
+      "DownstreamScheme": "https"
+    },
+    {
+      "UpstreamPathTemplate": "/api/getTestedReport/{noSerie}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5008
+        }
+      ],
+      "DownstreamPathTemplate": "/Reports/getTestedReport/{noSerie}",
+      "DownstreamScheme": "https"
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5001"
+  }
+}

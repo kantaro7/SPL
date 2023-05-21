@@ -1,0 +1,201 @@
+﻿@model SPL.WebApp.ViewModels.PlateTensionViewModel
+
+@{ ViewData["Title"] = "Index"; }
+
+
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+            <button id="btnSave" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm" disabled>Guardar</button>
+            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+           <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="visually-hidden">Espere...</span>
+                                                </div>
+                                            </div>
+       
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+    <div class="col-md-4">
+
+
+        <div class="form-floating mb-3">
+            <input maxlength="55" asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+            <label asp-for="NoSerie"></label>
+            <span id="NoSerieSpand" class="text-danger"></span>
+
+        </div>
+        <div class="col-sm-6" style="padding-bottom:8px">
+            <span id="lbIsFromSPL" style="display:none" class="badge rounded-pill bg-primary col-md-auto">Diseño registrado en SPL</span>
+            <span id="lbIsFromSIDCO" style="display:none" class="badge rounded-pill bg-secondary col-md-auto">Diseño registrado en SIDCO</span>
+        </div>
+
+    </div>
+    @*<div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Espere...</span>
+        </div>
+    </div>*@
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-fluid" style="background-color:white !important;">
+            <div class="row">
+                <div id="DivAT" class="col-md-4 text-center" style="display:none">
+                    <label class="form-label"><strong>AT</strong></label>
+                    <div class="col-md-12">
+                        <div class="input-group-sm mb-3">
+                            <div class="form-floating">
+                                <input maxlength="150" id="positionAT" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                <label class="form-label">No. Posiciones</label>
+                                <span id="positionATSpan" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="input-group-sm mb-3">
+                            <div class="form-floating">
+                                <input maxlength="150" id="nominalAT" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                <label class="form-label">Nominal</label>
+                                <span id="nominalATSpan" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div>
+                            <div id="tableAt"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="DivBT" class="col-md-4 text-center" style="display:none">
+                    <label class="form-label"><strong>BT</strong></label>
+                    <div class="col-md-12">
+                        <div class="input-group-sm mb-3">
+                            <div class="form-floating">
+                                <input maxlength="150" id="positionBT" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                <label class="form-label">No. Posiciones</label>
+                                <span id="positionATSpan" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="input-group-sm mb-3">
+                            <div class="form-floating">
+                                <input maxlength="150" id="nominalBT" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                <label class="form-label">Nominal</label>
+                                <span id="nominalATSpan" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div>
+                            <div id="tableBt"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="DivTer" class="col-md-4 text-center" style="display:none">
+                    <label class="form-label"><strong>Ter</strong></label>
+                    <div class="col-md-12">
+                        <div class="input-group-sm mb-3">
+                            <div class="form-floating">
+                                <input maxlength="150" id="positionTER" class="form-control form-control-sm" placeholder="No. Posiciones" disabled>
+                                <label class="form-label">No. Posiciones</label>
+                                <span id="positionATSpan" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="input-group-sm mb-3">
+                            <div class="form-floating">
+                                <input maxlength="150" id="nominalTER" class="form-control form-control-sm" placeholder="Nominal" disabled>
+                                <label class="form-label">Nominal</label>
+                                <span id="nominalTerSpan" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div>
+                            <div id="tableTer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="notification-type" class="toast-body-alert">
+                        <div id="notification-message"></div>
+                        <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="newTensionModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advertencia</h5>
+            </div>
+            <div class="modal-body">
+                <p>Cambio la información de cambiadores en el registro de información del aparato, ¿Desea ingresar la tensión para las nuevas posiciones de los cambiadores?.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnNewTensionYes" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>
+                <button type="button" id="btnNewTensionNo" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+
+    <script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/js/PlateTension/PlateTension.js")"></script>
+    <script>
+
+
+        $(document).ready(function () {
+
+            var baseUrl = 'https://kendo.cdn.telerik.com/2021.3.914/js/messages/kendo.messages.es-ES.min.js';
+            $.getScript(baseUrl, function () {
+                kendo.ui.progress($("#tableAt"), false);
+            });
+            //SET TITLE
+            document.getElementById("titleForm").innerHTML = "Registrar tensión de la placa";
+
+                $("#home_menu").removeAttr("style");
+                $("#registro_diseno_menu").removeAttr("style");
+               
+                $("#registrar_tension_placa").css({ "background": colorMenuSelect });
+                $("#cargar_plantilla_base").removeAttr("style");
+                $("#resistencia_aislamiento_devanados").removeAttr("style");
+                $("#relacion_de_transformacion").removeAttr("style");
+                $("#relacion_aislamiento_nucleos").removeAttr("style");
+                $("#boquillas_type_brand").removeAttr("style");
+
+                var noSerie = '@Model.NoSerie?.Trim()';
+                if ($.trim(noSerie).length > 0) {
+                    document.querySelector('#nroSerieGlobal').value = noSerie;
+                    SetNroSerieAllLinks();
+                    document.querySelector('#btnRequest').click();
+                }
+        })
+    </script>
+}

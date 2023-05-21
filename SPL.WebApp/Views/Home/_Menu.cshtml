@@ -1,0 +1,514 @@
+﻿ 
+@model IEnumerable<SPL.WebApp.Domain.DTOs.ProfileSecurity.UserPermissionsDTO>
+
+
+
+ 
+
+	<ul class="list-unstyled components mb-5" id="menu">
+
+      
+
+                            <li>
+                                <input class="form-control form-control-sm" placeholder="NoSerie" id="nroSerieGlobal">
+                            </li>
+                            <li class="active">
+                                <a href="#" class="nav-link align-middle px-0">
+                                    <i class="bi-grid overi" style="color: black;"></i> <span style="color: black;" class="ms-1 d-sm-inline">Inicio</span>
+                                </a>
+                            </li>
+
+
+
+
+
+                           @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "1"))
+                          {
+                                  <li id="Id_liArtifactDesing">
+                            <a asp-controller="ArtifactRecord" asp-action="Index" class="nav-link align-middle px-0 overover">
+                                <i class="bi-cpu overi" style="color: black;"></i> <span class="ms-1  d-sm-inline" style="color: black;">Diseño del aparato</span>
+                            </a>
+            </li>
+            
+        }
+                       
+                            
+                      
+                            @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "2"))
+                          {  
+                            
+                    <li id="Id_platetension">
+                        <a asp-controller="PlateTension" asp-action="Index" class="nav-link align-middle px-0 overover">
+                            <i class="bi-aspect-ratio overi" style="color: black;"></i> <span class="ms-1 d-sm-inline" style="color: black;">Tensión de la placa</span>
+                        </a>
+                    </li>
+                       
+                          }
+
+                          
+                            @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "3"))
+                          {  
+                    <li id="Id_resistencias20">
+                        <a asp-controller="ResistanceTwentyDegrees" asp-action="Index" class="nav-link align-middle px-0 overover">
+                            <i class="bi-aspect-ratio overi" style="color: black;"></i> <span class="ms-1 d-sm-inline" style="color: black;">Resistencia a 20°C</span>
+                        </a>
+                    </li>
+                       
+                          }
+                             @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "4"))
+                          { 
+                    <li id="Id_infoboquillas">
+                        <a asp-controller="NozzleInformation" asp-action="Index" class="nav-link align-middle px-0 overover">
+                            <i class="bi-aspect-ratio overi" style="color: black;"></i> <span class="ms-1 d-sm-inline" style="color: black;">Información de boquillas</span>
+                        </a>
+                    </li>
+                       
+                          }
+        @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "5"))
+        {
+            <li id="Id_infooctavas">
+                <a asp-controller="Onaf" asp-action="Index"  class="nav-link align-middle px-0 overover">
+                    <i class="bi-aspect-ratio overi" style="color: black;"></i> <span class="ms-1 d-sm-inline" style="color: black;">Información de octavas</span>
+                </a>
+            </li>
+               
+        }
+          @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "6"))
+        {
+        <li  id="Id_consultpruebas">
+                        <a asp-controller="ReportePruebas"  asp-action="Index" class="nav-link align-middle px-0 overover">
+                            <i class="bi-file-earmark-ruled overi" style="color: black;"></i> <span class="ms-1 d-sm-inline" style="color: black;">Consulta de Pruebas </span>
+                        </a>
+                    </li>
+                       
+        }
+          @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "7"))
+        {
+                    <li  id="Id_reportconsolidado">
+                        <a asp-controller="ReporteConsolidado"  asp-action="Index" class="nav-link align-middle px-0 overover">
+                            <i class="bi-file-earmark-ruled overi" style="color: black;"></i> <span class="ms-1 d-sm-inline" style="color: black;">Reporte Consolidado  </span>
+                        </a>
+                    </li>
+                       
+        }
+
+         @if (Model.ToList().Exists(x=>Convert.ToInt32(x.ClaveOpcion) >= 9 || Convert.ToInt32(x.ClaveOpcion) <=42 ))
+        {
+            <li  id="Id_reportes">
+                <a href="#reportesSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link"><i class="bi-clipboard-check overi" style="color: black;"></i> <span class="ms-1  d-sm-inline" style="color: black;">Reportes</span></a>
+                <ul class="collapse show nav flex-column ms-1" id="reportesSubmenu" data-bs-parent="#menu" >
+                    @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 10 && Convert.ToInt32(x.ClaveOpcion) <= 15))
+                    {
+                        <li>
+                            <a href="#preliminaresSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;">Pruebas Preliminares</a>
+                        <ul class="collapse list-unstyled" id="preliminaresSubmenu" data-bs-parent="#reportesSubmenu">
+                              @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "10"))
+                            {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Rad" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Resistencia de Aislamiento a los Devanados</span>  </a>
+                            </li>
+                               
+                             }
+
+                               @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "11"))
+                                {
+                                    <li>
+                                        <a style="text-decoration: none;" asp-controller="Rdt" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Relación de Transformación </span> </a>
+                                    </li>
+                                }
+
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "12"))
+                                {
+                                    <li>
+                                        <a style="text-decoration: none;" asp-controller="Ran" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Resistencia de Aislamiento de los Núcleos y Herrajes </span> </a>
+                                    </li>
+                                       
+                                }
+
+                                 @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "13"))
+                                {
+                                <li>
+                                <a style="text-decoration: none;" asp-controller="Fpc" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Factor de Potencia y Capacitancia  </span> </a>
+                                </li>
+                                   
+                                }
+
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "14"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Fpb" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Factor de Potencia y Capacitancia de Boquillas  </span> </a>
+                            </li>
+                               
+                                }
+
+                           @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "15"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Rod" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Resistencia Óhmica de los Devanados   </span> </a>
+                            </li>
+                               
+                                }
+                        </ul>
+                    </li>
+                    }
+
+                     @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 16 && Convert.ToInt32(x.ClaveOpcion) <= 23))
+                    {
+                        <li>
+                            <a href="#funcionalesSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;">Pruebas Funcionales</a>
+                        <ul class="collapse list-unstyled" id="funcionalesSubmenu" data-bs-parent="#reportesSubmenu">
+                           
+                               @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "17"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Rct" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Resistencia Óhmica para el Corte de Temperatura</span>  </a>
+                            </li>
+                               
+                                }
+                                @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "18"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Pce" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Pérdidas en Vacío y Corriente de Excitación </span> </a>
+                            </li>
+                               
+                                }
+
+                                @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "19"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Isz" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Impedancia de Secuencia Cero</span> </a>
+                            </li>
+                               
+                                }
+
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "20"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Pci" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Pérdidas Debidas a la Carga e Impedancia </span> </a>
+                            </li>
+                               
+                                }
+
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "21"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Pee" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Pérdidas del Equipo de Enfriamiento  </span> </a>
+                            </li>
+                               
+                                }
+                                      @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "22"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Rye" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Regulación y Eficiencia  </span> </a>
+                            </li>
+                               
+                                }
+                                      @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "23"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Nra" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Ruido Audible </span> </a>
+                            </li>
+                               
+                                }
+                        </ul>
+                    </li>
+                    }
+
+                     @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 24 && Convert.ToInt32(x.ClaveOpcion) <= 29))
+                    {
+
+                    <li>
+                        <a href="#dielectricasSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;">Pruebas Dieléctricas</a>
+                        <ul class="collapse list-unstyled" id="dielectricasSubmenu" data-bs-parent="#reportesSubmenu">
+                            
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "25"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Pim" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Impulso por Maniobra</span> </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "26"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Pir" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Impulso por Rayo</span> </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "27"))
+                                {
+                            <li>
+                                <a  style="text-decoration: none;" asp-controller="Tap" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Tensión Aplicada</span>  </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "28"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Tin" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Tensión Inducida</span>  </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "29"))
+                                {
+
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Tdp" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Tensión Inducida con Medición de Descargas Parciales  </span> </a>
+                            </li>
+                               
+                                }
+
+                        </ul>
+                    </li>
+                    }
+
+
+
+
+                       @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 30 && Convert.ToInt32(x.ClaveOpcion) <= 33))
+                    {
+                    <li>
+                        <a href="#diagnosticoSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;">Pruebas Diagnóstico</a>
+                        <ul class="collapse list-unstyled" id="diagnosticoSubmenu" data-bs-parent="#reportesSubmenu">
+                           @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "31"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Cem" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Corriente de Excitación Monofásica</span>  </a>
+                            </li>
+                               
+                                }
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "32"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Rdd" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Reactancia de Fuga</span>  </a>
+                            </li>
+                               
+                                }
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "33"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Arf" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Análisis de la Respuesta al Barrido de la Frecuencia</span> </a>
+                            </li>
+                               
+                                }
+                        </ul>
+                    </li>
+                    }
+
+                        @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 34 && Convert.ToInt32(x.ClaveOpcion) <= 37))
+                    {
+
+                    <li>
+                        <a href="#reactoresSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;">Pruebas Reactores</a>
+                        <ul class="collapse list-unstyled" id="reactoresSubmenu" data-bs-parent="#reportesSubmenu">
+                           
+                                @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "35"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Plr" class="overover" asp-action="Index"> <span style="color: black;" class=" d-sm-inline">Linealidad y Reactancia en Reactores de Potencia en Derivación</span>  </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "36"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Prd" class="overover" asp-action="Index"> <span style="color: black;" class=" d-sm-inline">Pérdidas Totales en Reactores de Derivación </span>  </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "37"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Dpr" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Sobrevoltaje con Medición de Descargas Parciales a Reactores de Derivación </span> </a>
+                            </li>
+                               
+                                }
+
+                        </ul>
+                    </li>
+                    }
+
+
+                           @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 38 && Convert.ToInt32(x.ClaveOpcion) <= 41))
+                                {
+
+
+
+                           <li>
+                                <a href="#aceitesSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;">Pruebas de Aceites</a>
+                        <ul class="collapse list-unstyled" id="aceitesSubmenu" data-bs-parent="#reportesSubmenu">
+                            @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "39"))
+                                {
+                            
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Cgd" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Cromatografía de Gases Disueltos en Aceite</span>  </a>
+                            </li>
+                               
+                                }
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "40"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Fpa" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Factor de Potencia en Aceite</span>  </a>
+                            </li>
+                               
+                                }
+
+                                   @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "41"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Bpc" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Contenido de PCB’s</span>  </a>
+                            </li>
+                               
+                                }
+                        </ul>
+                    </li>
+                    }
+                         @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "42"))
+                                {
+                    <li >
+                        <a asp-controller="Ind"  asp-action="Index" class="nav-link align-middle px-0">
+                            <i class="bi-grid overi" style="color: black;"></i> <span style="color: black;" class="ms-1 d-sm-inline">Indice 2019</span>
+                        </a>
+                    </li>
+                       
+                                }
+                </ul>
+            </li>
+
+
+        }
+
+           @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 43 && Convert.ToInt32(x.ClaveOpcion) <= 48))
+                    {
+
+
+                        <li>
+                            <a href="#catalogoSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link"><i class="bi bi-gear  overi" style="color: black;"></i> <span class="ms-1 d-sm-inline " style="color: black;">Catálogos</span></a>
+						<ul class="collapse list-unstyled" id="catalogoSubmenu" data-bs-parent="#menu">
+                           
+                              @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "44"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="Mark" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Marcas de Boquillas</span> </a>
+                            </li>
+                               
+                                }
+
+                                  @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "45"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="NozzleBrandType" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Tipos de Boquillas por Marca</span> </a>
+                            </li>
+                               
+                                }
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "46"))
+                                {
+                            <li >
+                                <a style="text-decoration: none;" asp-controller="CorrectionFactor" class="overover" asp-action="FactorPorEspecificacion"> <span class=" d-sm-inline" style="color: black;">Factor de Corrección para %FP por Especificación</span> </a>
+                            </li>
+                               
+                                }
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "47"))
+                                {
+                                    <li>
+                                        <a style="text-decoration: none;" asp-controller="CorrectionFactor" class="overover" asp-action="FactorMarcaTipo"> <span class=" d-sm-inline" style="color: black;">Factor de Corrección para %FP por Marca y Tipo</span> </a>
+                            </li>
+                               
+                                }
+                                    @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "48"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="LimitCgd" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Límite Máximo de % Contenido de Gas</span> </a>
+                            </li>
+                               
+                                }
+						</ul>
+					</li>
+                    }
+
+
+
+                   @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >= 49 && Convert.ToInt32(x.ClaveOpcion) <= 57))
+                    {
+                        <li>
+                            <a href="#configuracionSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link"><i class="bi bi-gear  overi" style="color: black;"></i> <span class="ms-1 d-sm-inline " style="color: black;">Configuración</span></a>
+						<ul class="collapse list-unstyled" id="configuracionSubmenu" data-bs-parent="#menu">
+                              @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "50"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="BaseTemplate" asp-action="Index" class="overover" > <span class=" d-sm-inline" style="color: black;">Plantilla Base Reportes</span> </a>
+                            </li>
+                               
+                                }
+                                     @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "51"))
+                                {
+                            <li>
+                                <a style="text-decoration: none;" asp-controller="BaseTemplateConsolidatedReport" asp-action="Index" class="overover" > <span class=" d-sm-inline" style="color: black;">Plantilla base Reporte Consolidado </span> </a>
+                            </li>
+                               
+                                }
+                             @*   @if (Model.ToList().Exists(x => Convert.ToInt32(x.ClaveOpcion) >=52 && Convert.ToInt32(x.ClaveOpcion) <= 57))
+                                 {
+                                    <li>
+                                        <a href="#etdSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link" style="color: black;"><span  class="ms-1 d-sm-inline " style="color: black;"> Elevación de Temperatura <br /> de los Devanados </span></a>
+                                        <ul class="collapse list-unstyled" id="etdSubmenu" data-bs-parent="#configuracionSubmenu">
+
+                                            @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "53"))
+                                            {
+                                                <li>
+                                                    <a style="text-decoration: none;" asp-controller="Rdde" class="overover" asp-action="Index"> <span style="color: black;" class=" d-sm-inline">Registrar Datos de Diseño para Estabilización </span> </a>
+                                                </li>
+                                                   
+                                            }
+                                             @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "54"))
+                                            {
+                                                <li>
+                                                    <a style="text-decoration: none;" asp-controller="Rfck" class="overover" asp-action="Index"> <span style="color: black;" class=" d-sm-inline">Registrar Factor de Corrección kW por Tipo de Enfriamiento  </span> </a>
+                                                </li>
+                                                   
+                                            }
+                                             @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "55"))
+                                            {
+                                                <li>
+                                                    <a style="text-decoration: none;" asp-controller="Retd" class="overover" asp-action="Index"> <span style="color: black;" class=" d-sm-inline">Registrar/Editar/Consultar Datos de Estabilización (ETD)  </span> </a>
+                                                </li>
+                                                   
+                                            }
+                                             @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "56"))
+                                            {
+                                                <li>
+                                                    <a style="text-decoration: none;" asp-controller="CuttingData" class="overover" asp-action="Index"> <span style="color: black;" class=" d-sm-inline">Datos de Corte de Elevación de Temperatura (ETD)</span> </a>
+                                                </li>
+                                                   
+                                            }
+                                        </ul>
+                                    </li>
+                                }*@
+                               @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "57"))
+                                            {
+                             <li>
+                                <a style="text-decoration: none;" asp-controller="ProfileSecurity" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Seguridad</span> </a>
+                            </li>
+                               
+                                            }
+
+
+                             @if (@Model.ToList().Exists(x=>x.ClaveOpcion  == "58"))
+                                            {
+                             <li>
+                                <a style="text-decoration: none;" asp-controller="EtdFile" class="overover" asp-action="Index"> <span class=" d-sm-inline" style="color: black;">Elevación de Temperatura</span> </a>
+                            </li>
+                               
+                              }
+						</ul>
+					</li>
+                    }
+             
+				</ul>
+     
+
+  
+
+
+			
+

@@ -1,0 +1,185 @@
+﻿@model SPL.WebApp.ViewModels.NozzleMarkViewModel
+
+@{ ViewData["Title"] = "Registrar Marcas de Boquillas"; }
+
+
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button id="btnNew" onclick="newElement()" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Nuevo</button>
+            <button id="btnSave" onclick="editOrSaveRegister()" type="button" disabled style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Guardar</button>
+            <button id="btnDelete" onclick="deleteRegister()" type="button" disabled style="margin-right:8px; font-weight:600; " class="btn btn-primary btn-sm">Eliminar</button>
+            <button id="btnClear" onclick="clearFields()" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+        </div>
+    </div>
+    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Espere...</span>
+        </div>
+    </div>
+    </div>
+
+<br />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form enctype="multipart/form-data" kendo-validator="true" id="form_mark">
+            <div class="container-fluid" style="background-color:white !important;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="col mb-3">
+                            <label asp-for="IdMarca"></label>
+                            <input disabled asp-for="IdMarca" class="form-control form-control-sm">
+                            <span asp-validation-for="IdMarca" class="text-danger"></span>
+                        </div>
+
+                        <div class="col mb-3">
+                            <label asp-for="Descripcion"></label>
+                            <input disabled asp-for="Descripcion" class="form-control form-control-sm">
+                            <span asp-validation-for="Descripcion" class="text-danger"></span>
+                        </div>
+
+                        <div class="col mb-3">
+                            <label class="form-label" asp-for="Estatus"></label>
+                            @Html.DropDownListFor(c => c.Estatus, (IEnumerable<SelectListItem>)ViewBag.Estatus, new { @class = "form-select form-select-sm", @disabled = "disabled" })
+                            <span asp-validation-for="Estatus" class="text-danger"></span>
+                        </div>
+                        <div style="display: none">
+                            <input id="creadopor" type="text" hidden />
+                            <input id="fechacreacion" type="text" hidden />
+                            <input id="modificadopor" type="text" hidden />
+                            <input id="fechamodificacion" type="text" hidden />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="notification-type" class="toast-body-alert">
+                <div id="notification-message"></div>
+                <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="confirmDeleteFactor" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Advertencia</h5>
+            </div>
+            <div class="modal-body">
+                <p>¿Realmente desea eliminar la marca de boquilla?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnDeleteYes" class="btn btn-secondary" data-bs-dismiss="modal">Sí</button>
+                <button type="button" id="btnDeleteNo" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="grid"></div>
+
+
+
+
+@section Scripts
+    {
+
+    <script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+    <script src="@Url.Content("~/js/site.js")"></script>
+    <script src="@Url.Content("~/js/Mark/Mark.js")"></script>
+    <script>
+
+        let modalConfirmDelete = new bootstrap.Modal($("#confirmDeleteFactor"));
+        let itemToDelete;
+        let isSave = false;
+        let b;
+        var op = 0;
+        var dataMap = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.Marks))');
+        let dataS = dataMap.map((item) => {
+            return {
+                Marca: item.IdMarca,
+                Descripción: item.Descripcion,
+                Estatus: item.Estatus ? "Activa" : "In-Activa",
+                Creadopor: item.Creadopor,
+                Fechacreacion: item.Fechacreacion,
+                Modificadopor: item.Modificadopor,
+                Fechamodificacion: item.Fechamodificacion,
+
+            }
+        })
+
+        $(document).ready(function () {
+            $("#grid").kendoGrid({
+                dataSource: dataS,
+                pageable: {
+                    input: false,
+                    numeric: true,
+                    butonCount: 5,
+                    pageSize: 10,
+                    alwaysVisible: true,
+                    previousNext: true
+                },
+                columns: [
+                    { field: "Marca" },
+                    { field: "Descripción" },
+                    { field: "Estatus" },
+                    { hidden: true, field: "Creadopor" },
+                    { hidden: true, field: "Fechacreacion" },
+                    { hidden: true, field: "Modificadopor" },
+                    { hidden: true, field: "Fechamodificacion" },
+                ],
+                selectable: "row",
+                dataBound: function (e) {
+                    var grid = this;
+                    grid.tbody.find("tr").dblclick(function (e) {
+                        var dataItem = grid.dataItem(this);
+                        itemToDelete = grid.dataItem(this);
+                        console.log(itemToDelete);
+                        console.log(dataItem);
+                        $("#IdMarca").val(dataItem.Marca);
+                        $("#Descripcion").val(dataItem.Descripción);
+                        $("#creadopor").val(dataItem.Creadopor);
+                        $("#fechacreacion").val(dataItem.Fechacreacion);
+                        $("#modificadopor").val(dataItem.Modificadopor);
+                        $("#fechamodificacion").val(dataItem.Fechamodificacion);
+                        if(dataItem.Estatus == "Activa"){
+                            $("#Estatus").val("1");
+                        }else{
+                            $("#Estatus").val("0");
+                        }
+                        
+                        $("#IdMarca").prop("disabled", true);
+                        $("#Descripcion").prop("disabled", false);
+                        $("#Estatus").prop("disabled", false);
+                        $("#btnNew").prop("disabled", true);
+                        $("#btnSave").prop("disabled", false);
+                        $("#btnDelete").prop("disabled", false);
+                        $("#btnClear").prop("disabled", false);
+                        isSave = false;
+                    });
+                }
+
+            });
+
+            document.getElementById("titleForm").innerHTML = "Marcas de Boquillas";
+        })
+    </script>
+}

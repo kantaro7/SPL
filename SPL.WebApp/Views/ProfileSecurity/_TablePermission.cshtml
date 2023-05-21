@@ -1,0 +1,175 @@
+﻿ 
+@model SPL.WebApp.ViewModels.ProfileSecurity.UserPermissionsViewModel
+    <div class="border p-5 mb-5">
+        <p style="font-size: 18px;">Distribución de permisos por perfil</p>
+        <p style="font-size: 17px;margin-left:1%">Módulos</p>
+
+        <table class="table table-hover" id="tableOptions">
+            <tbody>
+                @foreach(var item in Model.UserTableRows){
+                <tr>
+                    <th><i class="bi bi-lock"></i>   @item.Option.Descripcion</th>
+                    @if (item.SubMenus.Count == 0 && item.Permissions.Count == 0)
+                    {
+                        @if(item.Option.checkOption){
+                        <th> <input class="form-check-input" type="checkbox" checked  id='checkPadre_@item.Option.Clave' onclick="changeCheck(@item.Option.Clave)"></th>
+                        }
+                        else{
+                        <th> <input class="form-check-input" type="checkbox"  id='checkPadre_@item.Option.Clave' onclick="changeCheck(@item.Option.Clave)"></th>
+                        }
+                    }        
+                </tr>
+                @foreach (var item1 in item.Permissions)
+                {
+                    <tr>
+                        <td>@item1.Descripcion</td>
+                        @if(@item1.checkOption){
+                        <td>  <input class="form-check-input" type="checkbox"  id="checkSub_@item1.Clave" checked onclick="changeCheck(@item1.Clave)"></td>
+                        }
+                        else
+                        {
+                        <td>  <input class="form-check-input" type="checkbox"  id="checkSub_@item1.Clave"  onclick="changeCheck(@item1.Clave)"></td>
+                        }
+                    </tr>
+                }
+                @foreach (var item1 in item.SubMenus) { 
+                    <tr>
+                        <th colspan="4" class="p-0">
+                        <div class="treeview">
+                            <ul class="m-0"> 
+                            <li>
+                                <a class="p-3">@item1.Option.Descripcion</a>
+                                <ul>
+                                <li>
+                                    <table class="table">
+                                        @foreach (var item2 in item1.Permissions) {
+                                            <tr>
+                              
+                                                <td>@item2.Descripcion</td>
+                                                @if(@item2.checkOption){
+                                                        <td>  <input class="form-check-input" type="checkbox"  id="checkSub_@item2.Clave" checked onclick="changeCheck(@item2.Clave)"></td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                            <td>  <input class="form-check-input" type="checkbox"  id="checkSub_@item2.Clave"  onclick="changeCheck(@item2.Clave)"></td>
+                                                    }
+
+                                            </tr>
+                           
+                                        }
+
+
+                     
+                                    </table>
+                                </li>
+
+                                </ul>
+                            </li>
+                            </ul>
+                        </div>
+                        </th>
+                    </tr>
+                    }
+
+            }      
+       
+  
+
+      </tbody>
+    </table>
+
+    <!--/ Copy this code to have a working example -->
+  </div>
+
+<script>
+
+    var dataMap1 =  JSON.parse('@Html.Raw(Json.Serialize(Model.UserTableRows))');
+    function changeCheck(clave) 
+    {
+        console.log(clave);
+        for (i = 0; i < dataMap1.length; i++) {
+            console.log(dataMap1);
+            if (dataMap1[i].Option.Clave == clave) {
+                console.log($("#checkPadre_" + clave).is(":checked"));
+                dataMap1[i].Option.checkOption = $("#checkPadre_" + clave).is(":checked");
+            }
+
+            for (z = 0; z < dataMap1[i].Permissions.length; z++) {
+                console.log("clave permission"+clave);
+                console.log(dataMap1[i].Permissions[z]);
+                if (dataMap1[i].Permissions[z].Clave == clave) {
+                    dataMap1[i].Permissions[z].checkOption = $("#checkSub_" + clave).is(":checked");
+                    console.log($("#checkSub_" + clave).is(":checked"));
+                }
+            }
+
+            for (j = 0; j < dataMap1[i].SubMenus.length; j++) {
+                for (x = 0; x < dataMap1[i].SubMenus[j].Permissions.length; x++) {
+                    console.log("clave permission"+clave);
+                    console.log(dataMap1[i].SubMenus[j].Permissions[x]);
+                    if (dataMap1[i].SubMenus[j].Permissions[x].Clave == clave) {
+                        dataMap1[i].SubMenus[j].Permissions[x].checkOption = $("#checkSub_" + clave).is(":checked");
+                        console.log($("#checkSub_" + clave).is(":checked"));
+                    }
+                }
+
+            }
+        }
+    }
+   
+
+
+
+
+     
+       $("#btnSave").unbind().click(function() {
+          $("#loader").css("display", "block");
+          var validate_form = $("#form_profiles").data("kendoValidator").validate();
+          if (!validate_form) {
+                        $("#loader").css("display", "none");
+              return
+          }
+
+
+         
+
+
+          //var modelFormData = new FormData();
+          //modelFormData.append("Clave", $("#Clave").val());
+          //modelFormData.append("Descripcion", $("#Descripcion").val());
+
+      
+         
+        
+         
+
+           console.log(dataMap1);
+           console.log(JSON.stringify(dataMap1));
+       
+
+
+
+            $("#loader").css("display", "block");
+            postData(domain + "/ProfileSecurity/SavePermissionUser/", dataMap1)
+                .then(data => {
+                    if (data.response.Code === 1) {
+             
+                        ShowSuccessMessage("Guardado Exitoso.")
+                      $("#loader").css("display", "none");
+                      $("#btnClear").trigger('click')
+                      $("#TabPermission").trigger('click')
+
+                  }
+                  else {
+                             $("#loader").css("display", "none");
+                                ShowFailedMessage(result.Description);
+                  }
+                });
+
+        
+      });
+
+
+
+</script>

@@ -1,0 +1,119 @@
+﻿@model SPL.WebApp.Models.SplInfoGeneralRan
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+    <h4>SplInfoGeneralRan</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" id="SplInfoGeneralRanForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdRep" />
+                <div class="form-group">
+                    <label asp-for="FechaRep"></label>
+                    <kendo-datetimepicker for="FechaRep" />
+                    <span asp-validation-for="FechaRep" class="text-danger k-invalid-msg" data-for="FechaRep"></span>
+                 </div>
+                <div class="form-group">
+                    <label asp-for="NoSerie"></label>
+                    <input asp-for="NoSerie" class="k-textbox" />
+                    <span asp-validation-for="NoSerie" class="text-danger k-invalid-msg" data-for="NoSerie"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NoPrueba"></label>
+                    <kendo-numerictextbox for="NoPrueba" />
+                    <span asp-validation-for="NoPrueba" class="text-danger k-invalid-msg" data-for="NoPrueba"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClaveIdioma"></label>
+                    <input asp-for="ClaveIdioma" class="k-textbox" />
+                    <span asp-validation-for="ClaveIdioma" class="text-danger k-invalid-msg" data-for="ClaveIdioma"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cliente"></label>
+                    <input asp-for="Cliente" class="k-textbox" />
+                    <span asp-validation-for="Cliente" class="text-danger k-invalid-msg" data-for="Cliente"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Capacidad"></label>
+                    <input asp-for="Capacidad" class="k-textbox" />
+                    <span asp-validation-for="Capacidad" class="text-danger k-invalid-msg" data-for="Capacidad"></span>
+                </div>
+                <div class="form-group">
+                    @Html.Kendo().CheckBoxFor(m => m.Resultado)
+                    <label asp-for="Resultado"></label>
+                    <span asp-validation-for="Resultado" class="text-danger k-invalid-msg" data-for="Resultado"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NombreArchivo"></label>
+                    <input asp-for="NombreArchivo" class="k-textbox" />
+                    <span asp-validation-for="NombreArchivo" class="text-danger k-invalid-msg" data-for="NombreArchivo"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Archivo"></label>
+                    <kendo-numerictextbox for="Archivo" />
+                    <span asp-validation-for="Archivo" class="text-danger k-invalid-msg" data-for="Archivo"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoReporte"></label>
+                    <input asp-for="TipoReporte" class="k-textbox" />
+                    <span asp-validation-for="TipoReporte" class="text-danger k-invalid-msg" data-for="TipoReporte"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClavePrueba"></label>
+                    <input asp-for="ClavePrueba" class="k-textbox" />
+                    <span asp-validation-for="ClavePrueba" class="text-danger k-invalid-msg" data-for="ClavePrueba"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CantMediciones"></label>
+                    <kendo-numerictextbox for="CantMediciones" />
+                    <span asp-validation-for="CantMediciones" class="text-danger k-invalid-msg" data-for="CantMediciones"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comentario"></label>
+                    <input asp-for="Comentario" class="k-textbox" />
+                    <span asp-validation-for="Comentario" class="text-danger k-invalid-msg" data-for="Comentario"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Creadopor"></label>
+                    <input asp-for="Creadopor" class="k-textbox" />
+                    <span asp-validation-for="Creadopor" class="text-danger k-invalid-msg" data-for="Creadopor"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fechacreacion"></label>
+                    <kendo-datetimepicker for="Fechacreacion" />
+                    <span asp-validation-for="Fechacreacion" class="text-danger k-invalid-msg" data-for="Fechacreacion"></span>
+                 </div>
+                <div class="form-group">
+                    <label asp-for="Modificadopor"></label>
+                    <input asp-for="Modificadopor" class="k-textbox" />
+                    <span asp-validation-for="Modificadopor" class="text-danger k-invalid-msg" data-for="Modificadopor"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fechamodificacion"></label>
+                    <kendo-datetimepicker for="Fechamodificacion" />
+                    <span asp-validation-for="Fechamodificacion" class="text-danger k-invalid-msg" data-for="Fechamodificacion"></span>
+                 </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="k-button k-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="k-button">Back to List</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#SplInfoGeneralRanForm").kendoValidator({
+                // You can define your custom rules here:
+                //rules: {}
+            });
+        })
+    </script>

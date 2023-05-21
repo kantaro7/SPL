@@ -1,0 +1,82 @@
+﻿namespace SPL.Reports.Api.DTOs.Reports.TAP
+{
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    public class TAPTestsGeneralDto
+    {
+        public long IdLoad { get; set; }
+        public DateTime LoadDate { get; set; }
+        public DateTime Date { get; set; }
+
+        [Range(0, 99, ErrorMessage = "El campo Número de Prueba debe ser numérico mayor a cero considerando hasta 2 enteros")]
+        public int TestNumber { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(2, ErrorMessage = "El campo Clave Idioma solo puede tener {0} caracteres")]
+        public string LanguageKey { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(512, ErrorMessage = "El campo Cliente solo puede tener {0} caracteres")]
+        public string Customer { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(512, ErrorMessage = "El campo Capacidad solo puede tener {0} caracteres")]
+        public string Capacity { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(55, ErrorMessage = "El campo Número de Serie solo puede tener {0} caracteres")]
+        public string SerialNumber { get; set; }
+        public bool Result { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(64, ErrorMessage = "El campo Nombre del Archivo solo puede tener {0} caracteres")]
+        public string NameFile { get; set; }
+        public byte[] File { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(3, ErrorMessage = "El campo Tipo Reporte solo puede tener {0} caracteres")]
+        public string TypeReport { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(3, ErrorMessage = "El campo Clave Prueba solo puede tener {0} caracteres")]
+        public string KeyTest { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(3, ErrorMessage = "El campo Tipo de Unidad solo puede tener {0} caracteres")]
+        public string UnitType { get; set; }
+
+        [Range(0, 99, ErrorMessage = "El campo Número de Conexiones de Alta Tensión debe ser numérico mayor a cero considerando hasta 2 enteros")]
+        public int NoConnectionsAT { get; set; }
+
+        [Range(0, 99, ErrorMessage = "El campo Número de Conexiones de Baja Tensión debe ser numérico mayor a cero considerando hasta 2 enteros")]
+        public int NoConnectionsBT { get; set; }
+
+        [Range(0, 99, ErrorMessage = "El campo Número de Conexiones Terciarias debe ser numérico mayor a cero considerando hasta 2 enteros")]
+        public int NoConnectionsTER { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(20, ErrorMessage = "El campo Identificador de Capacitancia de Alta Tensión solo puede tener {0} caracteres")]
+        public string IdCapAT { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(20, ErrorMessage = "El campo Identificador de Capacitancia de Baja Tensión solo puede tener {0} caracteres")]
+        public string IdCapBT { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(20, ErrorMessage = "El campo Identificador de Capacitancia Terciaria solo puede tener {0} caracteres")]
+        public string IdCapTER { get; set; }
+
+        [Range(0, 9999999, ErrorMessage = "El campo Id Reporte FPC debe ser numérico mayor a cero considerando hasta 7 enteros")]
+        public long IdRepFPC { get; set; }
+
+        [DataType(DataType.Text)]
+        [MaxLength(300, ErrorMessage = "El campo Comentario solo puede tener {0} caracteres")]
+        public string Comment { get; set; }
+        public string Creadopor { get; set; }
+        public DateTime Fechacreacion { get; set; }
+        public string Modificadopor { get; set; }
+        public DateTime? Fechamodificacion { get; set; }
+        public TAPTestsDto TAPTests { get; set; }
+    }
+}

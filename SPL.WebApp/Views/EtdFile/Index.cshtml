@@ -1,0 +1,337 @@
+﻿@model SPL.WebApp.ViewModels.EtdFileViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-md-12">
+        <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
+            <pane size="60%" id="botton-pane" scrollable="false" collapsible="true">
+                <div id="spreadsheet" style="width: 100%; height:100%"></div>
+            </pane>
+        </kendo-splitter>
+
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-div" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="notification-type" class="toast-body-alert">
+                    <div id="notification-message"></div>
+                    <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="progress" style="height:5px">
+    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
+            <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="row">
+    <div class="form-group">
+        @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
+
+    </div>
+    <div class="col-md-4">
+        <div class="form-floating mb-3">
+            <input maxlength="55" asp-for="NoSerie" class="form-control form-control-sm" placeholder="NoSerie">
+            <label asp-for="NoSerie"></label>
+            <span id="NoSerieSpand" class="text-danger"></span>
+        </div>
+    </div>
+    <div id="loader" class="col-md-2" style="padding-bottom:8px;display:none;padding-top: 12px;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Espere...</span>
+        </div>
+    </div>
+</div>
+<div class="row" >
+    <div class="col-md-12">
+        <div class="container-fluid">
+            <div id ="strip-container">
+
+                        <kendo-tabstrip name="tabstrip" style="background:white !important ">
+                            <popup-animation>
+                                <open effects="fade:in" />
+                            </popup-animation>
+
+
+                            <items>
+                                <tabstrip-item  text="Descargar" id="tap1" onclick="changeCssTap(1)" selected="true" icon-class="k-icon k-i-signature">
+
+                                    <content>
+
+                                        <div class="container">
+                                            <form id="form_menu_sup1" kendo-validator="true">
+                                        <div class="row" id="div1" >
+                                              <div class="col-md-12">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnDownload" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Descargar</button>
+                                                </div>
+                                              </div>
+                                              <br />
+     
+                                                                <div class="col-md-4" style="display:inline-block">
+                                                                  <label class="form-label">AT</label>
+                                                                  @Html.ListBoxFor(c => c.Select1, (IEnumerable<SelectListItem>)ViewBag.Select1, new { @class = "form-select form-select-sm",@id="selectAT", @disabled = "disabled" })
+                                                                 </div>
+                                             
+
+
+                                                          <div class="col-md-4" style="display:inline-block">
+                                                                  <label class="form-label">BT</label>
+                                                                  @Html.ListBoxFor(c => c.Select2, (IEnumerable<SelectListItem>)ViewBag.Select2, new { @class = "form-select form-select-sm", @id = "selectBT" , @disabled = "disabled" })
+                                                          </div>
+                                               
+                                         
+                                                          <div class="col-md-3" style="display:inline-block; width: 31%;">
+                                                                  <label class="form-label">Ter</label>
+                                                                  @Html.ListBoxFor(c => c.Select3, (IEnumerable<SelectListItem>)ViewBag.Select3, new { @class = "form-select form-select-sm", @id = "selectTer", @disabled = "disabled" })
+                                                          </div>
+
+                                                          <br/>
+
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <label class="form-label" >Tipo de Enfriamiento</label>
+                                                                @Html.DropDownListFor(c => c.Enfriamiento, (IEnumerable<SelectListItem>)ViewBag.Enfriamiento, new { @class = "form-select form-select-sm", @id = "TipoEnfriamiento" })
+                                                                <span asp-validation-for="Enfriamiento" class="text-danger"></span>
+                                                            </div>
+
+                                                         
+
+                                                            <div class="col mb-3">
+                                                                    <label asp-for="Otro" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="Otro" class="form-control form-control-sm" onkeypress="return check(event)" maxlength="200" id = "Otro" disabled>
+                                                                   <span id="OtroSpand" class="text-danger"></span>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <div class="row" >
+                                                             <div class="col-md-4">
+                                                                  <label class="form-label" asp-for="SelectCapacidades"></label>
+                                                                  @Html.DropDownListFor(c => c.SelectCapacidades, (IEnumerable<SelectListItem>)ViewBag.SelectCapacidades, new { @class = "form-select form-select-sm", @id = "SelectCapacidades" })
+                                                                  <span asp-validation-for="SelectCapacidades" class="text-danger"></span>
+                                                             </div>
+                                                             <br />
+                                                        <br />
+                                                        </div>
+
+                                                        
+                                                        <div class="row" >
+                                                        <div class="col mb-3">
+                                                            <label class="form-label" asp-for="ClaveIdioma"></label>
+                                                    @Html.DropDownListFor(c => c.ClaveIdioma, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm" , @id = "claveIdiomaD" })
+                                                            <span asp-validation-for="ClaveIdioma" class="text-danger"></span>
+                                                        </div>
+                                                             <br />
+                                                        <br />
+                                                        </div>
+
+                                                          
+                                                        <br />
+                                                        <br />
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                    <label asp-for="Altitud1" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="Altitud1" class="form-control form-control-sm" disabled>
+                                                                    <span asp-validation-for="Altitud1" class="text-danger"></span>
+                                                            </div>
+
+                                                            <div class="col mb-3">
+                                                                    <label asp-for="Altitud2" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="Altitud2" class="form-control form-control-sm" disabled>
+                                                                    <span asp-validation-for="Altitud2" class="text-danger"></span>
+                                                            </div>
+
+                                                        </div>
+
+                                            
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                    <label asp-for="Cliente" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="Cliente" class="form-control form-control-sm" disabled>
+                                                                    <span asp-validation-for="Cliente" class="text-danger"></span>
+                                                            </div>
+
+                                                        </div>
+
+                                                         <div class="row">
+                                          
+                                                            <div class="col mb-3">
+                                                                    <label asp-for="CapacidadReporte" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="CapacidadReporte" class="form-control form-control-sm" disabled>
+                                                                    <span asp-validation-for="CapacidadReporte" class="text-danger"></span>
+                                                            </div>
+
+                                                        </div>
+                                             
+                                        </div>
+                                         </form>
+
+                                        </div>
+                                    </content>
+                                </tabstrip-item>
+                                <tabstrip-item  text="Cargar" id="tap2" onclick="changeCssTap(2)" icon-class="k-icon k-i-list-unordered">
+                                    <content>
+                                        <br />
+
+                                            <form id="form_menu_sup2" kendo-validator="true">
+                                        <div class="row" id="div2" onclick="changeCssTap(this)">
+                                              <div class="col-md-12">
+                                                <div class="btn-group" role="group">
+                                                    <button id="btnCargar" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Cargar</button>
+                                                </div>
+                                              </div>
+                                              <br />
+     
+                                                        <div class="row">
+
+                                                             <div class="col mb-3">
+                                                                  <label class="form-label" asp-for="ClaveIdioma2"></label>
+                                                @Html.DropDownListFor(c => c.ClaveIdioma2, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm" , @id = "claveIdiomaC"  })
+                                                                  <span asp-validation-for="ClaveIdioma2" class="text-danger"></span>
+                                                             </div>
+
+                                                            <div class="col mb-3">
+                                                                <label class="form-label" >Tipo de Enfriamiento</label>
+                                                @Html.DropDownListFor(c => c.Enfriamiento2, (IEnumerable<SelectListItem>)ViewBag.Enfriamiento, new { @class = "form-select form-select-sm", @id = "TipoEnfriamiento2" })
+                                                                <span asp-validation-for="Enfriamiento2" class="text-danger"></span>
+                                                            </div>
+
+                                                            <div class="col mb-3">
+                                                                    <label asp-for="Otro2" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="Otro2" maxlength="200" onkeypress="return check(event)" class="form-control form-control-sm" disabled>
+                                                                     <span id="Otro2Spand" class="text-danger"></span>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                 <div class="row">
+                                                   <div class="col-md-4" id="file1" style="">
+                                                    <label for="formFile" class="form-label mt-4">Plantilla</label>
+                                                    <input  class="form-control" type="file" asp-for="File">
+                                                     <span asp-validation-for="File" id="FileSpan" class="text-danger"></span>
+                                                   </div>
+
+                                                   <div class="col-md-1" id="btnRem" style="">
+                                                       <br />
+                                                       <br />
+                                                       <br />
+                                                     <button id="btnRemove" style="margin-top: -10px;" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                   </div>
+                                    
+                                                   <div class="col-md-6">
+                                                    <label  class="form-label mt-4">Hojas a procesar para Generar el(los) reporte()</label>
+                                                    <br />
+                                                       <br />
+                                                     <label><input id="check1" type="checkbox" />CortesF1 y Rep.F1</label>
+                                                     <br />
+                                                        <br />
+                                                      <label><input id="check2" type="checkbox" />CortesF2 y Rep.F2</label>
+                                                      <br />
+                                                         <br />
+                                                       <label><input id="check3" type="checkbox" />CortesF3 y Rep.F3</label>
+                                                   </div>
+
+                                                 </div>
+                                                 <br />
+                                                 <div class="row">
+                                                      <div class="col mb-3">
+                                                        <textarea id="errores" name="errores" rows="10"  style="width: inherit;">
+                                  
+                                                        </textarea>
+                                                      </div>
+                                                 </div>
+                                        </div>
+                                         </form>  
+                                    </content>
+                                </tabstrip-item>
+             
+                            </items>
+
+                        </kendo-tabstrip>
+                          
+
+             </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+
+  .container {
+    margin: 0;
+}
+
+</style>
+
+
+@section Scripts
+    {
+
+<script src="@Url.Content("~/js/Helpers/Helpers.js")"></script>
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/js/EtdFile/EtdFile.js")"></script>
+<script>
+    
+
+     function timeout(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+     }
+
+     async function sleep(fn, ...args) {
+            await timeout(500);
+            return fn(...args);
+     }
+
+
+    $(document).ready(function () {
+
+        var baseUrl = 'https://kendo.cdn.telerik.com/2021.3.914/js/messages/kendo.messages.es-ES.min.js';
+        $.getScript(baseUrl, function () {
+            kendo.ui.progress($("#tableAt"), false);
+        });
+        //SET TITLE
+        document.getElementById("titleForm").innerHTML = "Elevacion de la Temperatura de los Devanados";
+
+        var noSerie = '@Model.NoSerie?.Trim()';
+        if ($.trim(noSerie).length > 0) {
+            document.querySelector('#nroSerieGlobal').value = noSerie;
+            SetNroSerieAllLinks();
+        }
+
+          //$('input[id^="position"]').css("display","none")
+          //$('input[id^="nominal"]').css("display","none")
+
+            //$("#home_menu").removeAttr("style");
+            //$("#registro_diseno_menu").removeAttr("style");
+
+            //$("#registrar_resistencia_20_grados").css({ "background": colorMenuSelect });
+            //$("#registrar_tension_placa").removeAttr("style");
+            //$("#cargar_plantilla_base").removeAttr("style");
+            //$("#resistencia_aislamiento_devanados").removeAttr("style");
+            //$("#relacion_de_transformacion").removeAttr("style");
+            //$("#relacion_aislamiento_nucleos").removeAttr("style");
+            //$("#boquillas_type_brand").removeAttr("style");
+    })
+</script>
+}

@@ -1,0 +1,167 @@
+﻿@model SPL.WebApp.Models.SplInfoGeneralRan
+@using Telerik.Web.Spreadsheet;
+
+@{ ViewData["Title"] = "Create"; }
+
+<kendo-responsivepanel name="responsive-panel" auto-close="true" breakpoint="768" orientation="top">
+    <h4>
+        Resistencia del Aislamiento de los Núcleos y Herrajes
+    </h4>
+
+
+    <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
+        <pane size="20%" scrollable="false" collapsible="true">
+            <kendo-splitter name="vertical" style="height: 100%; width: 100%;" orientation="SplitterOrientation.Vertical">
+                <pane collapsible="false">
+                    @(Html.Kendo().TreeView()
+                        .Name("treeview")
+                        .Items(treeview =>
+                        {
+                            treeview.Add().Text("RAN")
+                                .SpriteCssClasses("folder")
+                                .Expanded(true)
+                                .Items(pdf =>
+                                {
+                                    pdf.Add().Text("RAN_0001.pdf")
+                                        .SpriteCssClasses("pdf");
+
+                                    pdf.Add().Text("RAN_0002.pdf")
+                                        .SpriteCssClasses("pdf");
+                                });
+                        })
+                    )
+                    <style>
+                        #treeview .k-sprite {
+                            background-image: url("@Url.Content("~/images/coloricons-sprite.png")");
+                        }
+
+                        .rootfolder { background-position: 0 0; }
+                        .folder { background-position: 0 -16px; }
+                        .pdf { background-position: 0 -32px; }
+                        .html { background-position: 0 -48px; }
+                        .image { background-position: 0 -64px; }
+                    </style>
+                </pane>
+            </kendo-splitter>
+        </pane>
+        <pane size="80%" scrollable="true" collapsible="true" resizable="true" id="bottom-pane">
+            <kendo-splitter name="sub-horizontal" style="height: 100%; width: 100%;" orientation="SplitterOrientation.Vertical">
+
+                <pane id="top-pane" size="40%" scrollable="false" collapsible="true">
+
+                    <form asp-action="Create" class="k-widget k-form" asp-controller="SplInfoGeneralRans" method="post">
+                        <div class="col-md-2">
+                            <div class="k-form-buttons">
+
+                                @(Html.Kendo().Button()
+                                    .Name("addBtn")
+                                    .HtmlAttributes(new { type = "submit", @class = "k-primary" })
+                                    .Content("Registrar"))
+                                @(Html.Kendo().Button()
+                                    .Name("clearBtn")
+                                    .HtmlAttributes(new { type = "button" })
+                                    .Content("Limpiar"))
+
+                            </div>
+                        </div>
+                        <div class="k-form-layout k-d-grid k-grid-cols-2" style="gap: 20px;">
+                            <div class="k-form-layout k-d-grid k-grid-cols-1">
+                                <div class="k-form-field">
+                                    <kendo-textbox for="NoSerie">
+                                        <textbox-label content="No Serie" floating="true" />
+                                    </kendo-textbox>
+                                </div>
+                                <div class="k-form-field">
+                                    @(Html.Kendo().ComboBox()
+                                      .Name("ClaveIdioma")
+                                      .Filter(FilterType.Contains)
+                                      .Placeholder("Seleccione un Lenguaje")
+                                      .DataTextField("Text")
+                                      .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                                          new SelectListItem() {
+                                            Text = "Español", Value = "ES"
+                                          },
+                                          new SelectListItem() {
+                                            Text = "Ingles", Value = "US"
+                                          }
+                                      })
+                                      .SelectedIndex(0)
+                                      .Suggest(true)
+                                      .HtmlAttributes(new { style = "width:100%;" })
+                                    )
+                                </div>
+                            </div>
+                            <div class="k-form-layout k-d-grid k-grid-cols-1">
+                                <div class="k-form-field">
+                                    <kendo-textbox for="NoPrueba">
+                                        <textbox-label content="No Prueba" floating="true" />
+                                    </kendo-textbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="k-form-layout k-d-grid k-grid-cols-2">
+                            <fieldset class="k-form-fieldset">
+                                <legend class="k-form-legend">Filtro para generar la plantilla</legend>
+                                <div class="k-form-field">
+                                    @(Html.Kendo().ComboBox()
+                                      .Name("ClavePrueba")
+                                      .Filter(FilterType.Contains)
+                                      .Placeholder("Seleccione una prueba")
+                                      .DataTextField("Text")
+                                      .DataValueField("Value")
+                                      .BindTo(new List<SelectListItem>() {
+                                          new SelectListItem() {
+                                            Text = "Antes de las Pruebas Dieléctricas", Value = "APD"
+                                          },
+                                          new SelectListItem() {
+                                            Text = "Antes y después de pruebas dieléctricas", Value = "AYD"
+                                          }
+                                      })
+                                      .SelectedIndex(0)
+                                      .Suggest(true)
+                                      .HtmlAttributes(new { style = "width:100%;" })
+                                    )
+                                </div>
+                                <div class="k-form-field">
+                                    <kendo-textbox for="CantMediciones">
+                                        <textbox-label content="Cant Mediciones" floating="true" />
+                                    </kendo-textbox>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </form>
+
+                </pane>
+                <pane size="70%" id="botton-pane" scrollable="false" collapsible="true">
+
+
+                    @(Html.Kendo().Spreadsheet()
+    .Name("spreadsheet")
+    .HtmlAttributes(new { style = "width:100%;height:100%" })
+    .BindTo((Workbook)ViewBag.Sheets)
+)
+
+                </pane>
+            </kendo-splitter>
+        </pane>
+    </kendo-splitter>
+    <div>
+
+    </div>
+    <div class="col-md-2">
+        <div class="k-form-buttons">
+            <a asp-action="Index" class="k-button">Volver</a>
+        </div>
+    </div>
+</kendo-responsivepanel>
+
+<script>
+    $(document).ready(function () {
+        $("#SplInfoGeneralRanForm").kendoValidator({
+            // You can define your custom rules here:
+            //rules: {}
+        });
+    })
+</script>
