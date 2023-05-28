@@ -1450,7 +1450,7 @@ function SetConfigExcel(workbook) {
         dataType: "list",
         from: '"Ohms, Miliohms"',
         /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
-        showButton: true,
+        showButton: true,7
         type: "reject",
         allowNulls: false,
     });
