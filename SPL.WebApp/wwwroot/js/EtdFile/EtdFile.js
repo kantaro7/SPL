@@ -580,6 +580,91 @@ function SetConfigExcel(workbook) {
 
     var spreadsheet = $("#spreadsheet").data("kendoSpreadsheet");
     var sheet = spreadsheet.activeSheet();
+    var sheetc1 = spreadsheet._workbook._sheets[1];
+    var sheetc2 = spreadsheet._workbook._sheets[2];
+    var sheetc3 = spreadsheet._workbook._sheets[3];
+
+    var sheetf1 = spreadsheet._workbook._sheets[4];
+    var sheetf2 = spreadsheet._workbook._sheets[5];
+    var sheetf3 = spreadsheet._workbook._sheets[6];
+
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheet.addDrawing(drawing);
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheetc1.addDrawing(drawing);
+
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheetc2.addDrawing(drawing);
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheetc3.addDrawing(drawing);
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheetf1.addDrawing(drawing);
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheetf2.addDrawing(drawing);
+
+
+    var drawing = kendo.spreadsheet.Drawing.fromJSON({
+        topLeftCell: "A1",
+        offsetX: 0,
+        offsetY: 0,
+        width: 220,
+        height: 43,
+        image: spreadsheet.addImage("/images/prolecge_excel.jpg")
+    });
+    sheetf3.addDrawing(drawing);
+
+
+
+
+
     //var range = spreadsheet.activeSheet().range("A1:T200");
     //range.enable(false);
 
@@ -946,15 +1031,447 @@ function SetConfigExcel(workbook) {
     //    allowNulls: false,
     //    messageTemplate: viewModel.ClaveIdioma === "EN" ? "Su valor solo puede ser Accepted o Rejected" : "Su valor solo puede ser Aceptado o Rechazado"
     //});
-    sheet.range("B4").validation({
+    sheet.range("P2").validation({
         comparerType: "list",
         dataType: "list",
-        from: '"Aceptado,Rechazado"',
+        from: '"Perdidas,Corriente"',
         /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
         showButton: true,
         type: "reject",
         allowNulls: false,
     });
+
+    sheet.range("P4").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"FASL,MSNM"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P7").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1 Hr,30 Min."',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P9").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Si, No"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P13").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Si, No"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P16").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ingles, Español"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P18").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Serie, Paralelo, #NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P21").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"NA, X aariba, Y arriba"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheet.range("P23").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"CU, AI"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+
+
+
+    /*   ***CF1***/
+
+    sheetc1.range("E10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("E13").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Cuadratica, Exponencial"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("K10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("K12").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("K14").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM, 1/0/00 1:00 AM, 1/0/00 2:00 AM, 1/0/00 3:00 AM, 1/0/00 4:00 AM, 1/0/00 5:00 AM, 1/0/00 6:00 AM, 1/0/00 7:00 AM, 1/0/00 8:00 AM, 1/0/00 9:00 AM, 1/0/00 10:00 AM, 1/0/00 11:00 AM, 1/0/00 12:00 PM, 1/0/00 1:00 PM, 1/0/00 2:00 PM, 1/0/00 3:00 PM, 1/0/00 4:00 PM, 1/0/00 5:00 PM, 1/0/00 6:00 PM, 1/0/00 7:00 PM, 1/0/00 8:00 PM, 1/0/00 9:00 PM, 1/0/00 10:00 PM, 1/0/00 11:00 PM, 1/1/00 12:00 AM,1/1/00 1:00 AM, 1/1/00 2:00 AM, 1/1/00 3:00 AM, 1/1/00 4:00 AM, 1/1/00 5:00 AM, 1/1/00 6:00 AM, 1/1/00 7:00 AM, 1/1/00 8:00 AM, 1/1/00 9:00 AM, 1/1/00 10:00 AM, 1/1/00 11:00 AM, 1/1/00 12:00 PM, 1/1/00 1:00 PM, 1/1/00 2:00 PM, 1/1/00 3:00 PM, 1/1/00 4:00 PM, 1/1/00 5:00 PM, 1/1/00 6:00 PM, 1/1/00 7:00 PM,1/1/00 8:00 PM, 1/1/00 9:00 PM, 1/1/00 10:00 PM, 1/1/00 11:00 PM,1/2/00 12:00 AM, 1/2/00 1:00 AM, 1/2/00 2:00 AM, 1/2/00 3:00 AM, NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("F20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("H20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc1.range("J20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+    /*   ***CF1***/
+
+
+
+    /*   ***CF2***/
+
+    sheetc2.range("E10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("E13").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Cuadratica, Exponencial"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("K10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("K12").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("K14").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("F20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("H20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc2.range("J20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+    /*   ***CF2***/
+
+
+
+
+    /*   ***CF3***/
+
+    sheetc3.range("E10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("E13").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Cuadratica, Exponencial"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("K10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("K12").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("K14").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("F20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("H20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("J20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+    /*   ***CF3***/
+
+
+
+
+
+
+    /*   ***CR1***/
+
+    sheetc3.range("E10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("E13").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Cuadratica, Exponencial"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("K10").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("K12").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("K14").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"1/0/00 12:00 AM,1/0/00 1:00 AM,1/0/00 2:00 AM,1/0/00 3:00 AM,1/0/00 4:00 AM,1/0/00 5:00 AM,1/0/00 6:00 AM,1/0/00 7:00 AM,1/0/00 8:00 AM,1/0/00 9:00 AM,1/0/00 10:00 AM,1/0/00 11:00 AM,1/0/00 12:00 PM,1/0/00 1:00 PM,1/0/00 2:00 PM,1/0/00 3:00 PM,1/0/00 4:00 PM,1/0/00 5:00 PM,1/0/00 6:00 PM,1/0/00 7:00 PM,1/0/00 8:00 PM,1/0/00 9:00 PM,1/0/00 10:00 PM,1/0/00 11:00 PM,1/1/00 12:00 AM,1/1/00 1:00 AM,1/1/00 2:00 AM,1/1/00 3:00 AM,1/1/00 4:00 AM,1/1/00 5:00 AM,1/1/00 6:00 AM,1/1/00 7:00 AM,1/1/00 8:00 AM,1/1/00 9:00 AM,1/1/00 10:00 AM,1/1/00 11:00 AM,1/1/00 12:00 PM,1/1/00 1:00 PM,1/1/00 2:00 PM,1/1/00 3:00 PM,1/1/00 4:00 PM,1/1/00 5:00 PM,1/1/00 6:00 PM,1/1/00 7:00 PM,1/1/00 8:00 PM,1/1/00 9:00 PM,1/1/00 10:00 PM,1/1/00 11:00 PM,1/2/00 12:00 AM,1/2/00 1:00 AM,1/2/00 2:00 AM,1/2/00 3:00 AM,NA"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("F20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("H20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+
+    sheetc3.range("J20").validation({
+        comparerType: "list",
+        dataType: "list",
+        from: '"Ohms, Miliohms"',
+        /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
+        showButton: true,
+        type: "reject",
+        allowNulls: false,
+    });
+    /*   ***CF3***/
+
+    document.querySelector('.k-button k-button-icon').click();
+
+
+
+
+
     //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ":S46").value(viewModel.ClaveIdioma == 'ES' ? 'Seleccione...' : 'Select...')
     //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ":S46").enable(true)
 
