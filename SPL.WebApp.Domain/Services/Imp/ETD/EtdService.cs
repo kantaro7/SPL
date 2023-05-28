@@ -861,13 +861,34 @@
                 headerCuttingDataDTO.TipoRegresion = Convert.ToInt32(workbook.Sheets[0].Rows[tiporegresionPos[0]].Cells[tiporegresionPos[1]].Value.ToString());
 
                 headerCuttingDataDTO.UltimaHora = Convert.ToDateTime(workbook.Sheets[0].Rows[ultimahoraPos[0]].Cells[ultimahoraPos[1]].Value.ToString());
+
+                IEnumerable<ConfigurationETDReportsDTO> datosCortesSecConfig = reportsDTO.ConfigurationReports.Where(x => x.Tabla1.Equals("SPL_CORTESECC_EST") || (x.Tabla2.Equals("SPL_CORTESECC_EST") && x.ClaveIdioma == claveIdioma));
+
+                int[] tempPos = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Orden == 1).IniDato);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                    {
+                        Terminal = workbook.Sheets[index: 0].Rows[tempPos[0] - 2].Cells[tempPos[1] + (i * 2)].Value.ToString(),
+                        ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] - 1].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        TempDevC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0]].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        GradienteCaC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] + 1].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        AwrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] + 2].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        HsrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] + 3].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        HstC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] + 4].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] + 5].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                        AwrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPos[0] + 5].Cells[tempPos[1] + (i * 2)].Value.ToString()),
+                    };
+
+                    headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                }
             }
 
             #endregion
 
             foreach (Telerik.Web.Spreadsheet.Worksheet item2 in workbook.Sheets)
             {
-
 
                 IEnumerable<ConfigurationETDReportsDTO> datosCortesSecConfig = reportsDTO.ConfigurationReports.Where(x => x.Tabla1.Equals("SPL_CORTESECC_EST") || (x.Tabla2.Equals("SPL_CORTESECC_EST") && x.ClaveIdioma == claveIdioma));
 
