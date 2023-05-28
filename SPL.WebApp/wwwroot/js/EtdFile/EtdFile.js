@@ -1445,6 +1445,7 @@ function SetConfigExcel(workbook) {
         allowNulls: false,
     });
 
+
     sheetc3.range("H20").validation({
         comparerType: "list",
         dataType: "list",
