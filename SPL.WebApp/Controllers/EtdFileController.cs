@@ -353,10 +353,10 @@
 
             return position;
         }
-        public async Task<IActionResult> UploadFile(string noSerie, string claveIdioma, string clavePrueba, string coolingType, string otherCoolingType, bool f1, bool f2, bool f3, string file)
+        public async Task<IActionResult> LoadFile(string noSerie, string claveIdioma, string clavePrueba, string coolingType, string otherCoolingType, bool f1, bool f2, bool f3, string file)
         {
-            // noSerie = noSerie.ToUpper().Trim();
-            //ApiResponse<SettingsToDisplayETDReportsDTO> result = await this._gatewayClientService.GetUploadConfigurationETD(noSerie, clavePrueba, claveIdioma);
+            noSerie = noSerie.ToUpper().Trim();
+            //ApiResponse<SettingsToDisplayETDReportsDTO> result = await this._gatewayClientService.(noSerie, clavePrueba, claveIdioma);
 
             //if (result.Code.Equals(-1))
             //{

@@ -147,7 +147,7 @@ btnClear.addEventListener("click", function () {
 
     $("#Otro").val("")
     $("#Otro").prop("disabled", true)
-    CapacidadesList
+    //CapacidadesList
 
     $("#Otro2").val("")
     $("#Otro2").prop("disabled", true)
@@ -158,7 +158,7 @@ btnClear.addEventListener("click", function () {
 
     claveIdiomaInput.value = ''
     claveIdiomaInput2.value = ''
-    btnRequest.disabled = false
+    btnRequest.disabled = false;
     btnDown.disabled = true
     btnUp.disabled = true
 
@@ -403,6 +403,58 @@ btnDown.addEventListener("click", async function () {
 
 });
 
+
+btnLoad.addEventListener("click", async function () {
+    $("#loader").css("display", "block");
+
+    var result = ValidateForm(currentTap);
+    if (result) {
+        if (currentTap == 2) {
+            var files = $('#files').data('kendoUpload').getFiles()
+            if (files.length > 0) {
+                $.each(files, function () {
+                    //console.log(this)
+                    if (this.error !== undefined) {
+                        error = true
+                    }
+                })
+            } else {
+                $("#loader").css("display", "none");
+                ShowFailedMessage("Debe seleccionar por lo menos un archivo")
+                return
+            }
+
+            if (error) {
+                $("#loader").css("display", "none");
+                ShowFailedMessage("Se han encontrado errores en los archivos.")
+                return
+            }
+
+            for (const elemento of files) {
+                var element = new Object();
+                await test(elemento).then(data => { element.Base64 = data, element.Name = elemento.name })
+                viewModel.Archivos.push(element)
+
+            }
+        }
+
+
+
+
+        $("#loader").css("display", "block");
+
+        DownloadFile();
+
+    }
+    else {
+        ShowFailedMessage("Faltan campos por llenar")
+        $("#loader").css("display", "none");
+    }
+
+});
+
+
+
 $("#NoSerie").val("");
 $("#NoSerie").focus();
 $("#btnRequest").disabled = false;
@@ -467,6 +519,63 @@ $("#File").val("");
 $("#File").prop("disabled", true);
 
 
+
+async function LoadFile() {
+    $("#errores").text("");
+    //var path = path = "/EtdFile/DownloadFile/";
+
+    //var url = new URL(domain + path),
+    //    params = {
+    //        noSerie: $("#NoSerie").val(),
+    //        clavePrueba:"",
+    //        claveIdioma: $("#claveIdiomaD").val(),
+    //        posAT: $("#selectAT").val(),
+    //        posBT: $("#selectBT").val(),
+    //        posTer: $("#selectTer").val(),
+    //        coolingType: $("#TipoEnfriamiento").val(),
+    //        otherCoolingType: $("#Otro").val(),
+    //        capacity: $("#selectCapacidades").val() ,
+    //        altitud1: $("#Altitud1").val(),
+    //        altitud2: $("#Altitud2").val(),
+    //        clientName: $("#Cliente").val(),
+    //        reportCapacities: $("#CapacidadReporte").val(),
+    //        grados:0}
+    //Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    //$("#loader").css("display", "none");
+    //var win = window.open(url.toString(), '_blank');
+    //win.focus();
+
+
+    LoadFileJSON(null).then(
+        data => {
+            if (data.response.Code !== -1) {
+
+                //spreadsheetElement.data("kendoSpreadsheet").destroy()
+                //$("#spreadsheet").empty();
+              //  SetConfigExcel(data.response.Structure);
+
+
+
+
+
+
+
+
+                // generaDescargablePdf(data.response.Structure, $("#TipoEnfriamiento").val() +" "+ $("#NoSerie").val()+ ".xlsx")
+            }
+            else {
+
+                $("#errores").text(data.response.Description);
+               // ShowFailedMessage(data.response.Structure);
+            }
+            $("#loader").css("display", "none");
+        }
+    );
+
+}
+
+
+
 async function DownloadFile() {
     //var path = path = "/EtdFile/DownloadFile/";
 
@@ -524,6 +633,9 @@ function SetConfigExcel(workbook) {
     
     spreadsheetElement = $("#spreadsheet").kendoSpreadsheet({
         sheets: workbook.sheets,
+        excel: {
+            fileName: $("#TipoEnfriamiento").val() + " " + $("#NoSerie").val() + ".xlsx"
+        },
         //toolbar: {
 
         //    backgroundColor: "#3f51b5 !important",
@@ -1451,7 +1563,7 @@ function SetConfigExcel(workbook) {
         dataType: "list",
         from: '"Ohms, Miliohms"',
         /* from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"' + viewModel.ClaveIdioma + '"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ')<=15)',*/
-        showButton: true,7
+        showButton: true,
         type: "reject",
         allowNulls: false,
     });
@@ -1467,9 +1579,9 @@ function SetConfigExcel(workbook) {
     });
     /*   ***CF3***/
 
-    document.querySelector('.k-button k-button-icon').click();
-
-
+    // document.querySelector('.k-button k-button-icon').click();
+    //spreadsheet._workbook.fileName = $("#TipoEnfriamiento").val() + " " + $("#NoSerie").val() + ".xlsx";
+    spreadsheet.saveAsExcel();
 
 
 
@@ -1549,6 +1661,40 @@ async function DownloadFileJSON() {
             clientName: $("#Cliente").val(),
             reportCapacities: $("#CapacidadReporte").val(),
             grados: 0
+        }
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+    const response = await fetch(url);
+
+    if (response.ok && response.status === 200) {
+
+        const result = await response.json();
+        return result;
+    }
+
+    else {
+        ShowFailedMessage('Error, por favor contacte al administrador del sistema.' + response);
+        return null;
+    }
+}
+
+async function LoadFileJSON() {
+    var path = path = "/EtdFile/LoadFile/";
+
+    var url = new URL(domain + path),
+        params = {
+            noSerie: $("#NoSerie").val(),
+            claveIdioma: $("#claveIdiomaC").val(),
+            clavePrueba  : " ",
+            posAT: $("#TipoEnfriamiento2").val(),
+            posBT: $("#Otro2").val(),
+            posTer: $("#selectTer").val(),
+            coolingType: $("#TipoEnfriamiento").val(),
+            otherCoolingType: $("#Otro").val(),
+            f1: $("#check1").val(),
+            f2: $("#check2").val(),
+            f3: $("#check3").val(),
+            file : " "
         }
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
@@ -1831,7 +1977,7 @@ function ClearForm() {
     unitMeasuringInput.value = '';
     temperatureInput.disabled = false;
     temperatureInput.value = 0;
-    btnRequest.disabled = false;
+   // btnRequest.disabled = false;
 
     /*var tabStrip = $("#tabstrip").kendoTabStrip().data("kendoTabStrip");
     tabStrip.remove($('#tabstrip'));

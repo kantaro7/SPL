@@ -58,6 +58,7 @@
 
   <ItemGroup>
     <Folder Include="Views\SplInfoGeneralRans\" />
+    <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Templates\" />
   </ItemGroup>
 
