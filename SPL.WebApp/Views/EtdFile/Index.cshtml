@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Index";
 }
+
+<div id="pdfViewer">
+</div>
+
 <div class="row" style="display:none">
     <div class="col-md-12">
         <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
@@ -35,6 +39,7 @@
         <div class="btn-group" role="group">
             <button id="btnRequest" type="button" style="margin-right:8px; font-weight:600;" class="btn btn-primary btn-sm">Consultar</button>
             <button id="btnClear" type="button" style="margin-right:8px; font-weight:600; " class="btn btn-secondary btn-sm"><i class="bi-eraser" style="font-size: 1.3rem;"></i></button>
+       
         </div>
     </div>
 
@@ -43,7 +48,7 @@
 <div class="row">
     <div class="form-group">
         @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
-
+        .21-
     </div>
     <div class="col-md-4">
         <div class="form-floating mb-3">

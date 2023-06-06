@@ -34,7 +34,7 @@ let currentTap = "1";
 let spreadsheetElement;
 
 
-
+let img64;
 
 
 //Events
@@ -443,7 +443,7 @@ btnLoad.addEventListener("click", async function () {
 
         $("#loader").css("display", "block");
 
-        DownloadFile();
+        LoadFile();
 
     }
     else {
@@ -554,14 +554,11 @@ async function LoadFile() {
                 //$("#spreadsheet").empty();
               //  SetConfigExcel(data.response.Structure);
 
-
-
-
-
-
-
-
                 // generaDescargablePdf(data.response.Structure, $("#TipoEnfriamiento").val() +" "+ $("#NoSerie").val()+ ".xlsx")
+
+                GetGraphisByReport();
+
+
             }
             else {
 
@@ -573,6 +570,110 @@ async function LoadFile() {
     );
 
 }
+
+
+
+
+
+async function GetGraphisReportJSON() {
+    var path = path = "/EtdFile/GetTestDataExcel/";
+
+    var url = new URL(domain + path),
+        params = {}
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+    const response = await fetch(url);
+
+    if (response.ok && response.status === 200) {
+
+        const test = await response.json();
+        return test;
+    }
+
+    else {
+        ShowFailedMessage('Error, por favor contacte al administrador del sistema.');
+        return null;
+    }
+}
+
+
+$("#btnExportGrafica").on("click", async function () {
+    var chart = $("#pdfViewer").getKendoChart();
+    chart.exportImage().done(function (data) {
+        img64 = data;
+        kendo.saveAs({
+            dataURI: data,
+            fileName: "chart.jpg"
+        });
+    });
+});
+
+
+async function GetGraphisByReport() {
+
+    await GetGraphisReportJSON().then(
+        data => {
+            model = data.response
+            $("#pdfViewer").kendoChart({
+                chartArea: {
+                    width: 600,
+                    height: 400
+                },
+                title: {
+                    text: "Charge current vs. charge time" //Nombre del grafico
+                },
+                legend: {
+                    visible: true //habilita la leyenda
+                },
+                seriesDefaults: {
+                    type: "scatterLine"   //tipo de grafico, en este caso es scatterLine y ambas graficas son del mismo tipo
+
+                },
+                series: [{
+                    name: "0.8C",        //leyenda del lado de la parte derecha  , se puede comentar
+                    data: model.data     // esta seria la data del archivo excel en formato decimal[][] para la grafica 1 
+                }, {
+                    name: "3.1C",          //leyenda del lado de la parte derecha  , se puede comentar
+                    markers: { size: 0 },  // hace que los circulos de las graficas desaparezcam y se vean las dos solapadas
+                    data: model.data2   // esta seria la data del archivo excel en formato decimal[][] para la grafica 2, viene el controlador
+                }],
+                xAxis: {
+                    min: model.MinX,    //Define el valor minimo a colocar del eje X
+                    max: model.MaxX,    //Define el valor maximo a colocar del eje X
+                    labels: {
+                        format: "{0}"
+                    },
+                    title: {
+                        text: "Time"    //Define el nombre del eje X, segun el excel creo que es t/10
+                    },
+                    minorUnit: 0.6,     // Define el salto min de numeros entre los puntos de la grafica
+                    majorUnit: 3        // Define el salto max de numeros entre los puntos de la grafica
+                },
+                yAxis: {
+                    min: model.MinY,    //Define el valor minimo a colocar del eje Y
+                    max: model.MaxY,    //Define el valor maximo a colocar del eje Y
+                    labels: {
+                        format: "{0:N4}"    //Formato de numeros del eje Y
+                    },
+                    title: {
+                        text: "Charge"      //Define el titulo del eje Y, segun la grafica del archivo excel
+                    },
+                    minorUnit: 0.04,         // Define el salto min de numeros entre los puntos de la grafica
+                    majorUnit: 0.1          // Define el salto max de numeros entre los puntos de la grafica
+                }
+
+            });
+        }
+
+    );
+}
+
+
+
+
+
+
+
 
 
 
