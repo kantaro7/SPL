@@ -19,7 +19,6 @@
         public string ClaveIdioma { get; set; }
 
 
-
         [DisplayName("Idioma")]
         [Required(ErrorMessage = "Requerido")]
         public string ClaveIdioma2 { get; set; }
@@ -37,6 +36,10 @@
         [DisplayName("No. Serie")]
         public string NoSerie2 { get; set; }
 
+        public bool Check1 { get; set; }
+        public bool Check2 { get; set; }
+        public bool Check3 { get; set; }
+
         public string Select1 { get; set; }
         public string Select2 { get; set; }
         public string Select3 { get; set; }
@@ -44,6 +47,7 @@
         [Required(ErrorMessage = "requerido")]
         [DisplayName("Tipo de Enfriamiento")]
         public string Enfriamiento { get; set; }
+        public string OtroEnfriamiento { get; set; }
 
         [Required(ErrorMessage = "requerido")]
         [DisplayName("Tipo de Enfriamiento")]
@@ -70,17 +74,21 @@
         [DisplayName("Capacidades (Reporte)")]
         public string CapacidadReporte { get; set; }
 
+        [DisplayName("Otro")]
+        public string OtraCapacidad { get; set; }
 
         [Required(ErrorMessage = "requerido")]
         [DisplayName("Capacidad")]
         public string SelectCapacidades { get; set; }
 
-        public List<decimal>CapacidadesList { get; set; }
+        public List<decimal?>CapacidadesList { get; set; }
         public List<string> EnfriamientosList { get; set; }
 
         [DisplayName("Seleccione Archivo")]
         [Required(ErrorMessage = "Requerido")]
         public IFormFile File { get; set; }
+
+        string ClavePrueba { get; set; }
 
     }
 }

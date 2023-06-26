@@ -27,6 +27,7 @@
         public string DevanadoSplit { get; set; }
         public DateTime UltimaHora { get; set; }
         public decimal FactorKw { get; set; }
+        public int CorXKw { get; set; }
         public decimal FactorAltitud { get; set; }
         public bool TipoRegresion { get; set; }
         public string Comentario { get; set; }

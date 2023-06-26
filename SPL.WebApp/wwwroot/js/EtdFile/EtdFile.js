@@ -27,7 +27,7 @@ let noSerieInput = document.getElementById("NoSerie");
 let temperatureInput = document.getElementById("Temperature");
 let unitMeasuringInput = document.getElementById("UnitMeasuring");
 let claveIdiomaInput = document.getElementById("claveIdiomaD");
-let claveIdiomaInput2 = document.getElementById("claveIdiomaC");
+let claveIdiomaInput2 = document.getElementById("ClaveIdioma2");
 btnDown.disabled = true
 btnUp.disabled = true
 let currentTap = "1";
@@ -92,6 +92,9 @@ $("#TipoEnfriamiento2").prop("disabled", true);
 $("#Otro2").val("");
 $("#Otro2").prop("disabled", true);
 
+$("#OtraCapacidad").val("");
+$("#OtraCapacidad").prop("disabled", true);
+
 $("#File").val("");
 $("#File").prop("disabled", true);
 
@@ -147,6 +150,9 @@ btnClear.addEventListener("click", function () {
 
     $("#Otro").val("")
     $("#Otro").prop("disabled", true)
+
+    $("#OtraCapacidad").val("")
+    $("#OtraCapacidad").prop("disabled", true)
     //CapacidadesList
 
     $("#Otro2").val("")
@@ -242,6 +248,16 @@ $("#Enfriamiento").on("change", function () {
     }
 });
 
+$("#SelectCapacidades").on("change", function () {
+    let val = $("#SelectCapacidades").val()
+
+    if (val === 'Otro') {
+        $("#OtraCapacidad").prop("disabled", false)
+    } else {
+        $("#OtraCapacidad").prop("disabled", true)
+    }
+});
+
 function LoadForm(response) {
 /*    if (currentTap === "1") {*/
     claveIdiomaInput.value = response.ClaveIdioma;
@@ -249,8 +265,12 @@ function LoadForm(response) {
             $("#SelectCapacidades option[value!='']").each(function () {
                 $(this).remove();
             });
-        $.each(response.CapacidadesList, function (i, val) {
-            $("#SelectCapacidades").append("<option value='" + val + "'>" + val + "</option>");
+    $.each(response.CapacidadesList, function (i, val) {
+        if (val == null) {
+               $("#SelectCapacidades").append("<option value='Otro'>" + 'Otro' + "</option>");
+           } else {
+               $("#SelectCapacidades").append("<option value='" + val + "'>" + val + "</option>");}
+
         });
 
         $("#TipoEnfriamiento option[value!='']").each(function () {
@@ -404,12 +424,12 @@ btnDown.addEventListener("click", async function () {
 });
 
 
-btnLoad.addEventListener("click", async function () {
+btnUp.addEventListener("click", async function () {
     $("#loader").css("display", "block");
 
-    var result = ValidateForm(currentTap);
+    var result = ValidateForm("2");
     if (result) {
-        if (currentTap == 2) {
+        if (currentTap == "2") {
             var files = $('#files').data('kendoUpload').getFiles()
             if (files.length > 0) {
                 $.each(files, function () {
@@ -430,12 +450,12 @@ btnLoad.addEventListener("click", async function () {
                 return
             }
 
-            for (const elemento of files) {
-                var element = new Object();
-                await test(elemento).then(data => { element.Base64 = data, element.Name = elemento.name })
-                viewModel.Archivos.push(element)
+            //for (const elemento of files) {
+            //    var element = new Object();
+            //    await test(elemento).then(data => { element.Base64 = data, element.Name = elemento.name })
+            //    viewModel.Archivos.push(element)
 
-            }
+            //}
         }
 
 
@@ -546,28 +566,28 @@ async function LoadFile() {
     //win.focus();
 
 
-    LoadFileJSON(null).then(
-        data => {
-            if (data.response.Code !== -1) {
+    LoadFileJSON(null);
+        //data => {
+            //if (data.response.Code !== -1) {
 
-                //spreadsheetElement.data("kendoSpreadsheet").destroy()
-                //$("#spreadsheet").empty();
-              //  SetConfigExcel(data.response.Structure);
+            //    //spreadsheetElement.data("kendoSpreadsheet").destroy()
+            //    //$("#spreadsheet").empty();
+            //  //  SetConfigExcel(data.response.Structure);
 
-                // generaDescargablePdf(data.response.Structure, $("#TipoEnfriamiento").val() +" "+ $("#NoSerie").val()+ ".xlsx")
+            //    // generaDescargablePdf(data.response.Structure, $("#TipoEnfriamiento").val() +" "+ $("#NoSerie").val()+ ".xlsx")
 
-                GetGraphisByReport();
+            //    GetGraphisByReport();
 
 
-            }
-            else {
+            //}
+            //else {
 
-                $("#errores").text(data.response.Description);
-               // ShowFailedMessage(data.response.Structure);
-            }
-            $("#loader").css("display", "none");
-        }
-    );
+            //    $("#errores").text(data.response.Description);
+            //   // ShowFailedMessage(data.response.Structure);
+            //}
+            //$("#loader").css("display", "none");
+       
+    //);
 
 }
 
@@ -710,13 +730,6 @@ async function DownloadFile() {
                 //$("#spreadsheet").empty();
                 SetConfigExcel(data.response.Structure);
 
-
-
-
-
-
-
-
                // generaDescargablePdf(data.response.Structure, $("#TipoEnfriamiento").val() +" "+ $("#NoSerie").val()+ ".xlsx")
             }
             else {
@@ -730,13 +743,19 @@ async function DownloadFile() {
 
 
 function SetConfigExcel(workbook) {
+    var tipoEnf;
+    $("#TipoEnfriamiento").val() == "0" ? (
+        tipoEnf = "Otro"
+    ) : (
+        tipoEnf = $("#TipoEnfriamiento").val()
+    );
 
     
     spreadsheetElement = $("#spreadsheet").kendoSpreadsheet({
         sheets: workbook.sheets,
         excel: {
-            fileName: $("#TipoEnfriamiento").val() + " " + $("#NoSerie").val() + ".xlsx"
-        },
+            fileName: tipoEnf + " " + $("#NoSerie").val() + ".xlsx"
+        }
         //toolbar: {
 
         //    backgroundColor: "#3f51b5 !important",
@@ -875,375 +894,6 @@ function SetConfigExcel(workbook) {
     sheetf3.addDrawing(drawing);
 
 
-
-
-
-    //var range = spreadsheet.activeSheet().range("A1:T200");
-    //range.enable(false);
-
-    // validates if the formula returns a non-false value (see the `from` field).
-
-    //var drawing = kendo.spreadsheet.Drawing.fromJSON({
-    //    topLeftCell: "A1",
-    //    offsetX: 0,
-    //    offsetY: 0,
-    //    width: 220,
-    //    height: 43,
-    //    image: spreadsheet.addImage("/images/prolecge_excel.jpg")
-    //});
-
-    //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Fecha').Celda).enable(true)
-    //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NoSerie').Celda).value(viewModel.NoSerie)
-
-    //if (viewModel.Pruebas === "LYP") {
-
-    //    if (viewModel.TerciarioOSegunda === "CT" && viewModel.Columnas === 3) {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).value().replace('?', ''));
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 2).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 2).Celda).value().replace('?', ''));
-
-    //    }
-
-    //    if (viewModel.TerciarioOSegunda === "2B" && viewModel.Columnas === 3) {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).value());
-
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).value().replace('?', '1'));
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).value().replace('?', '2'));
-
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 2).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 2).Celda).value());
-
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 2).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 2).Celda).value().replace('?', '1'));
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 2).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 2).Celda).value().replace('?', '2'));
-    //    }
-
-
-
-    //    if (viewModel.TerciarioOSegunda !== "CT" && viewModel.TerciarioOSegunda !== "2B") {
-    //        spreadsheet.activeSheet().range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTerciario' && x.Seccion === 2).Celda).value("");
-    //        spreadsheet.activeSheet().range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTerciario' && x.Seccion === 1).Celda).value("");
-    //    } else {
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Terciario' && x.Seccion === 1).Celda).value(viewModel.TerciarioLab)
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Terciario' && x.Seccion === 2).Celda).value(viewModel.TerciarioEmp)
-    //    }
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NivelAceite' && x.Seccion === 1).Celda).value(viewModel.NivelAceiteLab)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NivelAceite' && x.Seccion === 2).Celda).value(viewModel.NivelAceiteEmp)
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Boquillas' && x.Seccion === 1).Celda).value(viewModel.BoquillasLab)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Boquillas' && x.Seccion === 2).Celda).value(viewModel.BoquillasEmp)
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NucleoHerrajes' && x.Seccion === 1).Celda).value(viewModel.NucleosLab)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NucleoHerrajes' && x.Seccion === 2).Celda).value(viewModel.NucleosEmp)
-
-    //    if (viewModel.NivelAceiteLab === "Vacío" || viewModel.NivelAceiteLab === "Empty") {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 1).Celda + ":P21").borderBottom(null);
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTempAceite' && x.Seccion === 1).Celda).value("");
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'UMTempAceite' && x.Seccion === 1).Celda).value("");
-    //    }
-    //    else {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite').Celda).validation({
-    //            comparerType: "custom",
-    //            dataType: "custom",
-    //            from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite').Celda + ', "^[0-9]\\\\d{0,2}(\\\\.\\\\d{1,1})?%?$"))',
-    //            titleTemplate: "Error",
-    //            showButton: true,
-    //            type: "reject",
-    //            allowNulls: false,
-    //            messageTemplate: "La temperatura del aceite debe ser mayor a cero considerando 3 enteros con 1 decimal."
-    //        });
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite').Celda + ":P21").enable(true)
-    //    }
-
-    //    if (viewModel.NivelAceiteEmp === "Vacío" || viewModel.NivelAceiteEmp === "Empty") {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 2).Celda + ":P35").borderBottom(null);
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTempAceite' && x.Seccion === 2).Celda).value("");
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'UMTempAceite' && x.Seccion === 2).Celda).value("");
-    //    } else {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 2).Celda).validation({
-    //            comparerType: "custom",
-    //            dataType: "custom",
-    //            from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 2).Celda + ', "^[0-9]\\\\d{0,2}(\\\\.\\\\d{1,1})?%?$"))',
-    //            titleTemplate: "Error",
-    //            showButton: true,
-    //            type: "reject",
-    //            allowNulls: false,
-    //            messageTemplate: "La temperatura del aceite debe ser mayor a cero considerando 3 enteros con 1 decimal."
-    //        });
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 2).Celda + ":P35").enable(true)
-
-    //    }
-
-    //}
-    //else {
-    //    if (viewModel.TerciarioOSegunda === "CT" && viewModel.Columnas === 3) {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).value().replace('?', ''));
-    //    }
-
-    //    if (viewModel.TerciarioOSegunda === "2B" && viewModel.Columnas === 3) {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).value());
-
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosBT' && x.Seccion === 1).Celda).value().replace('?', '1'));
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).
-    //            value(sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).value().replace('?', '2'));
-    //    }
-
-    //    if (viewModel.Pruebas === "LAB") {
-    //        if (viewModel.TerciarioOSegunda !== "CT" && viewModel.TerciarioOSegunda !== "2B") {
-    //            spreadsheet.activeSheet().range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTerciario' && x.Seccion === 1).Celda).value("");
-    //        } else {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Terciario' && x.Seccion === 1).Celda).value(viewModel.TerciarioLab)
-    //        }
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NivelAceite' && x.Seccion === 1).Celda).value(viewModel.NivelAceiteLab)
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Boquillas' && x.Seccion === 1).Celda).value(viewModel.BoquillasLab)
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NucleoHerrajes' && x.Seccion === 1).Celda).value(viewModel.NucleosLab)
-
-
-    //        if (viewModel.NivelAceiteLab === "Vacío" || viewModel.NivelAceiteLab === "Empty") {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 1).Celda + ":P21").borderBottom(null);
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTempAceite' && x.Seccion === 1).Celda).value("");
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'UMTempAceite' && x.Seccion === 1).Celda).value("");
-    //        }
-    //        else {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite').Celda).validation({
-    //                comparerType: "custom",
-    //                dataType: "custom",
-    //                from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite').Celda + ', "^[0-9]\\\\d{0,2}(\\\\.\\\\d{1,1})?%?$"))',
-    //                titleTemplate: "Error",
-    //                showButton: true,
-    //                type: "reject",
-    //                allowNulls: false,
-    //                messageTemplate: "La temperatura del aceite debe ser mayor a cero considerando 3 enteros con 1 decimal."
-    //            });
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite').Celda + ":P21").enable(true)
-    //        }
-    //    }
-
-    //    if (viewModel.Pruebas === "PLA") {
-    //        if (viewModel.TerciarioOSegunda !== "CT" && viewModel.TerciarioOSegunda !== "2B") {
-    //            spreadsheet.activeSheet().range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTerciario' && x.Seccion === 1).Celda).value("");
-    //        } else {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Terciario' && x.Seccion === 1).Celda).value(viewModel.TerciarioEmp)
-    //        }
-
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NivelAceite' && x.Seccion === 1).Celda).value(viewModel.NivelAceiteEmp)
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Boquillas' && x.Seccion === 1).Celda).value(viewModel.BoquillasEmp)
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'NucleoHerrajes' && x.Seccion === 1).Celda).value(viewModel.NucleosEmp)
-
-    //        if (viewModel.NivelAceiteEmp === "Vacío" || viewModel.NivelAceiteEmp === "Empty") {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 1).Celda + ":P21").borderBottom(null);
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTempAceite' && x.Seccion === 1).Celda).value("");
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'UMTempAceite' && x.Seccion === 1).Celda).value("");
-    //        } else {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 1).Celda).validation({
-    //                comparerType: "custom",
-    //                dataType: "custom",
-    //                from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 1).Celda + ', "^[0-9]\\\\d{0,2}(\\\\.\\\\d{1,1})?%?$"))',
-    //                titleTemplate: "Error",
-    //                showButton: true,
-    //                type: "reject",
-    //                allowNulls: false,
-    //                messageTemplate: "La temperatura del aceite debe ser mayor a cero considerando 3 enteros con 1 decimal."
-    //            });
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TempAceite' && x.Seccion === 1).Celda + ":P21").enable(true)
-
-    //        }
-    //    }
-
-    //}
-
-
-    //if (viewModel.Pruebas === "LYP") {
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda).validation({
-    //        comparerType: "custom",
-    //        dataType: "custom",
-    //        from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda +
-    //            ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda +
-    //            ')<=5)',
-    //        titleTemplate: "Error",
-    //        showButton: true,
-    //        type: "reject",
-    //        allowNulls: false,
-    //        messageTemplate: "La posición en AT solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //    });
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 2).Celda).validation({
-    //        comparerType: "custom",
-    //        dataType: "custom",
-    //        from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 2).Celda +
-    //            ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 2).Celda +
-    //            ')<=5)',
-    //        titleTemplate: "Error",
-    //        showButton: true,
-    //        type: "reject",
-    //        allowNulls: false,
-    //        messageTemplate: "La posición en AT solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //    });
-
-
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda).validation({
-    //        comparerType: "custom",
-    //        dataType: "custom",
-    //        from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda +
-    //            ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda +
-    //            ')<=5)',
-    //        titleTemplate: "Error",
-    //        showButton: true,
-    //        type: "reject",
-    //        allowNulls: false,
-    //        messageTemplate: "La posición en BT solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //    });
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 2).Celda).validation({
-    //        comparerType: "custom",
-    //        dataType: "custom",
-    //        from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 2).Celda +
-    //            ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 2).Celda +
-    //            ')<=5)',
-    //        titleTemplate: "Error",
-    //        showButton: true,
-    //        type: "reject",
-    //        allowNulls: false,
-    //        messageTemplate: "La posición en BT solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //    });
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda).enable(true)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 2).Celda).enable(true)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda).enable(true)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 2).Celda).enable(true)
-
-
-    //    if (viewModel.Columnas === 3) {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda).validation({
-    //            comparerType: "custom",
-    //            dataType: "custom",
-    //            from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda +
-    //                ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda +
-    //                ')<=5)',
-    //            titleTemplate: "Error",
-    //            showButton: true,
-    //            type: "reject",
-    //            allowNulls: false,
-    //            messageTemplate: "La posición en Ter solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //        });
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 2).Celda).validation({
-    //            comparerType: "custom",
-    //            dataType: "custom",
-    //            from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 2).Celda +
-    //                ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 2).Celda +
-    //                ')<=5)',
-    //            titleTemplate: "Error",
-    //            showButton: true,
-    //            type: "reject",
-    //            allowNulls: false,
-    //            messageTemplate: "La posición en Ter solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //        });
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda).enable(true)
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 2).Celda).enable(true)
-    //    }
-
-
-    //}
-    //else {
-
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda).validation({
-    //        comparerType: "custom",
-    //        dataType: "custom",
-    //        from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda +
-    //            ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda +
-    //            ')<=5)',
-    //        titleTemplate: "Error",
-    //        showButton: true,
-    //        type: "reject",
-    //        allowNulls: false,
-    //        messageTemplate: "La posición en AT solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //    });
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda).validation({
-    //        comparerType: "custom",
-    //        dataType: "custom",
-    //        from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda +
-    //            ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda +
-    //            ')<=5)',
-    //        titleTemplate: "Error",
-    //        showButton: true,
-    //        type: "reject",
-    //        allowNulls: false,
-    //        messageTemplate: "La posición en BT solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //    });
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosAT' && x.Seccion === 1).Celda).enable(true)
-    //    sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosBT' && x.Seccion === 1).Celda).enable(true)
-
-
-    //    if (viewModel.Columnas === 3) {
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda).validation({
-    //            comparerType: "custom",
-    //            dataType: "custom",
-    //            from: 'AND(REGEXP_MATCH(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda +
-    //                ', "^[a-zA-Z0-9]*$"),LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda +
-    //                ')<=5)',
-    //            titleTemplate: "Error",
-    //            showButton: true,
-    //            type: "reject",
-    //            allowNulls: false,
-    //            messageTemplate: "La posición en Ter solo puede contener letras y/o números y no puede excederse de 5 caracteres."
-    //        });
-    //        sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda).enable(true)
-
-    //        if (viewModel.TerciarioDisponible === 'No') {
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'PosTer' && x.Seccion === 1).Celda).clear();
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitPosTer' && x.Seccion === 1).Celda).clear();
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Terciario' && x.Seccion === 1).Celda).clear();
-    //            sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TitTerciario' && x.Seccion === 1).Celda).clear();
-    //        }
-    //    }
-
-    //}
-
-
-
-    //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TotalPaginas').Celda).validation({
-    //    comparerType: "between",
-    //    dataType: "number",
-    //    from: '1',
-    //    to: '999',
-    //    titleTemplate: "Error",
-    //    showButton: true,
-    //    type: "reject",
-    //    allowNulls: false,
-    //    messageTemplate: "El total de páginas debe ser mayor a cero considerando 3 enteros sin decimales"
-    //});
-    //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'TotalPaginas').Celda).enable(true)
-
-
-    //sheet.range(viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado' && x.Seccion === 1).Celda).validation({
-    //    comparerType: "custom",
-    //    dataType: "custom",
-    //    from: 'AND(CHECK_RESULT(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda + ',"'+viewModel.ClaveIdioma+'"), LEN(' + viewModel.SettingsARF.ConfigurationReports.find(x => x.Dato === 'Resultado').Celda +')<=15)',
-    //    titleTemplate: "Error",
-    //    showButton: true,
-    //    type: "reject",Favor de proporcionar el resultado de la prueba
-    //    allowNulls: false,
-    //    messageTemplate: viewModel.ClaveIdioma === "EN" ? "Su valor solo puede ser Accepted o Rejected" : "Su valor solo puede ser Aceptado o Rechazado"
-    //});
     sheet.range("P2").validation({
         comparerType: "list",
         dataType: "list",
@@ -1682,6 +1332,7 @@ function SetConfigExcel(workbook) {
 
     // document.querySelector('.k-button k-button-icon').click();
     //spreadsheet._workbook.fileName = $("#TipoEnfriamiento").val() + " " + $("#NoSerie").val() + ".xlsx";
+    //spreadsheet._workbook._sheets[1] = sheetc1;
     spreadsheet.saveAsExcel();
 
 
@@ -1691,7 +1342,7 @@ function SetConfigExcel(workbook) {
 
 
 
-    sheet.addDrawing(drawing);
+    //sheet.addDrawing(drawing);
     //initCss();
 }
 
@@ -1756,7 +1407,8 @@ async function DownloadFileJSON() {
             posTer: $("#selectTer").val(),
             coolingType: $("#TipoEnfriamiento").val(),
             otherCoolingType: $("#Otro").val(),
-            capacity: $("#selectCapacidades").val(),
+            capacity: $("#SelectCapacidades").val(),
+            otherCapacity: $("#OtraCapacidad").val(),
             altitud1: $("#Altitud1").val(),
             altitud2: $("#Altitud2").val(),
             clientName: $("#Cliente").val(),
@@ -1778,39 +1430,83 @@ async function DownloadFileJSON() {
         return null;
     }
 }
-
 async function LoadFileJSON() {
-    var path = path = "/EtdFile/LoadFile/";
+    var fileUpload = $("#File").get(0);
 
-    var url = new URL(domain + path),
-        params = {
-            noSerie: $("#NoSerie").val(),
-            claveIdioma: $("#claveIdiomaC").val(),
-            clavePrueba  : " ",
-            posAT: $("#TipoEnfriamiento2").val(),
-            posBT: $("#Otro2").val(),
-            posTer: $("#selectTer").val(),
-            coolingType: $("#TipoEnfriamiento").val(),
-            otherCoolingType: $("#Otro").val(),
-            f1: $("#check1").val(),
-            f2: $("#check2").val(),
-            f3: $("#check3").val(),
-            file : " "
+    var files = fileUpload.files;
+
+    modelFormData = new FormData();
+
+    modelFormData.append("NoSerie", $("#NoSerie").val() );
+    modelFormData.append("ClaveIdioma2", $("#ClaveIdioma2").val());
+    modelFormData.append("clavePrueba", "");
+    modelFormData.append("Enfriamiento", $("#Enfriamiento2").val());
+    modelFormData.append("OtroEnfriamiento", $("#Otro2").val());
+    modelFormData.append("Check1", $("#check1").is(":checked"));
+    modelFormData.append("Check2", $("#check2").is(":checked"));
+    modelFormData.append("Check3", $("#check3").is(":checked"));
+    var fileUpload = $("#File").get(0);
+
+    var files = fileUpload.files;
+
+    if (files.length > 0)
+        modelFormData.append("file", files[0]);
+
+    $.ajax({
+        url: "/EtdFile/LoadFile/",
+        method: "POST",
+        contentType: false,
+        processData: false,
+        data: modelFormData,
+        success: function (result) {
+
+            if (result.response.Code === 1) {
+                ShowSuccessMessage("Guardado Exitoso.")
+                GetGraphisByReport();
+            }
+            else {
+                ShowFailedMessage(result.response.Description);
+                $("#loader").css("display", "none");
+                var menssajes = "";
+                $.each(result.response.Structure, function (index, value) {
+                    menssajes += value.Message + "\n";
+                });
+                $("#errores").val(menssajes);
+
+          
+            }
         }
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    });
 
-    const response = await fetch(url);
 
-    if (response.ok && response.status === 200) {
+    //var path = path = "/EtdFile/LoadFile/";
 
-        const result = await response.json();
-        return result;
-    }
+    //var url = new URL(domain + path),
+    //    params = {
+    //        noSerie: $("#NoSerie").val(),
+    //        claveIdioma: $("#ClaveIdioma2").val(),
+    //        clavePrueba  : " ",
+    //        coolingType: $("#TipoEnfriamiento2").val(),
+    //        otherCoolingType: $("#Otro2").val(),
+    //        f1: $("#check1").val(),
+    //        f2: $("#check2").val(),
+    //        f3: $("#check3").val(),
+    //        file: files[0]
+    //    }
+    //Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
-    else {
-        ShowFailedMessage('Error, por favor contacte al administrador del sistema.' + response);
-        return null;
-    }
+    //const response = await fetch(url);
+
+    //if (response.ok && response.status === 200) {
+
+    //    const result = await response.json();
+    //    return result;
+    //}
+
+    //else {
+    //    ShowFailedMessage('Error, por favor contacte al administrador del sistema.' + response);
+    //    return null;
+    //}
 }
 
 //Requests
@@ -1828,6 +1524,7 @@ $("#btnRemove").on('click', function (e) {
 function ValidateForm(tipo) {
     if (tipo === "1") {
         $(`#OtroSpand`).text("");
+        $(`#OtraCapacidad`).text("");
         var resultValid = false;
         ResultValidations = $("#form_menu_sup1").data("kendoValidator").validate();
         if (ResultValidations) {
@@ -1840,6 +1537,20 @@ function ValidateForm(tipo) {
             if ($("#TipoEnfriamiento").val() == "0") {
                 if ($("#Otro").val() == "" || $("#Otro").val() == null || $("#Otro").val() == undefined) {
                     $(`#OtroSpand`).text("Requerido");
+                    resultValid = false;
+                }
+
+
+            }
+        }
+        else {
+            resultValid = false;
+        } 
+
+        if ($("#SelectCapacidades").val() != "") {
+            if ($("#SelectCapacidades").val() == "Otro") {
+                if ($("#OtraCapacidad").val() == "" || $("#OtraCapacidad").val() == null || $("#OtraCapacidad").val() == undefined) {
+                    $(`#OtraCapacidadSpand`).text("Requerido");
                     resultValid = false;
                 }
 

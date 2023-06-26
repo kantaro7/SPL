@@ -7,7 +7,7 @@
 <div id="pdfViewer">
 </div>
 
-<div class="row" style="display:none">
+<div class="row" style="display:block">
     <div class="col-md-12">
         <kendo-splitter name="horizontal" orientation="SplitterOrientation.Horizontal" style="height:1200px">
             <pane size="60%" id="botton-pane" scrollable="false" collapsible="true">
@@ -48,7 +48,6 @@
 <div class="row">
     <div class="form-group">
         @(Html.ValidationSummary(true, "", new { @class = "alert alert-danger" }))
-        .21-
     </div>
     <div class="col-md-4">
         <div class="form-floating mb-3">
@@ -133,6 +132,11 @@
                                                                   @Html.DropDownListFor(c => c.SelectCapacidades, (IEnumerable<SelectListItem>)ViewBag.SelectCapacidades, new { @class = "form-select form-select-sm", @id = "SelectCapacidades" })
                                                                   <span asp-validation-for="SelectCapacidades" class="text-danger"></span>
                                                              </div>
+                                                               <div class="col mb-3">
+                                                                    <label asp-for="OtraCapacidad" style="margin-bottom:8px"></label>
+                                                                    <input asp-for="OtraCapacidad" class="form-control form-control-sm" onkeypress="return check(event)" maxlength="200" id="OtraCapacidad" disabled>
+                                                                    <span id="OtraCapacidadSpand" class="text-danger"></span>
+                                                            </div>
                                                              <br />
                                                         <br />
                                                         </div>
@@ -209,7 +213,7 @@
 
                                                              <div class="col mb-3">
                                                                   <label class="form-label" asp-for="ClaveIdioma2"></label>
-                                                @Html.DropDownListFor(c => c.ClaveIdioma2, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm" , @id = "claveIdiomaC"  })
+                                                @Html.DropDownListFor(c => c.ClaveIdioma2, (IEnumerable<SelectListItem>)ViewBag.ClaveIdiomaItems, new { @class = "form-select form-select-sm" , @id = "ClaveIdioma2"  })
                                                                   <span asp-validation-for="ClaveIdioma2" class="text-danger"></span>
                                                              </div>
 
@@ -259,7 +263,7 @@
                                                  <br />
                                                  <div class="row">
                                                       <div class="col mb-3">
-                                                        <textarea id="errores" name="errores" rows="10"  style="width: inherit;">
+                                                        <textarea id="errores" name="errores" rows="10"  style="width: inherit; color:red">
                                   
                                                         </textarea>
                                                       </div>

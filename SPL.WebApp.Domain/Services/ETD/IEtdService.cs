@@ -21,5 +21,9 @@
         bool Verify_ETD_Columns(SettingsToDisplayETDReportsDTO reportsDTO, Workbook workbook);
 
         string PrepareDownloadTemplate_ETD(SettingsToDisplayETDReportsDTO reportsDTO, Dictionary<string, ParamETD> parameters, ref Telerik.Windows.Documents.Spreadsheet.Model.Workbook workbook);
+
+        List<ErrorColumnsDTO> PrepareUploadConfiguration_ETD(SettingsToDisplayETDReportsDTO reportsDTO, List<bool> listHojas, ref Workbook workbook, string claveIdioma);
+
+
     }
 }

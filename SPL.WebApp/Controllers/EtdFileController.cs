@@ -10,6 +10,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.Extensions.Hosting;
@@ -30,6 +31,7 @@
     using Telerik.Windows.Documents.Spreadsheet.FormatProviders;
     using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
     using Telerik.Windows.Documents.Spreadsheet.Formatting;
+    using Telerik.Windows.Documents.Spreadsheet.Model.Printing;
     using Telerik.Windows.Documents.Spreadsheet.Model.Shapes;
     using Telerik.Windows.Documents.Spreadsheet.Utilities;
 
@@ -96,7 +98,7 @@
         }
 
 
-        public async Task<IActionResult> DownloadFile(string noSerie, string clavePrueba, string claveIdioma, string posAT, string posBT, string posTer, string coolingType, string otherCoolingType, decimal capacity, decimal altitud1, string altitud2, string clientName, string reportCapacities, decimal grados)
+        public async Task<IActionResult> DownloadFile(string noSerie, string clavePrueba, string claveIdioma, string posAT, string posBT, string posTer, string coolingType, string otherCoolingType, decimal capacity, decimal otherCapacity, decimal altitud1, string altitud2, string clientName, string reportCapacities, decimal grados)
         {
             try
             {
@@ -155,7 +157,7 @@
                 {"cmbPosBT", new ParamETD(posBT)},
                 {"cmbPosTer", new ParamETD(string.IsNullOrEmpty(posTer) ? "NA" : posTer)},
                 {"txtAltitudF1", new ParamETD(altitud1)},
-                {"txtCapacidad", new ParamETD(capacity)},
+                {"txtCapacidad", new ParamETD(capacity <= 0 ? otherCapacity : capacity)},
                 {"cmbTipoEnfriamiento", new ParamETD(coolingType.ToUpper().Equals("OTRO") ? otherCoolingType : coolingType)},
                 {"txtCliente", new ParamETD(clientName)},
                 {"txtCapacidadesRep", new ParamETD(reportCapacities)}
@@ -324,6 +326,8 @@
         
           
         }
+        //hacer una funcion que lea un excel y procese los datos
+
         private int[] GetRowColOfWorbook(string cell)
         {
             int[] position = new int[2];
@@ -355,6 +359,165 @@
         }
 
 
+
+        //[HttpPost]
+        //public async Task<IActionResult> SavePdf([FromBody] EtdFileViewModel viewModel)
+        //{
+        //    try
+        //    {
+
+        //        try
+        //        {
+
+
+
+        //            byte[] bytes = System.IO.File.ReadAllBytes(@"C:\Users\Barboza\Downloads\ETD.xlsx");
+        //            Stream stream2 = new MemoryStream(bytes);
+
+        //            Workbook workbook = Workbook.Load(stream2, ".xlsx");
+        //            Telerik.Windows.Documents.Spreadsheet.Model.Workbook document = workbook.ToDocument();
+
+
+        //            //Se busca la  hoja del reporte donde el nombre sea Rep.F3
+        //            document.ActiveSheet = document.Worksheets.First(sheet => sheet.Name == "Rep.F3");
+        //            var p2 = document.ActiveSheet;
+        //            //Por alguna razon no setea el sheet cuando la hoja hace match
+
+
+        //            foreach (Telerik.Windows.Documents.Spreadsheet.Model.Worksheet sheet in document.Worksheets)
+        //            {
+
+        //                if (sheet.Name != "Rep.F3")
+        //                {
+        //                    //se ocultan las hojas que no interesan
+        //                    sheet.Visibility = Telerik.Windows.Documents.Spreadsheet.Model.SheetVisibility.Hidden;
+        //                    //document.Worksheets.Remove(sheet);
+        //                }
+        //                else
+        //                {
+        //                    /***************************SE AGREGAN LOS LOGOS A LOS HEADERS DE CADA HOJA *****************************************/
+        //                    var image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(0, 0), 0, 0);
+        //                    string path = Path.Combine(_hostEnvironment.WebRootPath + "\\images\\", "prolecge_excel.jpg");
+        //                    FileStream stream = new(path, FileMode.Open);
+        //                    using (stream)
+        //                    {
+        //                        image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(stream, "jpg");
+        //                    }
+
+        //                    image.Width = 215;
+        //                    image.Height = 38;
+
+        //                    sheet.Shapes.Add(image);
+
+        //                    image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(59, 0), 0, 0);
+        //                    path = Path.Combine(_hostEnvironment.WebRootPath + "\\images\\", "prolecge_excel.jpg");
+        //                    stream = new(path, FileMode.Open);
+        //                    using (stream)
+        //                    {
+        //                        image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(stream, "jpg");
+        //                    }
+
+        //                    image.Width = 215;
+        //                    image.Height = 38;
+        //                    sheet.Shapes.Add(image);
+
+        //                    image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(118, 0), 0, 0);
+        //                    path = Path.Combine(_hostEnvironment.WebRootPath + "\\images\\", "prolecge_excel.jpg");
+        //                    stream = new(path, FileMode.Open);
+        //                    using (stream)
+        //                    {
+        //                        image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(stream, "jpg");
+        //                    }
+
+        //                    image.Width = 215;
+        //                    image.Height = 38;
+        //                    sheet.Shapes.Add(image);
+
+        //                    /**********************************************************************************************************/
+
+        //                    image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(81, 7), 0, 0);
+        //                    image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(Convert.FromBase64String(viewModel.Img64.Split(",")[1]), "jpg");
+
+        //                    image.Width = 400;
+        //                    image.Height = 400;
+        //                    sheet.Shapes.Add(image);
+
+
+        //                    image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(139, 7), 0, 0);
+        //                    image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(Convert.FromBase64String(viewModel.Img64.Split(",")[1]), "jpg");
+        //                    image.Width = 400;
+        //                    image.Height = 400;
+        //                    sheet.Shapes.Add(image);
+
+
+        //                    PageBreaks pageBreaks = sheet.WorksheetPageSetup.PageBreaks;
+
+        //                    _ = pageBreaks.TryInsertHorizontalPageBreak(59, 0);
+        //                    _ = pageBreaks.TryInsertHorizontalPageBreak(118, 0);
+        //                    // _ = pageBreaks.TryInsertHorizontalPageBreak(59, 0);
+        //                    //sheet.Rows.Insert(58);
+        //                    sheet.WorksheetPageSetup.PaperType = Telerik.Windows.Documents.Model.PaperTypes.A4;
+        //                    sheet.WorksheetPageSetup.PageOrientation = Telerik.Windows.Documents.Model.PageOrientation.Portrait;
+        //                    sheet.WorksheetPageSetup.CenterHorizontally = true;
+        //                    sheet.WorksheetPageSetup.PrintOptions.PrintGridlines = false;
+        //                    sheet.WorksheetPageSetup.ScaleFactor = new Telerik.Documents.Primitives.Size(0.9, 1);
+        //                    sheet.WorksheetPageSetup.Margins =
+        //                        new Telerik.Windows.Documents.Spreadsheet.Model.Printing.PageMargins(0
+        //                        , 20, 0, 0);
+        //                }
+
+        //            }
+
+
+        //            Telerik.Windows.Documents.Spreadsheet.FormatProviders.IWorkbookFormatProvider formatProvider = new Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx.XlsxFormatProvider();
+        //            byte[] excelFile;
+        //            byte[] pdfFile;
+        //            string file;
+        //            // Generando Excel
+        //            using (MemoryStream stream = new())
+        //            {
+        //                formatProvider.Export(document, stream);
+        //                excelFile = stream.ToArray();
+        //                file = Convert.ToBase64String(stream.ToArray());
+        //            }
+
+        //            Spire.Xls.Workbook wbFromStream = new();
+
+        //            wbFromStream.LoadFromStream(new MemoryStream(excelFile));
+        //            MemoryStream pdfStream = new();
+        //            wbFromStream.SaveToStream(pdfStream, Spire.Xls.FileFormat.PDF);
+
+        //            pdfFile = pdfStream.ToArray();
+        //            viewModel.Base64PDF = Convert.ToBase64String(pdfFile);
+
+        //        }
+        //        catch (Exception e)
+        //        {
+
+        //        }
+
+        //        var resultResponse = new { status = 1, description = "", nameFile = "", file = viewModel.Base64PDF };
+
+        //        return Json(new
+        //        {
+        //            response = resultResponse
+        //        });
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return this.Json(new
+        //        {
+
+        //            response = new ApiResponse<EtdFileViewModel>
+        //            {
+        //                Code = -1,
+        //                Description = "Error al tratar de obtener los tipos de pruebas",
+        //                Structure = null
+        //            }
+        //        });
+        //    }
+        //}
 
 
         [HttpGet]
@@ -768,20 +931,84 @@
 
 
                 var ret = new EtdFileViewModel { };
-                ret.data = al;
-                ret.data2 = al2;
-                ret.MaxX = maxX;
-                ret.MinX = minX;
-                ret.MaxY = maxY + 0.2M;//se agrega 0.2M porque segun el grafico de excel , agrega un valor minimo adicional
-                ret.MinY = minY - 0.2M;//se agrega 0.2M porque segun el grafico de excel , agrega un valor minimo adicional
+                //ret.data = al;
+                //ret.data2 = al2;
+                //ret.MaxX = maxX;
+                //ret.MinX = minX;
+                //ret.MaxY = maxY + 0.2M;//se agrega 0.2M porque segun el grafico de excel , agrega un valor minimo adicional
+                //ret.MinY = minY - 0.2M;//se agrega 0.2M porque segun el grafico de excel , agrega un valor minimo adicional
                 return ret;
             });
         }
 
 
-        public async Task<IActionResult> LoadFile(string noSerie, string claveIdioma, string clavePrueba, string coolingType, string otherCoolingType, bool f1, bool f2, bool f3, string file)
+        public async Task<IActionResult> LoadFile([FromForm] EtdFileViewModel viewModel)
         {
-            noSerie = noSerie.ToUpper().Trim();
+            viewModel.NoSerie = viewModel.NoSerie.ToUpper().Trim();
+
+            byte[] Array = null;
+            string imageCodeBase64 = string.Empty;
+
+            if (viewModel.File != null)
+            {
+                using MemoryStream memoryStream = new();
+                await viewModel.File.CopyToAsync(memoryStream);
+                Array = memoryStream.ToArray();
+
+            }
+            // the XLSX format provider is used for demo purposes and can be replaced with any format provider implementing the IWorkbookFormatProvider interface
+            //XlsxFormatProvider formatProvider = new XlsxFormatProvider();
+
+            //Telerik.Windows.Documents.Spreadsheet.FormatProviders.IWorkbookFormatProvider formatProvider = new Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx.XlsxFormatProvider();
+
+            //using (Stream input = new MemoryStream(Array))
+            ////using (Stream input = new FileStream(path, FileMode.Open))
+            //{
+            //    workbook = formatProvider.Import(input);
+            //}
+
+            Stream stream = new MemoryStream(Array);
+
+            Telerik.Web.Spreadsheet.Workbook workbook = Telerik.Web.Spreadsheet.Workbook.Load(stream, ".xlsx");
+
+
+            ApiResponse<SettingsToDisplayETDReportsDTO> result = await this._gatewayClientService.GetDownloadTemplateETD(nroSerie: viewModel.NoSerie, "", lenguage: viewModel.ClaveIdioma2);
+
+            if (result.Code.Equals(-1))
+            {
+                return this.Json(new
+                {
+                    response = new ApiResponse<string>
+                    {
+                        Code = -1,
+                        Description = "Error",
+                        Structure = result.Description
+                    }
+                });
+
+            }
+
+            List<bool> listSheets = new List<bool>();
+            listSheets.Add(viewModel.Check1);
+            listSheets.Add(viewModel.Check2);
+            listSheets.Add(viewModel.Check3);
+
+            List <ErrorColumnsDTO> resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets,ref workbook,viewModel.ClaveIdioma2);
+
+            if (resultload.Count > 0)
+            {
+
+                return this.Json(new
+                {
+                    response = new ApiResponse<List<ErrorColumnsDTO>>
+                    {
+                        Code = -1,
+                        Description = "Error",
+                        Structure = resultload
+                    }
+                });
+            }
+
             //ApiResponse<SettingsToDisplayETDReportsDTO> result = await this._gatewayClientService.(noSerie, clavePrueba, claveIdioma);
 
             //if (result.Code.Equals(-1))
@@ -798,7 +1025,15 @@
             //{
             //    Error = result.Description
             //});
-            return null;
+            return this.Json(new
+            {
+                response = new ApiResponse<EtdFileViewModel>
+                {
+                    Code = -1,
+                    Description = "No. Serie inválido.",
+                    Structure = null
+                }
+            });
         }
 
         public async Task<IActionResult> GetFilter(string noSerie)
@@ -918,10 +1153,32 @@
                     etdFileViewModel.Altitud2 = artifactDesing.GeneralArtifact.AltitudeF2;
                     etdFileViewModel.Cliente = artifactDesing.GeneralArtifact.CustomerName;
 
-                    List<decimal> listaCap = artifactDesing.CharacteristicsArtifact.Where(x => x.Mvaf1 is not null and not 0).Select(y => (decimal)y.Mvaf1).ToList();
+                    List<decimal?> listaCap = new();
 
-                    etdFileViewModel.CapacidadReporte = string.Join('/', listaCap.Select(u => u.ToString("F3"))) + " MVA";
-                    etdFileViewModel.CapacidadesList = listaCap;
+                    foreach (var item in artifactDesing.CharacteristicsArtifact)
+                    {
+                        if (item.Mvaf1 > 0)
+                        {
+                            listaCap.Add(item.Mvaf1);
+                        }
+                        if (item.Mvaf2 > 0)
+                        {
+                            listaCap.Add(item.Mvaf2);
+                        }
+                        if (item.Mvaf3 > 0)
+                        {
+                            listaCap.Add(item.Mvaf3);
+                        }
+                        if (item.Mvaf4 > 0)
+                        {
+                            listaCap.Add(item.Mvaf4);
+                        }
+                    }
+
+                    etdFileViewModel.CapacidadReporte = string.Join('/', listaCap.Select(u => u.Value.ToString("F3"))) + " MVA";
+
+                    etdFileViewModel.CapacidadesList = listaCap.Distinct().ToList();
+                    etdFileViewModel.CapacidadesList.Add(null);
                     etdFileViewModel.EnfriamientosList = artifactDesing.CharacteristicsArtifact.Select(x => x.CoolingType).ToList();
 
                 }
