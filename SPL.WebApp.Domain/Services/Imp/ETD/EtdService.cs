@@ -24,414 +24,16 @@
 
         }
         public void PrepareTemplate_ETD(SettingsToDisplayETDReportsDTO reportsDTO, bool lVDifferentCapacity, decimal capacity1, bool terReducedCapacity, decimal capacity2, string claveIdioma, string overload, string typeTest, ref Workbook workbook)
-        {
-            //try
-            //{
-            //    #region Update Readonly all cells
-            //    workbook.Sheets[0].Rows.ForEach(c => c.Cells?.ForEach(k => k.Enable = false));
+        { }
 
-            //    #endregion
-
-            //    #region Head
-            //    // Cliente
-            //    int[] _positionWB;
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Cliente")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.HeadboardReport.Client;
-            //    }
-            //    // NoSerie
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("NoSerie")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.HeadboardReport.NoSerie;
-            //    }
-            //    // Capacidad
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Capacidad")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.HeadboardReport.Capacity;
-            //    }
-            //    // Fecha
-            //    int fechas = 0;
-            //    string celda1 = string.Empty;
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Fecha")).Select(x => x.Celda))
-            //    {
-            //        if (fechas is 0)
-            //        {
-            //            _positionWB = this.GetRowColOfWorbook(celda);
-            //            celda1 = celda;
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Enable = true;
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Format = "MM/dd/yyyy";
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
-
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Validation = new Validation()
-            //            {
-            //                DataType = "date",
-            //                AllowNulls = false,
-            //                MessageTemplate = $"Fecha es requerida y debe estar dentro del rango 1/1/1900 - {DateTime.Now:MM/dd/yyyy}",
-            //                ComparerType = "between",
-            //                From = "DATEVALUE(\"1/1/1900\")",
-            //                To = $"DATEVALUE(\"{DateTime.Now:MM/dd/yyyy}\")",
-            //                Type = "reject",
-            //                TitleTemplate = "Error",
-            //                ShowButton = true
-            //            };
-            //        }
-            //        else
-            //        {
-            //            _positionWB = this.GetRowColOfWorbook(celda);
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Enable = false;
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Format = "MM/dd/yyyy";
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Formula = $"={celda1}";
-            //        }
-            //        fechas++;
-            //    }
-
-            //    #endregion
-
-            //    #region FirstPage
-            //    // Nivel Tension
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("NivelTension")).Celda);
-            //    if (reportsDTO.NivelTension is 0)
-            //    {
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = "";
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] - 1].Value = "";
-            //    }
-            //    else
-            //    {
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.NivelTension;
-            //    }
-            //    // CapacidadPrueba
-            //    int count = 0;
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("CapacidadPrueba")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        if (count is 0)
-            //        {
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.CapacidadPruebaAT;
-            //        }
-            //        else if (count is 1)
-            //        {
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.CapacidadPruebaBT;
-            //        }
-            //        else if (count is 2)
-            //        {
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.CapacidadPruebaTer;
-            //        }
-            //        count++;
-            //    }
-            //    // TitPerdCorr
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("TitPerdCorr")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.TitPerdCorr;
-            //    }
-
-            //    // DatoPerdCorr
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("DatoPerdCorr")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.DatoPerdCorr;
-            //    }
-
-            //    // Enfriamiento
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Enfriamiento")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.Enfriamiento;
-            //    }
-
-            //    // Elevacion
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Elevacion")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.Elevacion;
-            //    }
-
-            //    // Altitud1
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Altitud1")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.Altitud1;
-            //    }
-
-            //    // Altitud2
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("Altitud2")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.Altitud2;
-            //    }
-
-            //    // PosAT
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("PosAT")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.PosAT;
-            //    }
-
-            //    // PosBT
-            //    foreach (string celda in reportsDTO.ConfigurationReports.Where(c => c.Dato.Equals("PosBT")).Select(x => x.Celda))
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celda);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.PosBT;
-            //    }
-
-            //    // Tiempo
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("Tiempo")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.Tiempo[i];
-            //    // RadSuperior
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("RadSuperior")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.RadSuperior[i];
-            //    // RadInferior
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("RadInferior")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.RadInferior[i];
-            //    // AmbProm
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("AmbProm")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.AmbProm[i];
-            //    // TempTapa
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("TempTapa")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.TempTapa[i];
-            //    // TOR
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("TOR")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.TOR[i];
-            //    // AOR
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("AOR")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.AOR[i];
-            //    // BOR
-            //    _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("BOR")).Celda);
-            //    for (int i = 0; i < 4; i++)
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.Tiempo[i];
-
-            //    if (reportsDTO.PorcentajeRepresentanPerdidas > 3)
-            //    {
-            //        // ElevAceiteSup
-            //        _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("ElevAceiteSup")).Celda);
-            //        for (int i = 0; i < 4; i++)
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.ElevAceiteSup[i];
-
-            //        // ElevAceiteProm
-            //        _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("ElevAceiteProm")).Celda);
-            //        for (int i = 0; i < 4; i++)
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.ElevAceiteProm[i];
-
-            //        // ElevAceiteInf
-            //        _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("ElevAceiteInf")).Celda);
-            //        for (int i = 0; i < 4; i++)
-            //            workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1] + i].Value = reportsDTO.ElevAceiteInf[i];
-            //    }
-
-            //    #endregion
-
-            //    #region RestPage
-
-            //    int sections = typeTest.Equals("SAB") ? 2 : 3;
-
-            //    // ResistCorte
-            //    List<string> celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("ResistCorte")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.ResistCorte[i];
-            //    }
-
-            //    // TempResistCorte
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("TempResistCorte")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.TempResistCorte[i];
-            //    }
-
-            //    // FactorK
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("FactorK")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.FactorK[i];
-            //    }
-
-            //    // ResistTCero
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("ResistTCero")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.ResistTCero[i];
-            //    }
-
-            //    // TempDev
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("TempDev")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.TempDev[i];
-            //    }
-
-            //    // GradienteDev
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("GradienteDev")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.GradienteDev[i];
-            //    }
-
-            //    // ElevPromDev
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("ElevPromDev")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.ElevPromDev[i];
-            //    }
-
-            //    // TempPromAceite
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("TempPromAceite")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.TempPromAceite[i];
-            //    }
-
-            //    // Terminal
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("Terminal")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.Terminal[i];
-            //    }
-
-            //    // UMResist
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("UMResist")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.UMResist[i];
-            //    }
-
-            //    // TiempoResist
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("TiempoResist")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        List<decimal> tiempos = reportsDTO.TiempoResist[i];
-
-            //        for (int j = 0; j < tiempos.Count; j++)
-            //        {
-            //            workbook.Sheets[0].Rows[_positionWB[0] + j].Cells[_positionWB[1]].Value = tiempos[j];
-            //        }
-            //    }
-
-            //    // Resistencia
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("Resistencia")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        List<decimal> resistencias = reportsDTO.Resistencia[i];
-
-            //        for (int j = 0; j < resistencias.Count; j++)
-            //        {
-            //            workbook.Sheets[0].Rows[_positionWB[0] + j].Cells[_positionWB[1]].Value = resistencias[j];
-            //        }
-            //    }
-
-            //    // TitGrafica
-            //    celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("TitGrafica")).ConvertAll(x => x.Celda);
-            //    for (int i = 0; i < sections; i++)
-            //    {
-            //        _positionWB = this.GetRowColOfWorbook(celdas[i]);
-            //        workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value = reportsDTO.TitGrafica;
-            //    }
-            //    #endregion
-
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-        }
-
-        public bool Verify_ETD_ColumnsToCalculate(SettingsToDisplayETDReportsDTO reportsDTO, Telerik.Web.Spreadsheet.Workbook workbook) =>
-            //int[] _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("TipoEnf")).Celda);
-            //string coolingType = "Frio";
-            //int row = 0;
-            //while (!string.IsNullOrEmpty(coolingType))
-            //{
-            //    string voltage = workbook.Sheets[0].Rows[_positionWB[0] + row].Cells[_positionWB[1] + 1].Value?.ToString();
-            //    string current = workbook.Sheets[0].Rows[_positionWB[0] + row].Cells[_positionWB[1] + 2].Value?.ToString();
-            //    string power = workbook.Sheets[0].Rows[_positionWB[0] + row].Cells[_positionWB[1] + 3].Value?.ToString();
-
-            //    if (string.IsNullOrEmpty(voltage) || string.IsNullOrEmpty(current) || string.IsNullOrEmpty(power))
-            //        return false;
-
-            //    coolingType = workbook.Sheets[0].Rows[_positionWB[0] + row + 1].Cells[_positionWB[1]].Value?.ToString();
-            //    row++;
-            //}
-
-            true;
+        public bool Verify_ETD_ColumnsToCalculate(SettingsToDisplayETDReportsDTO reportsDTO, Telerik.Web.Spreadsheet.Workbook workbook) => true;
 
         public void PrepareIndexOfETD(ResultETDTestsDTO resultETDTestsDTO, SettingsToDisplayETDReportsDTO reportsDTO, ref Telerik.Web.Spreadsheet.Workbook workbook, string idioma)
-        {
-            //List<string> celdas = reportsDTO.ConfigurationReports.FindAll(c => c.Dato.Equals("Resultado")).ConvertAll(x => x.Celda);
-            //int sections = resultETDTestsDTO.ETDTestsGeneral.ETDTests.Count;
-            //for (int i = 1; i < sections; i++)
-            //{
-            //    int[] resultLocation = this.GetRowColOfWorbook(celdas[i]);
-            //    workbook.Sheets[0].Rows[resultLocation[0]].Cells[resultLocation[1]].Value = (bool)resultETDTestsDTO.ETDTestsGeneral.ETDTests[i].Resultado ?
-            //   reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals($"ValorAceptado{idioma}")).Formato :
-            //   reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals($"ValorRechazado{idioma}")).Formato;
-            //}
-        }
+        { }
 
-        public DateTime GetDate(Telerik.Web.Spreadsheet.Workbook origin, SettingsToDisplayETDReportsDTO reportsDTO) =>
-            //ConfigurationReportsDTO fechaCelda = reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("Fecha"));
-            //int[] _positionWB = this.GetRowColOfWorbook(fechaCelda.Celda);
-            //string fecha = origin.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value?.ToString();
-            //if (DateTime.TryParseExact(fecha, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime objDT))
-            //{
-            //    return objDT;
-            //}
-            //else
-            //{
-            //    double value = double.Parse(fecha);
-            //    DateTime date1 = DateTime.FromOADate(value);
-            //    return date1;
-            //}
-            DateTime.Now;
+        public DateTime GetDate(Telerik.Web.Spreadsheet.Workbook origin, SettingsToDisplayETDReportsDTO reportsDTO) => DateTime.Now;
 
-        public bool Verify_ETD_Columns(SettingsToDisplayETDReportsDTO reportsDTO, Telerik.Web.Spreadsheet.Workbook workbook) =>
-            //int[] _positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("Fecha")).Celda);
-            //string cell = workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value?.ToString();
-            //if (cell is null or "")
-            //    return false;
-
-            //_positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("Resultado")).Celda);
-            //cell = workbook.Sheets[0].Rows[_positionWB[0]].Cells[_positionWB[1]].Value?.ToString();
-            //if (cell is null or "")
-            //    return false;
-
-            //_positionWB = this.GetRowColOfWorbook(reportsDTO.ConfigurationReports.FirstOrDefault(c => c.Dato.Equals("TipoEnf")).Celda);
-            //string coolingType = "Frio";
-            //int row = 0;
-            //while (!string.IsNullOrEmpty(coolingType))
-            //{
-            //    string voltage = workbook.Sheets[0].Rows[_positionWB[0] + row].Cells[_positionWB[1] + 1].Value?.ToString();
-            //    string current = workbook.Sheets[0].Rows[_positionWB[0] + row].Cells[_positionWB[1] + 2].Value?.ToString();
-            //    string power = workbook.Sheets[0].Rows[_positionWB[0] + row].Cells[_positionWB[1] + 3].Value?.ToString();
-
-            //    if (string.IsNullOrEmpty(voltage) || string.IsNullOrEmpty(current) || string.IsNullOrEmpty(power))
-            //        return false;
-
-            //    coolingType = workbook.Sheets[0].Rows[_positionWB[0] + row + 1].Cells[_positionWB[1]].Value?.ToString();
-            //    row++;
-            //}
-
-            true;
+        public bool Verify_ETD_Columns(SettingsToDisplayETDReportsDTO reportsDTO, Telerik.Web.Spreadsheet.Workbook workbook) => true;
 
         public string PrepareDownloadTemplate_ETD(SettingsToDisplayETDReportsDTO reportsDTO, Dictionary<string, ParamETD> parameters, ref Telerik.Windows.Documents.Spreadsheet.Model.Workbook workbook)
         {
@@ -584,12 +186,14 @@
                 StabilizationDetailsDataDTO stabilizationDetails3DataDTO = new();
                 StabilizationDetailsDataDTO stabilizationDetails4DataDTO = new();
 
-                //SPL_CORTEGRAL_EST
-                HeaderCuttingDataDTO headerCuttingDataDTO = new()
-                {
-                    //SPL_CORTESECC_EST
-                    SectionCuttingData = new List<SectionCuttingDataDTO>()
-                };
+                //SPL_CORTEGRAL_EST Son la cabecera de cada Corte
+                List<HeaderCuttingDataDTO> headerCuttingDatas = new();
+                //HeaderCuttingDataDTO headerCuttingDataDTO = new()
+                //{
+                //    //SPL_CORTESECC_EST
+                //    SectionCuttingData = new List<SectionCuttingDataDTO>()
+                //};
+
                 SectionCuttingDataDTO sectionDetailsCDataDTO = new();
                 SectionCuttingDataDTO sectionDetailsEDataDTO = new();
 
@@ -601,14 +205,8 @@
                 //SPL_CORTEDETA_EST
                 DetailCuttingDataDTO detailCuttingDataDTO = new();
 
-                //SPL_INFO_GENERAL_ETD
-                ETDReportDTO eTDReportDTO = new();
-
-                //SPL_INFO_SECCION_ETD
-                ETDTestsDTO eTDTestsDTO = new();
-
-                //SPL_INFO_DETALLE_ETD
-                ETDTestsDetailsDTO eTDTestsDetailsDTO = new();
+                //SPL_INFO_GENERAL_ETD lista de los reportes
+                List<ETDReportDTO> eTDReports = new();
 
                 //SPL_INFO_GRAFICA_ETD
                 GraphicETDTestsDTO graphicETDTestsDTO = new();
@@ -838,9 +436,13 @@
 
                 #endregion
 
-                #region CorteF1
                 if (configF1.Any())
                 {
+                    #region CorteF1
+                    HeaderCuttingDataDTO headerCuttingDataDTO = new()
+                    {
+                        SectionCuttingData = new List<SectionCuttingDataDTO>()
+                    };
                     IEnumerable<ConfigurationETDReportsDTO> datosHeaderConfig = configF1.Where(x => x.Tabla1.Equals("SPL_CORTEGRAL_EST") || (x.Tabla2.Equals("SPL_CORTEGRAL_EST") && x.ClaveIdioma == claveIdioma));
 
                     int[] limitEstPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("LIMITE_EST")).IniDato);
@@ -965,10 +567,12 @@
                             }
                         }
                     }
-
+                    headerCuttingDatas.Add(headerCuttingDataDTO);
+                    #endregion
                     #region RepF1
                     #region Seccion 1
                     #region Cabecera
+                    ETDReportDTO eTDReportDTO = new();
                     IEnumerable<ConfigurationETDReportsDTO> configRep1 = configF1.Where(x => x.Hoja.Equals("Rep.F1") && x.Seccion == 1);
                     //Datos de la cabecera
                     int[] cliPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CLIENTE")).IniDato);
@@ -1098,9 +702,549 @@
                         #endregion
                     }
                     #endregion
+                    eTDReports.Add(eTDReportDTO);
                     #endregion
                 }
-                #endregion
+
+                if (configF2.Any())
+                {
+                    #region CorteF2
+                    HeaderCuttingDataDTO headerCuttingDataDTO = new()
+                    {
+                        SectionCuttingData = new List<SectionCuttingDataDTO>()
+                    };
+                    IEnumerable<ConfigurationETDReportsDTO> datosHeaderConfig = configF2.Where(x => x.Tabla1.Equals("SPL_CORTEGRAL_EST") || (x.Tabla2.Equals("SPL_CORTEGRAL_EST") && x.ClaveIdioma == claveIdioma));
+
+                    int[] limitEstPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("LIMITE_EST")).IniDato);
+                    int[] nroserielimitEstPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("NO_SERIE")).IniDato);
+                    int[] primercortePos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("PRIMER_CORTE")).IniDato);
+                    int[] segundocortePos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("SEGUNDO_CORTE")).IniDato);
+                    int[] tercercortePos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("TERCER_CORTE")).IniDato);
+                    int[] tiporegresionPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("TIPO_REGRESION")).IniDato);
+                    int[] ultimahoraPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("ULTIMA_HORA")).IniDato);
+
+                    headerCuttingDataDTO.LimitEst = Convert.ToInt32(workbook.Sheets[0].Rows[limitEstPos[0]].Cells[limitEstPos[1]].Value.ToString());
+                    headerCuttingDataDTO.NoSerie = Convert.ToString(workbook.Sheets[0].Rows[nroserielimitEstPos[0]].Cells[nroserielimitEstPos[1]].Value);
+                    headerCuttingDataDTO.PrimerCorte = Convert.ToDateTime(workbook.Sheets[0].Rows[primercortePos[0]].Cells[primercortePos[1]].Value.ToString());
+                    headerCuttingDataDTO.SegundoCorte = Convert.ToDateTime(workbook.Sheets[0].Rows[segundocortePos[0]].Cells[segundocortePos[1]].Value.ToString());
+                    headerCuttingDataDTO.TercerCorte = Convert.ToDateTime(workbook.Sheets[0].Rows[tercercortePos[0]].Cells[tercercortePos[1]].Value.ToString());
+                    headerCuttingDataDTO.TipoRegresion = Convert.ToInt32(workbook.Sheets[0].Rows[tiporegresionPos[0]].Cells[tiporegresionPos[1]].Value.ToString());
+                    headerCuttingDataDTO.UltimaHora = Convert.ToDateTime(workbook.Sheets[0].Rows[ultimahoraPos[0]].Cells[ultimahoraPos[1]].Value.ToString());
+
+                    IEnumerable<ConfigurationETDReportsDTO> datosCortesSecConfig = configF2.Where(x => x.Tabla1.Equals("SPL_CORTESECC_EST") || (x.Tabla2.Equals("SPL_CORTESECC_EST") && x.ClaveIdioma == claveIdioma));
+
+                    int[] tempPosC = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Consecutivo == 1).IniDato);
+                    int[] tempPosE = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Consecutivo == 2).IniDato);
+
+                    if (headerCuttingDataDTO.TipoRegresion is 1)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            {
+                                Terminal = workbook.Sheets[index: 0].Rows[tempPosC[0] - 2].Cells[tempPosC[1] + (i * 2)].Value.ToString(),
+                                ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                ResistZeroE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                TempDevC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0]].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                TempDevE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0]].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                GradienteCaC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                GradienteCaE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                AwrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 2].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HsrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 3].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HstC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                AwrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 2].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HsrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 3].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 5].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                            };
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            {
+                                Terminal = workbook.Sheets[index: 0].Rows[tempPosE[0] - 2].Cells[tempPosE[1] + (i * 2)].Value.ToString(),
+                                ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                ResistZeroE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                TempDevC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0]].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                TempDevE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0]].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                GradienteCaC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                GradienteCaE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                AwrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 2].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HsrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 3].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HstC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                AwrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 2].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HsrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 3].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 5].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                            };
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                        }
+                    }
+
+                    IEnumerable<ConfigurationETDReportsDTO> datosCortesSecDetailsConfig = configF2.Where(x => x.Tabla1.Equals("SPL_CORTEDETA_EST") || (x.Tabla2.Equals("SPL_CORTEDETA_EST") && x.ClaveIdioma == claveIdioma));
+
+                    int[] TiempPos1 = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Seccion == 1).IniDato);
+                    int[] TiempPos2 = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Seccion == 2).IniDato);
+                    int[] TiempPos3 = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Seccion == 3).IniDato);
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData = new List<DetailCuttingDataDTO>();
+                        if (i is 0)
+                        {
+                            for (int j = 0; j < 29; j++)
+                            {
+                                headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData.Add(new DetailCuttingDataDTO()
+                                {
+                                    Tiempo = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos1[0] + j].Cells[TiempPos1[1]].Value.ToString()),
+                                    Resistencia = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos1[0] + j].Cells[TiempPos1[1] + 1].Value.ToString()),
+                                    TempR = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos1[0] + j].Cells[TiempPos1[1] + 2].Value.ToString()),
+                                    Seccion = 1,
+                                    Renglon = j + 1
+                                });
+                            }
+                        }
+                        else if (i is 1)
+                        {
+                            for (int j = 0; j < 29; j++)
+                            {
+                                headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData.Add(new DetailCuttingDataDTO()
+                                {
+                                    Tiempo = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos2[0] + j].Cells[TiempPos2[1]].Value.ToString()),
+                                    Resistencia = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos2[0] + j].Cells[TiempPos2[1] + 1].Value.ToString()),
+                                    TempR = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos2[0] + j].Cells[TiempPos2[1] + 2].Value.ToString()),
+                                    Seccion = 1,
+                                    Renglon = j + 1
+                                });
+                            }
+                        }
+                        else
+                        {
+                            for (int j = 0; j < 29; j++)
+                            {
+                                headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData.Add(new DetailCuttingDataDTO()
+                                {
+                                    Tiempo = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos3[0] + j].Cells[TiempPos3[1]].Value.ToString()),
+                                    Resistencia = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos3[0] + j].Cells[TiempPos3[1] + 1].Value.ToString()),
+                                    TempR = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos3[0] + j].Cells[TiempPos3[1] + 2].Value.ToString()),
+                                    Seccion = 1,
+                                    Renglon = j + 1
+                                });
+                            }
+                        }
+                    }
+                    headerCuttingDatas.Add(headerCuttingDataDTO);
+                    #endregion
+                    #region RepF2
+                    #region Seccion 1
+                    #region Cabecera
+                    ETDReportDTO eTDReportDTO = new();
+                    IEnumerable<ConfigurationETDReportsDTO> configRep1 = configF2.Where(x => x.Hoja.Equals("Rep.F2") && x.Seccion == 1);
+                    //Datos de la cabecera
+                    int[] cliPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CLIENTE")).IniDato);
+                    int[] seriePos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("NO_SERIE")).IniDato);
+                    int[] ratingPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CAPACIDAD") && x.Tabla1.Equals("SPL_INFO_GENERAL_ETD")).IniDato);
+                    //Datos de la seccion 1
+                    int[] fechaPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("FECHA_PRUEBA") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+                    int[] capPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CAPACIDAD") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+                    //la posicion de perdida esta debajo de capPos
+                    int[] coolPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("COOLING_TYPE")).IniDato);
+                    int[] alPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("ALTITUDE_F1")).IniDato);
+                    int[] alPos2 = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("ALTITUDE_F2")).IniDato);
+                    int[] atPo = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("POS_AT")).IniDato);
+                    int[] btPo = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("POS_BT")).IniDato);
+                    int[] terPo = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("POS_TER")).IniDato);
+
+                    eTDReportDTO.Cliente = workbook.Sheets[0].Rows[cliPos[0]].Cells[cliPos[1]].Value.ToString();
+                    eTDReportDTO.NoSerie = workbook.Sheets[0].Rows[seriePos[0]].Cells[seriePos[1]].Value.ToString();
+                    eTDReportDTO.Capacidad = workbook.Sheets[0].Rows[ratingPos[0]].Cells[ratingPos[1]].Value.ToString();
+                    #endregion
+
+                    #region Datos sueltos
+                    eTDReportDTO.ETDTestsGeneral = new ETDTestsGeneralDTO() { ETDTests = new List<ETDTestsDTO>() };
+
+                    ETDTestsDTO secc1 = new()
+                    {
+                        FechaPrueba = Convert.ToDateTime(workbook.Sheets[0].Rows[fechaPos[0]].Cells[fechaPos[1]].Value.ToString()),
+                        Capacidad = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0]].Cells[capPos[1]].Value.ToString()),
+                        CoolingType = workbook.Sheets[0].Rows[coolPos[0]].Cells[coolPos[1]].Value.ToString(),
+                        AltitudeF1 = Convert.ToDecimal(workbook.Sheets[0].Rows[alPos[0]].Cells[alPos[1]].Value.ToString()),
+                        AltitudeF2 = workbook.Sheets[0].Rows[alPos2[0]].Cells[alPos2[1]].Value.ToString(),
+                        PosAt = workbook.Sheets[0].Rows[atPo[0]].Cells[atPo[1]].Value.ToString(),
+                        PosBt = workbook.Sheets[0].Rows[btPo[0]].Cells[btPo[1]].Value.ToString(),
+                        PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[terPo[0]].Cells[terPo[1]].Value.ToString(),
+                        Perdidas = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString()),
+                        ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                    };
+                    #endregion
+
+                    #region Tabla detalles
+
+                    int[] horaPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("FECHA_HORA") && x.Consecutivo == 1).IniDato);
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        secc1.ETDTestsDetails.Add(new ETDTestsDetailsDTO()
+                        {
+                            FechaHora = Convert.ToDateTime(workbook.Sheets[0].Rows[horaPos[0]].Cells[horaPos[1] + i].Value.ToString()),
+                            PromRadSup = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 1].Cells[horaPos[1] + i].Value.ToString()),
+                            PromRadInf = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 2].Cells[horaPos[1] + i].Value.ToString()),
+                            Ambiente1 = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 3].Cells[horaPos[1] + i].Value.ToString()),
+                            Ambiente2 = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 4].Cells[horaPos[1] + i].Value.ToString()),
+                            Ambiente3 = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 5].Cells[horaPos[1] + i].Value.ToString()),
+                            AmbienteProm = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 6].Cells[horaPos[1] + i].Value.ToString()),
+                            TempTapa = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 7].Cells[horaPos[1] + i].Value.ToString()),
+                            Tor = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 8].Cells[horaPos[1] + i].Value.ToString()),
+                            Aor = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 9].Cells[horaPos[1] + i].Value.ToString()),
+                            Bor = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 10].Cells[horaPos[1] + i].Value.ToString()),
+                            ElevAceiteSup = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 16].Cells[horaPos[1] + i].Value.ToString()),
+                            ElevAceiteProm = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 17].Cells[horaPos[1] + i].Value.ToString()),
+                            ElevAceiteInf = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 18].Cells[horaPos[1] + i].Value.ToString())
+                        });
+                    }
+
+                    eTDReportDTO.ETDTestsGeneral.ETDTests.Add(secc1);
+                    #endregion
+
+                    #endregion
+
+                    #region Seccion 2 3 y posible 4
+
+                    int secNum = stabilizationDataDTO.CapacidadTER is 0 ? 2 : 3;
+
+                    for (int sec = 1; sec <= secNum; sec++)
+                    {
+                        #region Datos Sueltos
+                        IEnumerable<ConfigurationETDReportsDTO> configRep2 = configF2.Where(x => x.Hoja.Equals("Rep.F2") && x.Seccion == sec + 1);
+                        fechaPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("FECHA_PRUEBA") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+
+                        capPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("CAPACIDAD") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+                        atPo = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("POS_AT")).IniDato);
+
+                        int[] resisPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("RESIST_CORTE")).IniDato);
+                        int[] tempPromPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TEMP_PROM_ACEITE")).IniDato);
+                        int[] termPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TERMINAL")).IniDato);
+
+                        ETDTestsDTO secc234 = new()
+                        {
+                            FechaPrueba = Convert.ToDateTime(workbook.Sheets[0].Rows[fechaPos[0]].Cells[fechaPos[1]].Value.ToString()),
+                            Capacidad = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0]].Cells[capPos[1]].Value.ToString()),
+                            CoolingType = workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString(),
+                            AltitudeF1 = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 3].Cells[capPos[1]].Value.ToString()),
+                            AltitudeF2 = workbook.Sheets[0].Rows[capPos[0] + 3].Cells[capPos[1] + 1].Value.ToString(),
+                            PosAt = workbook.Sheets[0].Rows[atPo[0]].Cells[atPo[1]].Value.ToString(),
+                            PosBt = workbook.Sheets[0].Rows[atPo[0] + 1].Cells[atPo[1]].Value.ToString(),
+                            PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[atPo[0] + 2].Cells[atPo[1]].Value.ToString(),
+                            ResistCorte = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0]].Cells[resisPos[1]].Value.ToString()),
+                            TempResistCorte = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 1].Cells[resisPos[1]].Value.ToString()),
+                            FactorK = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 2].Cells[resisPos[1]].Value.ToString()),
+                            ResistTcero = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 3].Cells[resisPos[1]].Value.ToString()),
+                            TempDev = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 5].Cells[resisPos[1]].Value.ToString()),
+                            GradienteDev = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 6].Cells[resisPos[1]].Value.ToString()),
+                            ElevPromDev = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 7].Cells[resisPos[1]].Value.ToString()),
+                            ElevPtoMasCal = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 8].Cells[resisPos[1]].Value.ToString()),
+                            TempPromAceite = Convert.ToDecimal(workbook.Sheets[0].Rows[tempPromPos[0]].Cells[tempPromPos[1]].Value.ToString()),
+                            Terminal = workbook.Sheets[0].Rows[termPos[0]].Cells[termPos[1]].Value.ToString(),
+                            ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                        };
+                        #endregion
+
+                        #region Tabla detalles
+
+                        int[] tiemPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TIEMPO")).IniDato);
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            secc234.ETDTestsDetails.Add(new ETDTestsDetailsDTO()
+                            {
+                                Tiempo = Convert.ToDecimal(workbook.Sheets[0].Rows[tiemPos[0] + i].Cells[tiemPos[1]].Value.ToString()),
+                                Resistencia = Convert.ToDecimal(workbook.Sheets[0].Rows[tiemPos[0] + i].Cells[tiemPos[1] + 2].Value.ToString()),
+                                Seccion = 1 + sec,
+                                Renglon = i + 1
+                            });
+                        }
+
+                        eTDReportDTO.ETDTestsGeneral.ETDTests.Add(secc234);
+                        #endregion
+                    }
+                    #endregion
+                    eTDReports.Add(eTDReportDTO);
+                    #endregion
+                }
+
+                if (configF3.Any())
+                {
+                    #region CorteF3
+                    HeaderCuttingDataDTO headerCuttingDataDTO = new()
+                    {
+                        SectionCuttingData = new List<SectionCuttingDataDTO>()
+                    };
+                    IEnumerable<ConfigurationETDReportsDTO> datosHeaderConfig = configF3.Where(x => x.Tabla1.Equals("SPL_CORTEGRAL_EST") || (x.Tabla2.Equals("SPL_CORTEGRAL_EST") && x.ClaveIdioma == claveIdioma));
+
+                    int[] limitEstPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("LIMITE_EST")).IniDato);
+                    int[] nroserielimitEstPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("NO_SERIE")).IniDato);
+                    int[] primercortePos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("PRIMER_CORTE")).IniDato);
+                    int[] segundocortePos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("SEGUNDO_CORTE")).IniDato);
+                    int[] tercercortePos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("TERCER_CORTE")).IniDato);
+                    int[] tiporegresionPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("TIPO_REGRESION")).IniDato);
+                    int[] ultimahoraPos = this.GetRowColOfWorbook(datosHeaderConfig.First(x => x.Campo1.Equals("ULTIMA_HORA")).IniDato);
+
+                    headerCuttingDataDTO.LimitEst = Convert.ToInt32(workbook.Sheets[0].Rows[limitEstPos[0]].Cells[limitEstPos[1]].Value.ToString());
+                    headerCuttingDataDTO.NoSerie = Convert.ToString(workbook.Sheets[0].Rows[nroserielimitEstPos[0]].Cells[nroserielimitEstPos[1]].Value);
+                    headerCuttingDataDTO.PrimerCorte = Convert.ToDateTime(workbook.Sheets[0].Rows[primercortePos[0]].Cells[primercortePos[1]].Value.ToString());
+                    headerCuttingDataDTO.SegundoCorte = Convert.ToDateTime(workbook.Sheets[0].Rows[segundocortePos[0]].Cells[segundocortePos[1]].Value.ToString());
+                    headerCuttingDataDTO.TercerCorte = Convert.ToDateTime(workbook.Sheets[0].Rows[tercercortePos[0]].Cells[tercercortePos[1]].Value.ToString());
+                    headerCuttingDataDTO.TipoRegresion = Convert.ToInt32(workbook.Sheets[0].Rows[tiporegresionPos[0]].Cells[tiporegresionPos[1]].Value.ToString());
+                    headerCuttingDataDTO.UltimaHora = Convert.ToDateTime(workbook.Sheets[0].Rows[ultimahoraPos[0]].Cells[ultimahoraPos[1]].Value.ToString());
+
+                    IEnumerable<ConfigurationETDReportsDTO> datosCortesSecConfig = configF3.Where(x => x.Tabla1.Equals("SPL_CORTESECC_EST") || (x.Tabla2.Equals("SPL_CORTESECC_EST") && x.ClaveIdioma == claveIdioma));
+
+                    int[] tempPosC = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Consecutivo == 1).IniDato);
+                    int[] tempPosE = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Consecutivo == 2).IniDato);
+
+                    if (headerCuttingDataDTO.TipoRegresion is 1)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            {
+                                Terminal = workbook.Sheets[index: 0].Rows[tempPosC[0] - 2].Cells[tempPosC[1] + (i * 2)].Value.ToString(),
+                                ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                ResistZeroE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                TempDevC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0]].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                TempDevE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0]].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                GradienteCaC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                GradienteCaE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                AwrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 2].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HsrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 3].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HstC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                AwrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 2].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HsrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 3].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 5].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                            };
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            {
+                                Terminal = workbook.Sheets[index: 0].Rows[tempPosE[0] - 2].Cells[tempPosE[1] + (i * 2)].Value.ToString(),
+                                ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                ResistZeroE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                TempDevC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0]].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                TempDevE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0]].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                GradienteCaC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                GradienteCaE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                AwrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 2].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HsrC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 3].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                HstC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                                AwrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 2].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HsrE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 3].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
+                                LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 5].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
+                            };
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                        }
+                    }
+
+                    IEnumerable<ConfigurationETDReportsDTO> datosCortesSecDetailsConfig = configF3.Where(x => x.Tabla1.Equals("SPL_CORTEDETA_EST") || (x.Tabla2.Equals("SPL_CORTEDETA_EST") && x.ClaveIdioma == claveIdioma));
+
+                    int[] TiempPos1 = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Seccion == 1).IniDato);
+                    int[] TiempPos2 = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Seccion == 2).IniDato);
+                    int[] TiempPos3 = this.GetRowColOfWorbook(datosCortesSecConfig.First(predicate: x => x.Campo1.Equals("TEMP_DEV_C") && x.Seccion == 3).IniDato);
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData = new List<DetailCuttingDataDTO>();
+                        if (i is 0)
+                        {
+                            for (int j = 0; j < 29; j++)
+                            {
+                                headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData.Add(new DetailCuttingDataDTO()
+                                {
+                                    Tiempo = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos1[0] + j].Cells[TiempPos1[1]].Value.ToString()),
+                                    Resistencia = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos1[0] + j].Cells[TiempPos1[1] + 1].Value.ToString()),
+                                    TempR = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos1[0] + j].Cells[TiempPos1[1] + 2].Value.ToString()),
+                                    Seccion = 1,
+                                    Renglon = j + 1
+                                });
+                            }
+                        }
+                        else if (i is 1)
+                        {
+                            for (int j = 0; j < 29; j++)
+                            {
+                                headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData.Add(new DetailCuttingDataDTO()
+                                {
+                                    Tiempo = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos2[0] + j].Cells[TiempPos2[1]].Value.ToString()),
+                                    Resistencia = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos2[0] + j].Cells[TiempPos2[1] + 1].Value.ToString()),
+                                    TempR = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos2[0] + j].Cells[TiempPos2[1] + 2].Value.ToString()),
+                                    Seccion = 1,
+                                    Renglon = j + 1
+                                });
+                            }
+                        }
+                        else
+                        {
+                            for (int j = 0; j < 29; j++)
+                            {
+                                headerCuttingDataDTO.SectionCuttingData[i].DetailCuttingData.Add(new DetailCuttingDataDTO()
+                                {
+                                    Tiempo = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos3[0] + j].Cells[TiempPos3[1]].Value.ToString()),
+                                    Resistencia = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos3[0] + j].Cells[TiempPos3[1] + 1].Value.ToString()),
+                                    TempR = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[TiempPos3[0] + j].Cells[TiempPos3[1] + 2].Value.ToString()),
+                                    Seccion = 1,
+                                    Renglon = j + 1
+                                });
+                            }
+                        }
+                    }
+                    headerCuttingDatas.Add(headerCuttingDataDTO);
+                    #endregion
+                    #region RepF3
+                    #region Seccion 1
+                    #region Cabecera
+                    ETDReportDTO eTDReportDTO = new();
+                    IEnumerable<ConfigurationETDReportsDTO> configRep1 = configF3.Where(x => x.Hoja.Equals("Rep.F3") && x.Seccion == 1);
+                    //Datos de la cabecera
+                    int[] cliPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CLIENTE")).IniDato);
+                    int[] seriePos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("NO_SERIE")).IniDato);
+                    int[] ratingPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CAPACIDAD") && x.Tabla1.Equals("SPL_INFO_GENERAL_ETD")).IniDato);
+                    //Datos de la seccion 1
+                    int[] fechaPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("FECHA_PRUEBA") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+                    int[] capPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("CAPACIDAD") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+                    //la posicion de perdida esta debajo de capPos
+                    int[] coolPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("COOLING_TYPE")).IniDato);
+                    int[] alPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("ALTITUDE_F1")).IniDato);
+                    int[] alPos2 = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("ALTITUDE_F2")).IniDato);
+                    int[] atPo = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("POS_AT")).IniDato);
+                    int[] btPo = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("POS_BT")).IniDato);
+                    int[] terPo = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("POS_TER")).IniDato);
+
+                    eTDReportDTO.Cliente = workbook.Sheets[0].Rows[cliPos[0]].Cells[cliPos[1]].Value.ToString();
+                    eTDReportDTO.NoSerie = workbook.Sheets[0].Rows[seriePos[0]].Cells[seriePos[1]].Value.ToString();
+                    eTDReportDTO.Capacidad = workbook.Sheets[0].Rows[ratingPos[0]].Cells[ratingPos[1]].Value.ToString();
+                    #endregion
+
+                    #region Datos sueltos
+                    eTDReportDTO.ETDTestsGeneral = new ETDTestsGeneralDTO() { ETDTests = new List<ETDTestsDTO>() };
+
+                    ETDTestsDTO secc1 = new()
+                    {
+                        FechaPrueba = Convert.ToDateTime(workbook.Sheets[0].Rows[fechaPos[0]].Cells[fechaPos[1]].Value.ToString()),
+                        Capacidad = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0]].Cells[capPos[1]].Value.ToString()),
+                        CoolingType = workbook.Sheets[0].Rows[coolPos[0]].Cells[coolPos[1]].Value.ToString(),
+                        AltitudeF1 = Convert.ToDecimal(workbook.Sheets[0].Rows[alPos[0]].Cells[alPos[1]].Value.ToString()),
+                        AltitudeF2 = workbook.Sheets[0].Rows[alPos2[0]].Cells[alPos2[1]].Value.ToString(),
+                        PosAt = workbook.Sheets[0].Rows[atPo[0]].Cells[atPo[1]].Value.ToString(),
+                        PosBt = workbook.Sheets[0].Rows[btPo[0]].Cells[btPo[1]].Value.ToString(),
+                        PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[terPo[0]].Cells[terPo[1]].Value.ToString(),
+                        Perdidas = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString()),
+                        ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                    };
+                    #endregion
+
+                    #region Tabla detalles
+
+                    int[] horaPos = this.GetRowColOfWorbook(configRep1.First(predicate: x => x.Campo1.Equals("FECHA_HORA") && x.Consecutivo == 1).IniDato);
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        secc1.ETDTestsDetails.Add(new ETDTestsDetailsDTO()
+                        {
+                            FechaHora = Convert.ToDateTime(workbook.Sheets[0].Rows[horaPos[0]].Cells[horaPos[1] + i].Value.ToString()),
+                            PromRadSup = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 1].Cells[horaPos[1] + i].Value.ToString()),
+                            PromRadInf = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 2].Cells[horaPos[1] + i].Value.ToString()),
+                            Ambiente1 = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 3].Cells[horaPos[1] + i].Value.ToString()),
+                            Ambiente2 = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 4].Cells[horaPos[1] + i].Value.ToString()),
+                            Ambiente3 = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 5].Cells[horaPos[1] + i].Value.ToString()),
+                            AmbienteProm = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 6].Cells[horaPos[1] + i].Value.ToString()),
+                            TempTapa = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 7].Cells[horaPos[1] + i].Value.ToString()),
+                            Tor = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 8].Cells[horaPos[1] + i].Value.ToString()),
+                            Aor = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 9].Cells[horaPos[1] + i].Value.ToString()),
+                            Bor = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 10].Cells[horaPos[1] + i].Value.ToString()),
+                            ElevAceiteSup = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 16].Cells[horaPos[1] + i].Value.ToString()),
+                            ElevAceiteProm = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 17].Cells[horaPos[1] + i].Value.ToString()),
+                            ElevAceiteInf = Convert.ToDecimal(workbook.Sheets[0].Rows[horaPos[0] + 18].Cells[horaPos[1] + i].Value.ToString())
+                        });
+                    }
+
+                    eTDReportDTO.ETDTestsGeneral.ETDTests.Add(secc1);
+                    #endregion
+
+                    #endregion
+
+                    #region Seccion 2 3 y posible 4
+
+                    int secNum = stabilizationDataDTO.CapacidadTER is 0 ? 2 : 3;
+
+                    for (int sec = 1; sec <= secNum; sec++)
+                    {
+                        #region Datos Sueltos
+                        IEnumerable<ConfigurationETDReportsDTO> configRep2 = configF3.Where(x => x.Hoja.Equals("Rep.F3") && x.Seccion == sec + 1);
+                        fechaPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("FECHA_PRUEBA") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+
+                        capPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("CAPACIDAD") && x.Tabla1.Equals("SPL_INFO_SECCION_ETD")).IniDato);
+                        atPo = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("POS_AT")).IniDato);
+
+                        int[] resisPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("RESIST_CORTE")).IniDato);
+                        int[] tempPromPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TEMP_PROM_ACEITE")).IniDato);
+                        int[] termPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TERMINAL")).IniDato);
+
+                        ETDTestsDTO secc234 = new()
+                        {
+                            FechaPrueba = Convert.ToDateTime(workbook.Sheets[0].Rows[fechaPos[0]].Cells[fechaPos[1]].Value.ToString()),
+                            Capacidad = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0]].Cells[capPos[1]].Value.ToString()),
+                            CoolingType = workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString(),
+                            AltitudeF1 = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 3].Cells[capPos[1]].Value.ToString()),
+                            AltitudeF2 = workbook.Sheets[0].Rows[capPos[0] + 3].Cells[capPos[1] + 1].Value.ToString(),
+                            PosAt = workbook.Sheets[0].Rows[atPo[0]].Cells[atPo[1]].Value.ToString(),
+                            PosBt = workbook.Sheets[0].Rows[atPo[0] + 1].Cells[atPo[1]].Value.ToString(),
+                            PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[atPo[0] + 2].Cells[atPo[1]].Value.ToString(),
+                            ResistCorte = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0]].Cells[resisPos[1]].Value.ToString()),
+                            TempResistCorte = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 1].Cells[resisPos[1]].Value.ToString()),
+                            FactorK = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 2].Cells[resisPos[1]].Value.ToString()),
+                            ResistTcero = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 3].Cells[resisPos[1]].Value.ToString()),
+                            TempDev = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 5].Cells[resisPos[1]].Value.ToString()),
+                            GradienteDev = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 6].Cells[resisPos[1]].Value.ToString()),
+                            ElevPromDev = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 7].Cells[resisPos[1]].Value.ToString()),
+                            ElevPtoMasCal = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 8].Cells[resisPos[1]].Value.ToString()),
+                            TempPromAceite = Convert.ToDecimal(workbook.Sheets[0].Rows[tempPromPos[0]].Cells[tempPromPos[1]].Value.ToString()),
+                            Terminal = workbook.Sheets[0].Rows[termPos[0]].Cells[termPos[1]].Value.ToString(),
+                            ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                        };
+                        #endregion
+
+                        #region Tabla detalles
+
+                        int[] tiemPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TIEMPO")).IniDato);
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            secc234.ETDTestsDetails.Add(new ETDTestsDetailsDTO()
+                            {
+                                Tiempo = Convert.ToDecimal(workbook.Sheets[0].Rows[tiemPos[0] + i].Cells[tiemPos[1]].Value.ToString()),
+                                Resistencia = Convert.ToDecimal(workbook.Sheets[0].Rows[tiemPos[0] + i].Cells[tiemPos[1] + 2].Value.ToString()),
+                                Seccion = 1 + sec,
+                                Renglon = i + 1
+                            });
+                        }
+
+                        eTDReportDTO.ETDTestsGeneral.ETDTests.Add(secc234);
+                        #endregion
+                    }
+                    #endregion
+                    eTDReports.Add(eTDReportDTO);
+                    #endregion
+                }
             }
             catch (Exception ex)
             {
