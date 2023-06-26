@@ -1,7 +1,6 @@
 ﻿namespace SPL.WebApp.Domain.DTOs.ETD
 {
     using System;
-    using System.Collections.Generic;
 
     public class ETDTestsDetailsDTO
     {
@@ -11,6 +10,9 @@
         public DateTime? FechaHora { get; set; }
         public decimal? PromRadSup { get; set; }
         public decimal? PromRadInf { get; set; }
+        public decimal? Ambiente1 { get; set; }
+        public decimal? Ambiente2 { get; set; }
+        public decimal? Ambiente3 { get; set; }
         public decimal? AmbienteProm { get; set; }
         public decimal? TempTapa { get; set; }
         public decimal? Tor { get; set; }
