@@ -6,15 +6,11 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Graph;
     using Microsoft.Identity.Web;
 
     using SPL.Domain;
@@ -28,12 +24,6 @@
     using SPL.WebApp.ViewModels;
 
     using Telerik.Web.Spreadsheet;
-    using Telerik.Windows.Documents.Spreadsheet.FormatProviders;
-    using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
-    using Telerik.Windows.Documents.Spreadsheet.Formatting;
-    using Telerik.Windows.Documents.Spreadsheet.Model.Printing;
-    using Telerik.Windows.Documents.Spreadsheet.Model.Shapes;
-    using Telerik.Windows.Documents.Spreadsheet.Utilities;
 
     public class ETDFileController : Controller
     {
@@ -59,7 +49,7 @@
             this._profileClientService = profileClientService;
             this._artifactClientService = artifactClientService;
             this._gatewayClientService = gatewayClientService;
-            _hostEnvironment = hostEnvironment;
+            this._hostEnvironment = hostEnvironment;
             this._etdService = edtService;
         }
 
@@ -80,23 +70,19 @@
                 {
                     return this.View("~/Views/PageConstruction/PermissionDenied.cshtml");
                 }
-
             }
-            catch (MicrosoftIdentityWebChallengeUserException e)
+            catch (MicrosoftIdentityWebChallengeUserException)
             {
-                return View("~/Views/PageConstruction/Error.cshtml");
-
+                return this.View("~/Views/PageConstruction/Error.cshtml");
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                return View("~/Views/PageConstruction/Error.cshtml");
+                return this.View("~/Views/PageConstruction/Error.cshtml");
 
             }
-           
         }
-
 
         public async Task<IActionResult> DownloadFile(string noSerie, string clavePrueba, string claveIdioma, string posAT, string posBT, string posTer, string coolingType, string otherCoolingType, decimal capacity, decimal otherCapacity, decimal altitud1, string altitud2, string clientName, string reportCapacities, decimal grados)
         {
@@ -207,13 +193,6 @@
                 #endregion
                 try
                 {
-                    //string name = $"{parameters["cmbTipoEnfriamiento"].GetValue()} noSerie.xlsx";
-                    ////Telerik.Windows.Documents.Spreadsheet.Model.Workbook document = workbook.ToDocument();
-                    //workbook.Name = name;
-
-                    //Telerik.Windows.Documents.Spreadsheet.FormatProviders.IWorkbookFormatProvider formatProvider = new Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx.XlsxFormatProvider();
-                    //FloatingImage image; IEnumerable<ConfigurationETDReportsDTO> imagesList = reportInfo.ConfigurationReports.Where(x => x.Proceso == "Imprimir" && x.Etiqueta == "LogoProlec" && x.TipoDato == "Img"); foreach (Telerik.Windows.Documents.Spreadsheet.Model.Worksheet sheet in workbook.Worksheets) { if (imagesList.Any(x => x.Hoja == sheet.Name)) { IEnumerable<ConfigurationETDReportsDTO> imagesSheet = imagesList.Where(x => x.Hoja == sheet.Name); foreach (ConfigurationETDReportsDTO item in imagesSheet) { int[] pos = GetRowColOfWorbook(item.IniDato); image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(pos[0], pos[1]), 0, 0); string path = Path.Combine(_hostEnvironment.WebRootPath + "\\images\\", "prolecge_excel.jpg"); FileStream stream2 = new(path, FileMode.Open); using (stream2) { image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(stream2, "jpg"); } image.Width = 215; image.Height = 38; sheet.Shapes.Add(image); } } sheet.WorksheetPageSetup.PaperType = Telerik.Windows.Documents.Model.PaperTypes.A4; sheet.WorksheetPageSetup.PageOrientation = Telerik.Windows.Documents.Model.PageOrientation.Portrait; sheet.WorksheetPageSetup.CenterHorizontally = true; sheet.WorksheetPageSetup.PrintOptions.PrintGridlines = false; sheet.WorksheetPageSetup.ScaleFactor = new Telerik.Documents.Primitives.Size(0.9, 0.9); sheet.WorksheetPageSetup.Margins = new Telerik.Windows.Documents.Spreadsheet.Model.Printing.PageMargins(0, 20, 0, 20); }
-                    string file;
                     //// Generando Excel
                     //using (MemoryStream streamm = new())
                     //{
@@ -222,7 +201,6 @@
                     //}
 
                     //FormatHelper.CultureHelper = new SpreadsheetCultureHelper(new CultureInfo("en-US"));
-
 
                     // save the current culture
                     //var currentCulture = Thread.CurrentThread.CurrentCulture;
@@ -238,7 +216,7 @@
                     //Thread.CurrentThread.CurrentUICulture = currentUICulture;
                     //workbook.Styles
                     byte[] bytes1;
-                    using (MemoryStream output = new MemoryStream())
+                    using (MemoryStream output = new())
                     {
                         formatProvider.Export(workbook, output);
                         bytes1 = output.ToArray();
@@ -247,7 +225,6 @@
                     Stream stream = new MemoryStream(bytes1);
 
                     Telerik.Web.Spreadsheet.Workbook workbook2 = Telerik.Web.Spreadsheet.Workbook.Load(input: stream, ".xlsx");
-
 
                     for (int j = 0; j < workbook2.Sheets.Count; j++)
                     {
@@ -267,7 +244,6 @@
                                         {
                                             //data += "null,";
                                         }
-
                                     }
                                 }
                                 else
@@ -278,8 +254,6 @@
                             //data += Environment.NewLine;
                         }
                     }
-
-                    
 
 
 
@@ -297,7 +271,6 @@
                 }
                 catch (Exception ex)
                 {
-
 
                     return this.Json(new
                     {
@@ -323,8 +296,6 @@
                     }
                 });
             }
-        
-          
         }
         //hacer una funcion que lea un excel y procese los datos
 
@@ -358,8 +329,6 @@
             return position;
         }
 
-
-
         //[HttpPost]
         //public async Task<IActionResult> SavePdf([FromBody] EtdFileViewModel viewModel)
         //{
@@ -369,20 +338,16 @@
         //        try
         //        {
 
-
-
         //            byte[] bytes = System.IO.File.ReadAllBytes(@"C:\Users\Barboza\Downloads\ETD.xlsx");
         //            Stream stream2 = new MemoryStream(bytes);
 
         //            Workbook workbook = Workbook.Load(stream2, ".xlsx");
         //            Telerik.Windows.Documents.Spreadsheet.Model.Workbook document = workbook.ToDocument();
 
-
         //            //Se busca la  hoja del reporte donde el nombre sea Rep.F3
         //            document.ActiveSheet = document.Worksheets.First(sheet => sheet.Name == "Rep.F3");
         //            var p2 = document.ActiveSheet;
         //            //Por alguna razon no setea el sheet cuando la hoja hace match
-
 
         //            foreach (Telerik.Windows.Documents.Spreadsheet.Model.Worksheet sheet in document.Worksheets)
         //            {
@@ -442,13 +407,11 @@
         //                    image.Height = 400;
         //                    sheet.Shapes.Add(image);
 
-
         //                    image = new FloatingImage(sheet, new Telerik.Windows.Documents.Spreadsheet.Model.CellIndex(139, 7), 0, 0);
         //                    image.ImageSource = new Telerik.Windows.Documents.Media.ImageSource(Convert.FromBase64String(viewModel.Img64.Split(",")[1]), "jpg");
         //                    image.Width = 400;
         //                    image.Height = 400;
         //                    sheet.Shapes.Add(image);
-
 
         //                    PageBreaks pageBreaks = sheet.WorksheetPageSetup.PageBreaks;
 
@@ -467,7 +430,6 @@
         //                }
 
         //            }
-
 
         //            Telerik.Windows.Documents.Spreadsheet.FormatProviders.IWorkbookFormatProvider formatProvider = new Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx.XlsxFormatProvider();
         //            byte[] excelFile;
@@ -519,15 +481,14 @@
         //    }
         //}
 
-
         [HttpGet]
-        public async Task<IActionResult> GetTestDataExcel()
+        public IActionResult GetTestDataExcel(List<ETDTestsDTO> ETDTests)
         {
             try
             {
                 return this.Json(new
                 {
-                    response = (await this.DataTest())
+                    response = this.DataTest(ETDTests)
                 });
             }
             catch (Exception)
@@ -545,410 +506,28 @@
             }
         }
 
-
         //Data de prueba, simulacion.
-        private async Task<EtdFileViewModel> DataTest()
+        private GraphicETD DataTest(List<ETDTestsDTO> ETDTests)
         {
-            return await Task.Run(() =>
+            GraphicETD graphicETD = new() { Count = ETDTests.Count, Coords = new List<decimal[][]>(), MaxX = new List<decimal>(), MaxY = new List<decimal>(), MinX = new List<decimal>(), MinY = new List<decimal>() };
+            foreach (ETDTestsDTO ETDTest in ETDTests)
             {
-                //coordenadas de la graf 1 
-                List<Coord2> coordenadas = new List<Coord2>()
-            {
+                IEnumerable<Coord2> coordenadas = ETDTest.GraphicETDTests.Select(g => new Coord2 { x = g.ValorX, y = g.ValorY });
+                graphicETD.MaxY.Add(coordenadas.Max(x => x.y) + 0.2M);
+                graphicETD.MinY.Add(coordenadas.Min(x => x.y) - 0.2M);
+                graphicETD.MaxX.Add(coordenadas.Max(x => x.x));
+                graphicETD.MinX.Add(coordenadas.Min(x => x.x));
+                graphicETD.Coords.Add(coordenadas.Where(x => x.y != 0).Select(x => new decimal[] { x.x, x.y }).ToArray());
+            }
 
-                new Coord2
-                {
-                    x = 0,
-                    y = 0
-                },
-                new Coord2
-                {
-                    x = 3,
-                   y = 0
-                },
-                new Coord2
-                {
-                    x = 6,
-                    y = 0
-                },
-                new Coord2
-                {
-                    x = 9,
-                    y = 0
-                },
-                new Coord2
-                {
-                    x = 12,
-                    y = 0
-                },
-                new Coord2
-                {
-                    x = 15,
-                    y = 0
-                },
-                new Coord2
-                {
-                    x = 18,
-                    y = 80.62M
-                },
-                new Coord2
-                {
-                    x = 19.5M,
-                    y = 80.605M
-                },
-                new Coord2
-                {
-                    x = 21,
-                    y = 80.59M
-                },
-                new Coord2
-                {
-                    x = 22.5M,
-                    y = 80.585M
-                },
-                new Coord2
-                {
-                    x = 24,
-                    y = 80.565M
-                },
-                new Coord2
-                {
-                    x = 25.5M,
-                    y = 80.55M
-                },
-                new Coord2
-                {
-                    x = 27,
-                    y = 80.54M
-                },
-                new Coord2
-                {
-                    x = 28.5M,
-                    y =80.525M
-                },
-                new Coord2
-                {
-                    x = 30,
-                    y = 80.515M
-
-                },
-                new Coord2
-                {
-                    x = 31.5M,
-                    y = 80.505M
-                },
-                new Coord2
-                {
-                    x =33,
-                    y = 80.485M
-                },
-                new Coord2
-                {
-                    x = 34.5M,
-                    y = 80.48M
-                },
-                new Coord2
-                {
-                    x = 36,
-                    y = 80.465M
-                },
-                new Coord2
-                {
-                    x = 37.5M,
-                    y = 80.45M
-                },
-                new Coord2
-                {
-                    x = 39,
-                    y =  80.44M
-                },
-                new Coord2
-                {
-                    x = 40.5M,
-                    y = 80.43M
-                },
-                  new Coord2
-                {
-                    x = 42,
-                    y =  80.415M
-                },
-                  new Coord2
-                {
-                    x = 43.5M,
-                    y =  80.405M
-                },
-                    new Coord2
-                {
-                    x = 45,
-                    y = 80.395M
-                },
-                     new Coord2
-                {
-                    x = 46.5M,
-                    y = 80.385M
-                },
-                  new Coord2
-                {
-                    x = 48,
-                    y =  80.375M
-                },
-                  new Coord2
-                {
-                    x = 49.5M,
-                    y = 80.365M
-                },
-                    new Coord2
-                {
-                    x = 51,
-                    y =  80.35M
-                },
-                     new Coord2
-                {
-                    x = 52.5M,
-                    y =  80.34M
-                },
-                  new Coord2
-                {
-                    x = 54,
-                    y = 80.33M
-                },
-                  new Coord2
-                {
-                    x = 55.5M,
-                    y = 80.32M
-                },
-                    new Coord2
-                {
-                    x = 57,
-                    y = 80.31M
-                },
-                new Coord2
-                {
-                    x = 58.5M,
-                    y =  80.3M
-                },
-               new Coord2
-                {
-                    x = 60,
-                    y =  80.29M
-                }
-            };
-
-                //coordenadas de la graf 2
-                List<Coord2> coordenadas2 = new List<Coord2>()
-            {
-
-                new Coord2
-                {
-                    x = 0,
-                    y = 80.79567392M
-                },
-                new Coord2
-                {
-                    x = 3,
-                   y = 80.76489841M
-                },
-                new Coord2
-                {
-                    x = 6,
-                    y = 80.73470237M
-                },
-                new Coord2
-                {
-                    x = 9,
-                    y = 80.70508581M
-                },
-                new Coord2
-                {
-                    x = 12,
-                    y = 80.67604873M
-                },
-                new Coord2
-                {
-                    x = 15,
-                    y = 80.64759113M
-                },
-                new Coord2
-                {
-                    x = 18,
-                    y = 80.61971301M
-                },
-                new Coord2
-                {
-                    x = 19.5M,
-                    y =80.60599126M
-                },
-                new Coord2
-                {
-                    x = 21,
-                    y = 80.59241438M
-                },
-                new Coord2
-                {
-                    x = 22.5M,
-                    y =80.57898236M
-                },
-                new Coord2
-                {
-                    x = 24,
-                    y = 80.56569522M
-                },
-                new Coord2
-                {
-                    x = 25.5M,
-                    y =80.55255294M
-                },
-                new Coord2
-                {
-                    x = 27,
-                    y =80.53955554M
-                },
-                new Coord2
-                {
-                    x = 28.5M,
-                    y =80.526703M
-                },
-                new Coord2
-                {
-                    x = 30,
-                    y =80.51399534M
-
-                },
-                new Coord2
-                {
-                    x = 31.5M,
-                    y = 80.50143254M
-                },
-                new Coord2
-                {
-                    x =33,
-                    y = 80.48901462M
-                },
-                new Coord2
-                {
-                    x = 34.5M,
-                    y =80.47674156M
-                },
-                new Coord2
-                {
-                    x = 36,
-                    y =80.46461338M
-                },
-                new Coord2
-                {
-                    x = 37.5M,
-                    y = 80.45263007M
-                },
-                new Coord2
-                {
-                    x = 39,
-                    y =  80.44079162M
-                },
-                new Coord2
-                {
-                    x = 40.5M,
-                    y =80.42909805M
-                },
-                  new Coord2
-                {
-                    x = 42,
-                    y =  80.41754934M
-                },
-                  new Coord2
-                {
-                    x = 43.5M,
-                    y =  80.40614551M
-                },
-                    new Coord2
-                {
-                    x = 45,
-                    y = 80.39488654M
-
-                },
-                     new Coord2
-                {
-                    x = 46.5M,
-                    y =80.38377245M
-                },
-                  new Coord2
-                {
-                    x = 48,
-                    y =  80.37280322M
-                },
-                  new Coord2
-                {
-                    x = 49.5M,
-                    y =80.36197887M
-                },
-                    new Coord2
-                {
-                    x = 51,
-                    y = 80.35129938M
-                },
-                     new Coord2
-                {
-                    x = 52.5M,
-                    y = 80.34076477M
-                },
-                  new Coord2
-                {
-                    x = 54,
-                    y =80.33037502M
-                },
-                  new Coord2
-                {
-                    x = 55.5M,
-                    y =80.32013014M
-                },
-                    new Coord2
-                {
-                    x = 57,
-                    y =80.31003014M
-                },
-     new Coord2
-                {
-                    x = 58.5M,
-                    y =  80.300075M
-                },
-          new Coord2
-                {
-                    x = 60,
-                    y =  80.29026474M
-                }
-            };
-
-
-                //maximos y minimos para ambos ejes
-                decimal maxY = coordenadas2.Max(x => x.y);
-                decimal minY = coordenadas2.Min(x => x.y);
-                decimal maxX = coordenadas2.Max(x => x.x);
-                decimal minX = coordenadas2.Min(x => x.x);
-
-                // el grafico que tiene las marcas (circulos pequenos) tiene data en el eje x con 0 en el eje y, estos se tienen que eliminar porque sino el grafico sale mal
-                coordenadas = coordenadas.Where(x => x.y != 0).ToList();
-                //se convierte an array decimal[][]
-                decimal[][] al = coordenadas.Select(x => new decimal[] { x.x, x.y }).ToArray();
-                decimal[][] al2 = coordenadas2.Select(x => new decimal[] { x.x, x.y }).ToArray();
-
-
-                var ret = new EtdFileViewModel { };
-                //ret.data = al;
-                //ret.data2 = al2;
-                //ret.MaxX = maxX;
-                //ret.MinX = minX;
-                //ret.MaxY = maxY + 0.2M;//se agrega 0.2M porque segun el grafico de excel , agrega un valor minimo adicional
-                //ret.MinY = minY - 0.2M;//se agrega 0.2M porque segun el grafico de excel , agrega un valor minimo adicional
-                return ret;
-            });
+            return graphicETD;
         }
-
 
         public async Task<IActionResult> LoadFile([FromForm] EtdFileViewModel viewModel)
         {
             viewModel.NoSerie = viewModel.NoSerie.ToUpper().Trim();
 
             byte[] Array = null;
-            string imageCodeBase64 = string.Empty;
-
             if (viewModel.File != null)
             {
                 using MemoryStream memoryStream = new();
@@ -971,7 +550,6 @@
 
             Telerik.Web.Spreadsheet.Workbook workbook = Telerik.Web.Spreadsheet.Workbook.Load(stream, ".xlsx");
 
-
             ApiResponse<SettingsToDisplayETDReportsDTO> result = await this._gatewayClientService.GetDownloadTemplateETD(nroSerie: viewModel.NoSerie, "", lenguage: viewModel.ClaveIdioma2);
 
             if (result.Code.Equals(-1))
@@ -988,12 +566,14 @@
 
             }
 
-            List<bool> listSheets = new List<bool>();
-            listSheets.Add(viewModel.Check1);
-            listSheets.Add(viewModel.Check2);
-            listSheets.Add(viewModel.Check3);
+            List<bool> listSheets = new()
+            {
+                viewModel.Check1,
+                viewModel.Check2,
+                viewModel.Check3
+            };
 
-            List <ErrorColumnsDTO> resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets,ref workbook,viewModel.ClaveIdioma2);
+            List<ErrorColumnsDTO> resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets, ref workbook, viewModel.ClaveIdioma2);
 
             if (resultload.Count > 0)
             {
@@ -1155,7 +735,7 @@
 
                     List<decimal?> listaCap = new();
 
-                    foreach (var item in artifactDesing.CharacteristicsArtifact)
+                    foreach (CharacteristicsArtifactDTO item in artifactDesing.CharacteristicsArtifact)
                     {
                         if (item.Mvaf1 > 0)
                         {

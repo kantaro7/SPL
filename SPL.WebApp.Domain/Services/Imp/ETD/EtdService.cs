@@ -166,50 +166,24 @@
             }
         }
 
-        public List<ErrorColumnsDTO> PrepareUploadConfiguration_ETD(SettingsToDisplayETDReportsDTO reportsDTO, List<bool> listHojas, ref Workbook workbook, string claveIdioma)
+        public ETDUploadResultDTO PrepareUploadConfiguration_ETD(SettingsToDisplayETDReportsDTO reportsDTO, List<bool> listHojas, Workbook workbook, string claveIdioma)
         {
             List<ErrorColumnsDTO> listErrors = new();
+            ETDUploadResultDTO eTDUploadResult = new();
             try
             {
 
-                //SPL_DATOSGRAL_EST
+                //SPL_DATOSGRAL_EST Fijo se devuelve
                 StabilizationDataDTO stabilizationDataDTO = new();
-
-                //SPL_DATOSSEC_EST ????
-
-                //SPL_INFOAPARATO_EST
-                StabilizationDesignDataDTO stabilizationDesignDataDTO = new();
-
-                //SPL_DATOSDET_EST
-                StabilizationDetailsDataDTO stabilizationDetails1DataDTO = new();
-                StabilizationDetailsDataDTO stabilizationDetails2DataDTO = new();
-                StabilizationDetailsDataDTO stabilizationDetails3DataDTO = new();
-                StabilizationDetailsDataDTO stabilizationDetails4DataDTO = new();
 
                 //SPL_CORTEGRAL_EST Son la cabecera de cada Corte
                 List<HeaderCuttingDataDTO> headerCuttingDatas = new();
-                //HeaderCuttingDataDTO headerCuttingDataDTO = new()
-                //{
-                //    //SPL_CORTESECC_EST
-                //    SectionCuttingData = new List<SectionCuttingDataDTO>()
-                //};
-
-                SectionCuttingDataDTO sectionDetailsCDataDTO = new();
-                SectionCuttingDataDTO sectionDetailsEDataDTO = new();
-
-                DetaCuttingDataDTO deta1DataDTO = new();
-                DetaCuttingDataDTO deta2DataDTO = new();
-                DetaCuttingDataDTO deta3DataDTO = new();
-                DetaCuttingDataDTO deta4DataDTO = new();
-
-                //SPL_CORTEDETA_EST
-                DetailCuttingDataDTO detailCuttingDataDTO = new();
 
                 //SPL_INFO_GENERAL_ETD lista de los reportes
                 List<ETDReportDTO> eTDReports = new();
 
                 //SPL_INFO_GRAFICA_ETD
-                GraphicETDTestsDTO graphicETDTestsDTO = new();
+                List<GraphicETDTestsDTO> graphicsETDTests = new();
 
                 //SPL_DATOSGRAL_EST config
                 List<ConfigurationETDReportsDTO> ConfigurationReports = reportsDTO.ConfigurationReports;
@@ -434,6 +408,8 @@
                     }
                 }
 
+                stabilizationDataDTO.StabilizationDataDetails = listaDetalles;
+
                 #endregion
 
                 if (configF1.Any())
@@ -470,7 +446,7 @@
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            SectionCuttingDataDTO sectionCuttingData = new()
                             {
                                 Terminal = workbook.Sheets[index: 0].Rows[tempPosC[0] - 2].Cells[tempPosC[1] + (i * 2)].Value.ToString(),
                                 ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
@@ -487,14 +463,14 @@
                                 HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
                                 LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 5].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
                             };
-                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionCuttingData);
                         }
                     }
                     else
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            SectionCuttingDataDTO sectionCuttingData = new()
                             {
                                 Terminal = workbook.Sheets[index: 0].Rows[tempPosE[0] - 2].Cells[tempPosE[1] + (i * 2)].Value.ToString(),
                                 ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
@@ -511,7 +487,7 @@
                                 HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
                                 LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 5].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
                             };
-                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionCuttingData);
                         }
                     }
 
@@ -608,7 +584,8 @@
                         PosBt = workbook.Sheets[0].Rows[btPo[0]].Cells[btPo[1]].Value.ToString(),
                         PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[terPo[0]].Cells[terPo[1]].Value.ToString(),
                         Perdidas = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString()),
-                        ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                        ETDTestsDetails = new List<ETDTestsDetailsDTO>(),
+                        GraphicETDTests = new List<GraphicETDTestsDTO>()
                     };
                     #endregion
 
@@ -685,7 +662,7 @@
 
                         #region Tabla detalles
 
-                        int[] tiemPos = this.GetRowColOfWorbook(configRep2.First(predicate: x => x.Campo1.Equals("TIEMPO")).IniDato);
+                        int[] tiemPos = this.GetRowColOfWorbook(configRep2.First(x => x.Campo1.Equals("TIEMPO")).IniDato);
 
                         for (int i = 0; i < 4; i++)
                         {
@@ -693,6 +670,22 @@
                             {
                                 Tiempo = Convert.ToDecimal(workbook.Sheets[0].Rows[tiemPos[0] + i].Cells[tiemPos[1]].Value.ToString()),
                                 Resistencia = Convert.ToDecimal(workbook.Sheets[0].Rows[tiemPos[0] + i].Cells[tiemPos[1] + 2].Value.ToString()),
+                                Seccion = 1 + sec,
+                                Renglon = i + 1
+                            });
+                        }
+
+                        #endregion
+                        #region Datos Grafica
+                        int[] grafXPos = this.GetRowColOfWorbook(configRep2.First(x => x.Campo1.Equals("VALOR_X") && x.Seccion == sec + 1).IniDato);
+
+                        for (int i = 0; i < 35; i++)
+                        {
+                            secc234.GraphicETDTests.Add(new()
+                            {
+                                ValorX = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1]].Value.ToString()),
+                                ValorY = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1] + 1].Value.ToString()),
+                                ValorZ = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1] + 2].Value.ToString()),
                                 Seccion = 1 + sec,
                                 Renglon = i + 1
                             });
@@ -740,7 +733,7 @@
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            SectionCuttingDataDTO sectionDetailsCDataDTO = new()
                             {
                                 Terminal = workbook.Sheets[index: 0].Rows[tempPosC[0] - 2].Cells[tempPosC[1] + (i * 2)].Value.ToString(),
                                 ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
@@ -757,14 +750,14 @@
                                 HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
                                 LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 5].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
                             };
-                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsCDataDTO);
                         }
                     }
                     else
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            SectionCuttingDataDTO sectionDetailsCDataDTO = new()
                             {
                                 Terminal = workbook.Sheets[index: 0].Rows[tempPosE[0] - 2].Cells[tempPosE[1] + (i * 2)].Value.ToString(),
                                 ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
@@ -781,7 +774,7 @@
                                 HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
                                 LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 5].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
                             };
-                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsCDataDTO);
                         }
                     }
 
@@ -878,7 +871,9 @@
                         PosBt = workbook.Sheets[0].Rows[btPo[0]].Cells[btPo[1]].Value.ToString(),
                         PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[terPo[0]].Cells[terPo[1]].Value.ToString(),
                         Perdidas = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString()),
-                        ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                        ETDTestsDetails = new List<ETDTestsDetailsDTO>(),
+                        Seccion = 1,
+                        GraphicETDTests = new List<GraphicETDTestsDTO>()
                     };
                     #endregion
 
@@ -968,6 +963,22 @@
                             });
                         }
 
+                        #endregion
+                        #region Datos Grafica
+                        int[] grafXPos = this.GetRowColOfWorbook(configRep2.First(x => x.Campo1.Equals("VALOR_X") && x.Seccion == sec + 1).IniDato);
+
+                        for (int i = 0; i < 35; i++)
+                        {
+                            secc234.GraphicETDTests.Add(new()
+                            {
+                                ValorX = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1]].Value.ToString()),
+                                ValorY = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1] + 1].Value.ToString()),
+                                ValorZ = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1] + 2].Value.ToString()),
+                                Seccion = 1 + sec,
+                                Renglon = i + 1
+                            });
+                        }
+
                         eTDReportDTO.ETDTestsGeneral.ETDTests.Add(secc234);
                         #endregion
                     }
@@ -1010,7 +1021,7 @@
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            SectionCuttingDataDTO sectionDetailsCDataDTO = new()
                             {
                                 Terminal = workbook.Sheets[index: 0].Rows[tempPosC[0] - 2].Cells[tempPosC[1] + (i * 2)].Value.ToString(),
                                 ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] - 1].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
@@ -1027,14 +1038,14 @@
                                 HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 4].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
                                 LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 5].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
                             };
-                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsCDataDTO);
                         }
                     }
                     else
                     {
                         for (int i = 0; i < 3; i++)
                         {
-                            sectionDetailsCDataDTO = new SectionCuttingDataDTO()
+                            SectionCuttingDataDTO sectionDetailsCDataDTO = new()
                             {
                                 Terminal = workbook.Sheets[index: 0].Rows[tempPosE[0] - 2].Cells[tempPosE[1] + (i * 2)].Value.ToString(),
                                 ResistZeroC = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] - 1].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
@@ -1051,7 +1062,7 @@
                                 HstE = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosC[0] + 4].Cells[tempPosC[1] + (i * 2)].Value.ToString()),
                                 LimiteEst = Convert.ToDecimal(workbook.Sheets[index: 0].Rows[tempPosE[0] + 5].Cells[tempPosE[1] + (i * 2)].Value.ToString()),
                             };
-                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsEDataDTO);
+                            headerCuttingDataDTO.SectionCuttingData.Add(sectionDetailsCDataDTO);
                         }
                     }
 
@@ -1148,7 +1159,9 @@
                         PosBt = workbook.Sheets[0].Rows[btPo[0]].Cells[btPo[1]].Value.ToString(),
                         PosTer = stabilizationDataDTO.CapacidadTER is 0 ? "" : workbook.Sheets[0].Rows[terPo[0]].Cells[terPo[1]].Value.ToString(),
                         Perdidas = Convert.ToDecimal(workbook.Sheets[0].Rows[capPos[0] + 1].Cells[capPos[1]].Value.ToString()),
-                        ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                        ETDTestsDetails = new List<ETDTestsDetailsDTO>(),
+                        GraphicETDTests = new List<GraphicETDTestsDTO>(),
+                        Seccion = 1
                     };
                     #endregion
 
@@ -1237,6 +1250,21 @@
                                 Renglon = i + 1
                             });
                         }
+                        #endregion
+                        #region Datos Grafica
+                        int[] grafXPos = this.GetRowColOfWorbook(configRep2.First(x => x.Campo1.Equals("VALOR_X") && x.Seccion == sec + 1).IniDato);
+
+                        for (int i = 0; i < 35; i++)
+                        {
+                            secc234.GraphicETDTests.Add(new()
+                            {
+                                ValorX = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1]].Value.ToString()),
+                                ValorY = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1] + 1].Value.ToString()),
+                                ValorZ = Convert.ToDecimal(workbook.Sheets[0].Rows[grafXPos[0] + i].Cells[grafXPos[1] + 2].Value.ToString()),
+                                Seccion = 1 + sec,
+                                Renglon = i + 1
+                            });
+                        }
 
                         eTDReportDTO.ETDTestsGeneral.ETDTests.Add(secc234);
                         #endregion
@@ -1245,14 +1273,18 @@
                     eTDReports.Add(eTDReportDTO);
                     #endregion
                 }
+                eTDUploadResult.HeaderCuttingDatas = headerCuttingDatas;
+                eTDUploadResult.ETDReports = eTDReports;
+                eTDUploadResult.Errors = listErrors;
+
             }
             catch (Exception ex)
             {
                 listErrors.Add(new ErrorColumnsDTO(0, 0, ex.Message));
-                return listErrors;
+                return eTDUploadResult;
             }
 
-            return listErrors;
+            return eTDUploadResult;
         }
 
         #region Private Methods

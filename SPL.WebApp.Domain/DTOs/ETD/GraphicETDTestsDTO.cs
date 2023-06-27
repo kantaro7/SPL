@@ -7,5 +7,6 @@
         public decimal Renglon { get; set; }
         public decimal ValorX { get; set; }
         public decimal ValorY { get; set; }
+        public decimal ValorZ { get; set; }
     }
 }
