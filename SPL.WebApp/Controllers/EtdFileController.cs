@@ -510,7 +510,7 @@
         private GraphicETD DataTest(List<ETDTestsDTO> ETDTests)
         {
             GraphicETD graphicETD = new() { Count = ETDTests.Count, Coords = new List<decimal[][]>(), MaxX = new List<decimal>(), MaxY = new List<decimal>(), MinX = new List<decimal>(), MinY = new List<decimal>() };
-            foreach (ETDTestsDTO ETDTest in ETDTests)
+            foreach (ETDTestsDTO ETDTest in ETDTests.Where(x => x.Seccion != 1))
             {
                 IEnumerable<Coord2> coordenadas = ETDTest.GraphicETDTests.Select(g => new Coord2 { x = g.ValorX, y = g.ValorY });
                 graphicETD.MaxY.Add(coordenadas.Max(x => x.y) + 0.2M);
@@ -573,18 +573,24 @@
                 viewModel.Check3
             };
 
-            List<ErrorColumnsDTO> resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets, ref workbook, viewModel.ClaveIdioma2);
-
-            if (resultload.Count > 0)
+            ETDUploadResultDTO resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets, workbook, viewModel.ClaveIdioma2);
+            List<GraphicETD> graficos = new List<GraphicETD>();
+            if (resultload != null)
             {
+                foreach (ETDReportDTO ETDReport in resultload.ETDReports)
+                {
+                    graficos.Add(this.DataTest(ETDReport.ETDTestsGeneral.ETDTests));
+                }
+
+           
 
                 return this.Json(new
                 {
                     response = new ApiResponse<List<ErrorColumnsDTO>>
                     {
                         Code = -1,
-                        Description = "Error",
-                        Structure = resultload
+                        Description = "Data",
+                        Structure = resultload.Errors
                     }
                 });
             }

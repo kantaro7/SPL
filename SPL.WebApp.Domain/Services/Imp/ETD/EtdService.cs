@@ -656,7 +656,8 @@
                             ElevPtoMasCal = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 8].Cells[resisPos[1]].Value.ToString()),
                             TempPromAceite = Convert.ToDecimal(workbook.Sheets[0].Rows[tempPromPos[0]].Cells[tempPromPos[1]].Value.ToString()),
                             Terminal = workbook.Sheets[0].Rows[termPos[0]].Cells[termPos[1]].Value.ToString(),
-                            ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                            ETDTestsDetails = new List<ETDTestsDetailsDTO>(),
+                            Seccion = 1 + sec
                         };
                         #endregion
 
@@ -944,7 +945,8 @@
                             ElevPtoMasCal = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 8].Cells[resisPos[1]].Value.ToString()),
                             TempPromAceite = Convert.ToDecimal(workbook.Sheets[0].Rows[tempPromPos[0]].Cells[tempPromPos[1]].Value.ToString()),
                             Terminal = workbook.Sheets[0].Rows[termPos[0]].Cells[termPos[1]].Value.ToString(),
-                            ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                            ETDTestsDetails = new List<ETDTestsDetailsDTO>(),
+                            Seccion = 1 + sec
                         };
                         #endregion
 
@@ -1232,7 +1234,8 @@
                             ElevPtoMasCal = Convert.ToDecimal(workbook.Sheets[0].Rows[resisPos[0] + 8].Cells[resisPos[1]].Value.ToString()),
                             TempPromAceite = Convert.ToDecimal(workbook.Sheets[0].Rows[tempPromPos[0]].Cells[tempPromPos[1]].Value.ToString()),
                             Terminal = workbook.Sheets[0].Rows[termPos[0]].Cells[termPos[1]].Value.ToString(),
-                            ETDTestsDetails = new List<ETDTestsDetailsDTO>()
+                            ETDTestsDetails = new List<ETDTestsDetailsDTO>(),
+                            Seccion = 1 + sec
                         };
                         #endregion
 
