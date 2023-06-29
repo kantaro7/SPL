@@ -255,8 +255,6 @@
                         }
                     }
 
-
-
                     string base64FromByteArray = Convert.ToBase64String(bytes1);
 
                     return this.Json(new
@@ -574,9 +572,9 @@
             };
 
             ETDUploadResultDTO resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets, workbook, viewModel.ClaveIdioma2);
-            List<GraphicETD> graficos = new List<GraphicETD>();
+            List<GraphicETD> graficos = new();
 
-            if(resultload.Errors.Count > 0)
+            if (resultload.Errors.Count > 0)
             {
                 return this.Json(new
                 {
@@ -588,7 +586,7 @@
                     }
                 });
             }
-            
+
             foreach (ETDReportDTO ETDReport in resultload.ETDReports)
             {
                 graficos.Add(this.DataTest(ETDReport.ETDTestsGeneral.ETDTests));
@@ -609,6 +607,439 @@
                     Structure = etdFileLoadViewModel
                 }
             });
+        }
+
+        public IActionResult DataTestGraphics(int repCount, int secCount)
+        {
+
+            //coordenadas de la graf 1 
+            List<Coord2> coordenadas = new()
+            {
+
+                new Coord2
+                {
+                    x = 0,
+                    y = 0
+                },
+                new Coord2
+                {
+                    x = 3,
+                   y = 0
+                },
+                new Coord2
+                {
+                    x = 6,
+                    y = 0
+                },
+                new Coord2
+                {
+                    x = 9,
+                    y = 0
+                },
+                new Coord2
+                {
+                    x = 12,
+                    y = 0
+                },
+                new Coord2
+                {
+                    x = 15,
+                    y = 0
+                },
+                new Coord2
+                {
+                    x = 18,
+                    y = 80.62M
+                },
+                new Coord2
+                {
+                    x = 19.5M,
+                    y = 80.605M
+                },
+                new Coord2
+                {
+                    x = 21,
+                    y = 80.59M
+                },
+                new Coord2
+                {
+                    x = 22.5M,
+                    y = 80.585M
+                },
+                new Coord2
+                {
+                    x = 24,
+                    y = 80.565M
+                },
+                new Coord2
+                {
+                    x = 25.5M,
+                    y = 80.55M
+                },
+                new Coord2
+                {
+                    x = 27,
+                    y = 80.54M
+                },
+                new Coord2
+                {
+                    x = 28.5M,
+                    y =80.525M
+                },
+                new Coord2
+                {
+                    x = 30,
+                    y = 80.515M
+
+                },
+                new Coord2
+                {
+                    x = 31.5M,
+                    y = 80.505M
+                },
+                new Coord2
+                {
+                    x =33,
+                    y = 80.485M
+                },
+                new Coord2
+                {
+                    x = 34.5M,
+                    y = 80.48M
+                },
+                new Coord2
+                {
+                    x = 36,
+                    y = 80.465M
+                },
+                new Coord2
+                {
+                    x = 37.5M,
+                    y = 80.45M
+                },
+                new Coord2
+                {
+                    x = 39,
+                    y =  80.44M
+                },
+                new Coord2
+                {
+                    x = 40.5M,
+                    y = 80.43M
+                },
+                  new Coord2
+                {
+                    x = 42,
+                    y =  80.415M
+                },
+                  new Coord2
+                {
+                    x = 43.5M,
+                    y =  80.405M
+                },
+                    new Coord2
+                {
+                    x = 45,
+                    y = 80.395M
+                },
+                     new Coord2
+                {
+                    x = 46.5M,
+                    y = 80.385M
+                },
+                  new Coord2
+                {
+                    x = 48,
+                    y =  80.375M
+                },
+                  new Coord2
+                {
+                    x = 49.5M,
+                    y = 80.365M
+                },
+                    new Coord2
+                {
+                    x = 51,
+                    y =  80.35M
+                },
+                     new Coord2
+                {
+                    x = 52.5M,
+                    y =  80.34M
+                },
+                  new Coord2
+                {
+                    x = 54,
+                    y = 80.33M
+                },
+                  new Coord2
+                {
+                    x = 55.5M,
+                    y = 80.32M
+                },
+                    new Coord2
+                {
+                    x = 57,
+                    y = 80.31M
+                },
+                new Coord2
+                {
+                    x = 58.5M,
+                    y =  80.3M
+                },
+               new Coord2
+                {
+                    x = 60,
+                    y =  80.29M
+                }
+            };
+
+            //coordenadas de la graf 2
+            List<Coord2> coordenadas2 = new()
+            {
+
+                new Coord2
+                {
+                    x = 0,
+                    y = 80.79567392M
+                },
+                new Coord2
+                {
+                    x = 3,
+                   y = 80.76489841M
+                },
+                new Coord2
+                {
+                    x = 6,
+                    y = 80.73470237M
+                },
+                new Coord2
+                {
+                    x = 9,
+                    y = 80.70508581M
+                },
+                new Coord2
+                {
+                    x = 12,
+                    y = 80.67604873M
+                },
+                new Coord2
+                {
+                    x = 15,
+                    y = 80.64759113M
+                },
+                new Coord2
+                {
+                    x = 18,
+                    y = 80.61971301M
+                },
+                new Coord2
+                {
+                    x = 19.5M,
+                    y =80.60599126M
+                },
+                new Coord2
+                {
+                    x = 21,
+                    y = 80.59241438M
+                },
+                new Coord2
+                {
+                    x = 22.5M,
+                    y =80.57898236M
+                },
+                new Coord2
+                {
+                    x = 24,
+                    y = 80.56569522M
+                },
+                new Coord2
+                {
+                    x = 25.5M,
+                    y =80.55255294M
+                },
+                new Coord2
+                {
+                    x = 27,
+                    y =80.53955554M
+                },
+                new Coord2
+                {
+                    x = 28.5M,
+                    y =80.526703M
+                },
+                new Coord2
+                {
+                    x = 30,
+                    y =80.51399534M
+
+                },
+                new Coord2
+                {
+                    x = 31.5M,
+                    y = 80.50143254M
+                },
+                new Coord2
+                {
+                    x =33,
+                    y = 80.48901462M
+                },
+                new Coord2
+                {
+                    x = 34.5M,
+                    y =80.47674156M
+                },
+                new Coord2
+                {
+                    x = 36,
+                    y =80.46461338M
+                },
+                new Coord2
+                {
+                    x = 37.5M,
+                    y = 80.45263007M
+                },
+                new Coord2
+                {
+                    x = 39,
+                    y =  80.44079162M
+                },
+                new Coord2
+                {
+                    x = 40.5M,
+                    y =80.42909805M
+                },
+                  new Coord2
+                {
+                    x = 42,
+                    y =  80.41754934M
+                },
+                  new Coord2
+                {
+                    x = 43.5M,
+                    y =  80.40614551M
+                },
+                    new Coord2
+                {
+                    x = 45,
+                    y = 80.39488654M
+
+                },
+                     new Coord2
+                {
+                    x = 46.5M,
+                    y =80.38377245M
+                },
+                  new Coord2
+                {
+                    x = 48,
+                    y =  80.37280322M
+                },
+                  new Coord2
+                {
+                    x = 49.5M,
+                    y =80.36197887M
+                },
+                    new Coord2
+                {
+                    x = 51,
+                    y = 80.35129938M
+                },
+                     new Coord2
+                {
+                    x = 52.5M,
+                    y = 80.34076477M
+                },
+                  new Coord2
+                {
+                    x = 54,
+                    y =80.33037502M
+                },
+                  new Coord2
+                {
+                    x = 55.5M,
+                    y =80.32013014M
+                },
+                    new Coord2
+                {
+                    x = 57,
+                    y =80.31003014M
+                },
+     new Coord2
+                {
+                    x = 58.5M,
+                    y =  80.300075M
+                },
+          new Coord2
+                {
+                    x = 60,
+                    y =  80.29026474M
+                }
+            };
+
+            //maximos y minimos para ambos ejes
+            decimal maxY = coordenadas2.Max(x => x.y) + 0.2M;
+            decimal minY = coordenadas2.Min(x => x.y) - 0.2M;
+            decimal maxX = coordenadas2.Max(x => x.x);
+            decimal minX = coordenadas2.Min(x => x.x);
+
+            // el grafico que tiene las marcas (circulos pequenos) tiene data en el eje x con 0 en el eje y, estos se tienen que eliminar porque sino el grafico sale mal
+            coordenadas = coordenadas.Where(x => x.y != 0).ToList();
+            //se convierte an array decimal[][]
+            decimal[][] al = coordenadas.Select(x => new decimal[] { x.x, x.y }).ToArray();
+            decimal[][] al2 = coordenadas2.Select(x => new decimal[] { x.x, x.y }).ToArray();
+
+            EtdFileLoadViewModel ret = new()
+            {
+                ETDUploadResult = new ETDUploadResultDTO(),
+                Graphics = new List<GraphicETD>()
+            };
+
+            GraphicETD rep2 = new()
+            {
+                Coords = new List<decimal[][]>() { al, al2 },
+                MaxX = new List<decimal>() { maxX, maxX },
+                MaxY = new List<decimal>() { maxY, maxY },
+                MinX = new List<decimal>() { minX, minX },
+                MinY = new List<decimal>() { minY, minY },
+                Count = 2
+            };
+
+            GraphicETD rep3 = new()
+            {
+                Coords = new List<decimal[][]>() { al, al2, al },
+                MaxX = new List<decimal>() { maxX, maxX, maxX },
+                MaxY = new List<decimal>() { maxY, maxY, maxY },
+                MinX = new List<decimal>() { minX, minX, minX },
+                MinY = new List<decimal>() { minY, minY, minY },
+                Count = 3
+            };
+            if (secCount == 2)
+            {
+                for (int i = 0; i < repCount; i++)
+                {
+                    ret.Graphics.Add(rep2);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < repCount; i++)
+                {
+                    ret.Graphics.Add(rep3);
+                }
+            }
+
+
+            return this.Json(new
+            {
+                response = new ApiResponse<EtdFileLoadViewModel>
+                {
+                    Code = 1,
+                    Description = "Lectura exitosa",
+                    Structure = ret
+                }
+            });
+
         }
 
         public async Task<IActionResult> GetFilter(string noSerie)
