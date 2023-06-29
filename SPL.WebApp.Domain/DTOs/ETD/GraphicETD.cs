@@ -10,5 +10,6 @@
         public List<decimal> MinX { get; set; }
         public List<decimal> MinY { get; set; }
         public int Count { get; set; }
+        public List<string> Images { get; set; }
     }
 }

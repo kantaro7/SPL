@@ -268,7 +268,7 @@
                     stabilizationDataDTO.ClaveIdioma = workbook.Sheets[stabilizationSheet].Rows[claveIdiomaPos[0]].Cells[claveIdiomaPos[1]].Value.ToString();
                 }
 
-                stabilizationDataDTO.Conexion = workbook.Sheets[stabilizationSheet].Rows[conexionPos[0]].Cells[conexionPos[1]].Value.ToString();
+               stabilizationDataDTO.Conexion = workbook.Sheets[stabilizationSheet].Rows[conexionPos[0]].Cells[conexionPos[1]].Value.ToString();
                 stabilizationDataDTO.DevanadoSplit = workbook.Sheets[stabilizationSheet].Rows[devanadoSplitPos[0]].Cells[devanadoSplitPos[1]].Value.ToString();
                 stabilizationDataDTO.Estatus = workbook.Sheets[stabilizationSheet].Rows[estPos[0]].Cells[estPos[1]].Value.ToString().Equals("ESTABILIZADO");
                 stabilizationDataDTO.FactAlt = Convert.ToDecimal(workbook.Sheets[stabilizationSheet].Rows[factPos[0]].Cells[factPos[1]].Value.ToString());

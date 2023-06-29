@@ -575,15 +575,9 @@
 
             ETDUploadResultDTO resultload = this._etdService.PrepareUploadConfiguration_ETD(result.Structure, listSheets, workbook, viewModel.ClaveIdioma2);
             List<GraphicETD> graficos = new List<GraphicETD>();
-            if (resultload != null)
+
+            if(resultload.Errors.Count > 0)
             {
-                foreach (ETDReportDTO ETDReport in resultload.ETDReports)
-                {
-                    graficos.Add(this.DataTest(ETDReport.ETDTestsGeneral.ETDTests));
-                }
-
-           
-
                 return this.Json(new
                 {
                     response = new ApiResponse<List<ErrorColumnsDTO>>
@@ -594,30 +588,25 @@
                     }
                 });
             }
+            
+            foreach (ETDReportDTO ETDReport in resultload.ETDReports)
+            {
+                graficos.Add(this.DataTest(ETDReport.ETDTestsGeneral.ETDTests));
+            }
 
-            //ApiResponse<SettingsToDisplayETDReportsDTO> result = await this._gatewayClientService.(noSerie, clavePrueba, claveIdioma);
+            EtdFileLoadViewModel etdFileLoadViewModel = new()
+            {
+                ETDUploadResult = resultload,
+                Graphics = graficos
+            };
 
-            //if (result.Code.Equals(-1))
-            //{
-            //    return this.View("Excel", new EtdViewModel
-            //    {
-            //        Error = result.Description
-            //    });
-            //}
-
-            //_ = result.Structure;
-
-            //return this.View("Excel", new EtdViewModel
-            //{
-            //    Error = result.Description
-            //});
             return this.Json(new
             {
-                response = new ApiResponse<EtdFileViewModel>
+                response = new ApiResponse<EtdFileLoadViewModel>
                 {
-                    Code = -1,
-                    Description = "No. Serie inválido.",
-                    Structure = null
+                    Code = 1,
+                    Description = "Lectura exitosa",
+                    Structure = etdFileLoadViewModel
                 }
             });
         }
