@@ -1014,6 +1014,9 @@
                 MinY = new List<decimal>() { minY, minY, minY },
                 Count = 3
             };
+
+            repCount = repCount is > 3 or < 1 ? 3 : repCount;
+
             if (secCount == 2)
             {
                 for (int i = 0; i < repCount; i++)
@@ -1028,7 +1031,6 @@
                     ret.Graphics.Add(rep3);
                 }
             }
-
 
             return this.Json(new
             {
